@@ -1,9 +1,9 @@
 import plotly from 'plotly.js/dist/plotly';
 
-const randomChart = (color, xlabel, ylabel, randRange, refreshInterval) => {
+const randomChart = (color, xlabel, ylabel, randRange, divId) => {
   const getRandValue = () => Math.ceil(Math.random() * `${randRange}`);
 
-  plotly.plot('chart', [{
+  plotly.plot(`${divId}`, [{
     y: [getRandValue()],
     type: 'line',
   }], {
@@ -23,16 +23,16 @@ const randomChart = (color, xlabel, ylabel, randRange, refreshInterval) => {
   let count = 0;
 
   setInterval(() => {
-    plotly.extendTraces('chart', { y: [[getRandValue()]] }, [0]);
+    plotly.extendTraces(`${divId}`, { y: [[getRandValue()]] }, [0]);
     count += 1;
     if (count >= 300) {
-      plotly.relayout('chart', {
+      plotly.relayout(`${divId}`, {
         xaxis: {
           range: [count - 300, count],
         },
       });
     }
-  }, `${refreshInterval}`);
+  }, 40);
 };
 
 export default { randomChart };
