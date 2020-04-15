@@ -1,0 +1,50 @@
+{
+  "vendor1" : {
+    "name": "Burger King",
+    "description": "Have it your way! Eat a burger and watch a T-Rex eat a goat!",
+    "isOpen": true,
+    "uid": "Aaron"
+  },
+  "vendor2" : {
+    "name": "Wendy's",
+    "description": "America loves burgers, even square ones.",
+    "isOpen": true,
+    "uid": "John"
+  },
+  "vendor3" : {
+    "name": "Chick Fil A",
+    "description": "Good a** chicken. Get ready to wait in line.",
+    "isOpen": true,
+    "uid": "Aaron"
+  },
+  "vendor4" : {
+    "name": "Gift Shop",
+    "description": "You have to walk through it to exit. Basically free money.",
+    "isOpen": true,
+    "uid": "Aaron"
+  },
+  "vendor5" : {
+    "name": "Jurassic Lounge",
+    "description": "Bar with a view of the Triassic section.",
+    "isOpen": true,
+    "uid": "Aaron"
+  },
+  "vendor6" : {
+    "name": "Orange Julius",
+    "description": "Everyone loves/knows what this is, right?",
+    "isOpen": true,
+    "uid": "Aaron"
+  },
+  "vendor7" : {
+    "name": "Cold Stone",
+    "description": "Eat some ice cream. Shovel it in.",
+    "isOpen": true,
+    "uid": "Aaron"
+  },
+  "vendor8" : {
+    "name": "Cheescake Factory",
+    "description": "That's how you know this is a fancy place. Now with a 900 page, dinosaur-themed menu.",
+    "isOpen": true,
+    "uid": "Aaron"
+  }
+}
