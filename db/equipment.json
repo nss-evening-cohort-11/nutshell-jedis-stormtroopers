@@ -1,0 +1,50 @@
+{
+  "equipment1" :{
+    "name": "Jeep",
+    "isBroken": true,
+    "description": "A Jeep painted in cool colors",
+    "uid": "Aaron"
+  },
+  "equipment2" :{
+    "name": "Monorail",
+    "isBroken": true,
+    "description": "A tribute to Disney World but also totally our own thing. It gets people around, okay.",
+    "uid": "Joey"
+  },
+  "equipment3" :{
+    "name": "Crane",
+    "isBroken": true,
+    "description": "Mostly used to scratch behind the Hadrosaurs crests.",
+    "uid": "Steven"
+  },
+  "equipment4" :{
+    "name": "Electric Fences",
+    "isBroken": true,
+    "description": "Super important. Totally safe.",
+    "uid": "John"
+  },
+  "equipment5" :{
+    "name": "DNA Extractor",
+    "isBroken": true,
+    "description": "Michael Chrichton talks about this for like 30 pages in the book that inspired our totally real theme park",
+    "uid": "Steven"
+  },
+  "equipment6" :{
+    "name": "Bulldozer",
+    "isBroken": true,
+    "description": "AKA Dino Pooper Scooper",
+    "uid": "Joey"
+  },
+  "equipment7" :{
+    "name": "Clear Rolling Bubble Thing",
+    "isBroken": true,
+    "description": "It does what it sounds like it does, but we aren't sure it's a good idea",
+    "uid": "Aaron"
+  },
+  "equipment8" :{
+    "name": "Big Door",
+    "isBroken": true,
+    "description": "Mostly for show. Very expensive. 90% paper mache.",
+    "uid": "John"
+  }
+}
