@@ -2,22 +2,22 @@ import plotly from 'plotly.js/dist/plotly';
 import '../styles/main.scss';
 // import utils from './helpers/utils';
 
-const randomChart = () => {
+const randomChart = (color, xlabel, ylabel) => {
   const getRandValue = () => Math.ceil(Math.random() * 100);
 
   plotly.plot('chart', [{
     y: [getRandValue()],
     type: 'line',
   }], {
-    colorway: ['#cd7eaf'],
+    colorway: [`${color}`],
     xaxis: {
       title: {
-        text: 'Number of Ratings',
+        text: `${xlabel}`,
       },
     },
     yaxis: {
       title: {
-        text: 'Customer Ratings',
+        text: `${ylabel}`,
       },
     },
   });
@@ -38,7 +38,7 @@ const randomChart = () => {
 };
 
 const init = () => {
-  randomChart();
+  randomChart('#3734eb', 'butts', 'farts');
 };
 
 init();
