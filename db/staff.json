@@ -13,7 +13,7 @@
     "isKidnapped": true,
     "isEOTM": false,
     "job": "Mathematician",
-    "uid": "Aaron"
+    "uid": "Steven"
   },
   "staffMember3": {
     "name": "Alan Grant",
@@ -21,7 +21,7 @@
     "isKidnapped": true,
     "isEOTM": false,
     "job": "Archaeologist",
-    "uid": "Aaron"
+    "uid": "Joey"
   },
   "staffMember4": {
     "name": "Dennis Nedry",
@@ -29,7 +29,7 @@
     "isKidnapped": true,
     "isEOTM": false,
     "job": "Database Administrator",
-    "uid": "Aaron"
+    "uid": "John"
   },
   "staffMember5": {
     "name": "Ellie Sattler",
@@ -45,7 +45,7 @@
     "isKidnapped": true,
     "isEOTM": false,
     "job": "Dino Wrangler",
-    "uid": "Aaron"
+    "uid": "Steven"
   },
   "staffMember7": {
     "name": "Ray Arnold",
@@ -53,7 +53,7 @@
     "isKidnapped": true,
     "isEOTM": false,
     "job": "Senior Full Stack Engineer",
-    "uid": "Aaron"
+    "uid": "Joey"
   },
   "staffMember8": {
     "name": "Donald Gennaro",
@@ -61,6 +61,6 @@
     "isKidnapped": true,
     "isEOTM": false,
     "job": "Lawyer",
-    "uid": "Aaron"
+    "uid": "John"
   }
 }
