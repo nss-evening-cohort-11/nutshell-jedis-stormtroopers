@@ -6,10 +6,74 @@
   <title>Jurassic Park</title>
 </head>
 <body>
-  <div id="chart-container">
-    <h1 style="text-align: center;">Customer Ratings?</h1>
-    <div id="chart"></div>
-  </div>
+  <nav class="navbar navbar-expand-lg navbar-light">
+    <button class="navbar-toggler mx-auto" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon mx-auto"></span>
+    </button>
+  
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <div class="mx-auto">
+        <ul class="navbar-nav mr-auto">
+          <li class="nav-item active">
+            <button id="nav-home-btn" class="btn nav-icon"><i class="fas fa-home"></i></button>  
+          </li>
+          <li class="nav-item">
+            <button id="nav-dino-btn" class="btn nav-icon"><i class="fas fa-bone"></i></button>  
+          </li>
+          <li class="nav-item">
+            <button id="nav-staff-btn" class="btn nav-icon"><i class="fas fa-user"></i></button>  
+          </li>
+          <li class="nav-item">
+            <button id="nav-rides-btn" class="btn nav-icon"><i class="fas fa-tram"></i></button>  
+          </li>
+          <li class="nav-item">
+            <button id="nav-equipment-btn" class="btn nav-icon"><i class="fas fa-tools"></i></button>  
+          </li>
+          <li class="nav-item">
+            <button id="nav-vendors-btn" class="btn nav-icon"><i class="fas fa-hamburger"></i></button>  
+          </li>
+        </ul>
+      </div>
+      <div id="login-btns ml-auto">
+        <button id="google-auth" class="btn"><i class="fab fa-google text-danger"></i></button>
+        <button id="logout-btn" class="btn"><i class="fas fa-times text-danger"></i></button>    
+      </div>
+    </div>
+  </nav>
+  <main>
+    <div id="overview-dashboard">
+      <div class="container-fluid mt-5">
+        <div class="row my-4">
+            <div class="col-md-8 my-2">
+                <div class="dash-box"><h2>Dinos Overview</h2></div>
+            </div>
+            <div class="col-md-4 my-2">
+                <div class="dash-box"><h2>Staff Overview</h2></div>
+            </div>
+        </div>
+        <div class="row my-4">
+            <div class="col-md-4 my-2">
+                <div class="dash-box"><h2>Rides Overview</h2></div>
+            </div>
+            <div class="col-md-4 my-2">
+                <div class="dash-box"><h2>Equipment Overview</h2></div>
+            </div>
+            <div class="col-md-4 my-2">
+                <div class="dash-box"><h2>Vendors Overview</h2></div>
+            </div>
+        </div>
+    </div>
+    </div>
+    <div id="dino-dashboard" class="hide"><h2>Dinos</h2></div>
+    <div id="staff-dashboard" class="hide"><h2>Staff</h2></div>
+    <div id="rides-dashboard" class="hide"><h2>Rides</h2></div>
+    <div id="equipment-dashboard" class="hide"><h2>Equipment</h2></div>
+    <div id="vendors-dashboard" class="hide"><h2>Vendors</h2></div>
+    <div id="chart-container" class="hide">
+      <h1 style="text-align: center;">Customer Ratings?</h1>
+      <div id="chart"></div>
+    </div>
+  </main>
   
 </body>
 </html>

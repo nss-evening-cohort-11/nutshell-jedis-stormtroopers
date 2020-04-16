@@ -5,7 +5,12 @@ const baseUrl = apiKeys.firebaseKeys.databaseURL;
 
 const getVendors = () => new Promise((resolve, reject) => {
   axios.get(`${baseUrl}/vendors.json`)
-    .then()
+    .then((response) => {
+      const vendorResponse = response.data;
+      const vendors = [];
+
+      resolve(vendors);
+    })
     .catch();
 });
 

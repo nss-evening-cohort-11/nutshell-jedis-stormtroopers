@@ -2,13 +2,14 @@
   "name": "nutshell-jedis",
   "version": "1.0.0",
   "description": "",
-  "main": "/src/javascripts/main.js",
+  "main": "src/javascripts/main.js",
   "dependencies": {
     "@fortawesome/fontawesome-free": "^5.13.0",
     "axios": "^0.19.2",
     "bootstrap": "^4.4.1",
     "firebase": "^7.14.0",
     "jquery": "^3.5.0",
+    "plotly": "^1.0.6",
     "plotly.js": "^1.53.0",
     "popper.js": "^1.16.1"
   },

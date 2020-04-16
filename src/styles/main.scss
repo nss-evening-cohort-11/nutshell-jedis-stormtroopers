@@ -2,5 +2,25 @@
 @import "~@fortawesome/fontawesome-free/css/all.min.css";
 
 body {
-  background-color: forestgreen;
+  background-color: #002846;
+  // background-color: white;
+  color: white;
+}
+
+.navbar {
+  background-color: #117899
+}
+
+.nav-icon {
+  color: #00d4e7;
+}
+
+.dash-box {
+  background-color: #117899;
+  height: 25vh;
+  border-radius: 1%;
+}
+
+.hide {
+  display: none;
 }
