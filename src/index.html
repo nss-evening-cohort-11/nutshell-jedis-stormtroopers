@@ -7,13 +7,13 @@
 </head>
 <body>
   <nav class="navbar navbar-expand-lg navbar-light">
-    <button class="navbar-toggler mx-auto" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon mx-auto"></span>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
     </button>
   
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
-      <div class="mx-auto">
-        <ul class="navbar-nav mr-auto">
+      <div>
+        <ul class="navbar-nav">
           <li class="nav-item active">
             <button id="nav-home-btn" class="btn nav-icon"><i class="fas fa-home"></i></button>  
           </li>
@@ -34,36 +34,14 @@
           </li>
         </ul>
       </div>
-      <div id="login-btns ml-auto">
+      <div id="login-btns" class="ml-auto">
         <button id="google-auth" class="btn"><i class="fab fa-google text-danger"></i></button>
         <button id="logout-btn" class="btn"><i class="fas fa-times text-danger"></i></button>    
       </div>
     </div>
   </nav>
   <main>
-    <div id="overview-dashboard">
-      <div class="container-fluid mt-5">
-        <div class="row my-4">
-            <div class="col-md-8 my-2">
-                <div class="dash-box"><h2>Dinos Overview</h2></div>
-            </div>
-            <div class="col-md-4 my-2">
-                <div class="dash-box"><h2>Staff Overview</h2></div>
-            </div>
-        </div>
-        <div class="row my-4">
-            <div class="col-md-4 my-2">
-                <div class="dash-box"><h2>Rides Overview</h2></div>
-            </div>
-            <div class="col-md-4 my-2">
-                <div class="dash-box"><h2>Equipment Overview</h2></div>
-            </div>
-            <div class="col-md-4 my-2">
-                <div class="dash-box"><h2>Vendors Overview</h2></div>
-            </div>
-        </div>
-    </div>
-    </div>
+    <div id="overview-dashboard"></div>
     <div id="dino-dashboard" class="hide"></div>
     <div id="staff-dashboard" class="hide"></div>
     <div id="rides-dashboard" class="hide"></div>
