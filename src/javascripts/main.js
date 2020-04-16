@@ -18,6 +18,7 @@ const init = () => {
   firebase.initializeApp(apiKeys.firebaseKeys);
   authData.checkLoginStatus();
   auth.loginButton();
+  auth.logoutEvent();
   $('body').on('click', '.nav-icon', navbarComponent.navbarEvents);
   overviewComponent.printOverviewDashboard();
   dinosComponent.printDinosDashboard();

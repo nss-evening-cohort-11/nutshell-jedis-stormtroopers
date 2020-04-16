@@ -1,5 +1,6 @@
 import firebase from 'firebase/app';
 import 'firebase/auth';
+
 import utils from '../../helpers/utils';
 
 
@@ -14,7 +15,15 @@ const loginButton = () => {
   $('#google-auth').click(signMeIn);
 };
 
+const logoutEvent = () => {
+  $('#logout-btn').click((e) => {
+    e.preventDefault();
+    firebase.auth().signOut();
+  });
+};
+
 
 export default {
   loginButton,
+  logoutEvent,
 };

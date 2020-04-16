@@ -11,7 +11,6 @@ const checkLoginStatus = () => {
       logoutButton.removeClass('hide');
     } else {
       loginButton.removeClass('hide');
-      logoutButton.addClass('hide');
     }
   });
 };
