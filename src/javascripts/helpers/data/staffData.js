@@ -3,7 +3,7 @@ import apiKeys from './apiKeys.json';
 
 const baseUrl = apiKeys.firebaseKeys.databaseURL;
 
-const getStaff = () => new Promise((resolve, reject) => {
+const getStaffs = () => new Promise((resolve, reject) => {
   axios.get(`${baseUrl}/staff.json`)
     .then((response) => {
       const theStaff = response.data;
@@ -32,5 +32,5 @@ export default {
   addStaff,
   updateStaff,
   getSingleStaffMemeber,
-  getStaff,
+  getStaffs,
 };
