@@ -1,4 +1,7 @@
+import 'firebase/auth';
+import dinoData from '../../helpers/data/dinoData';
 import utils from '../../helpers/utils';
+
 
 const printHungryDino = (dinoName, bool) => {
   let domString = '';
@@ -16,5 +19,13 @@ const printDinos = (dino) => {
   domString += '</div>';
   domString += '</div>';
 
-  utils.printToDom()
-}; 
+  utils.printToDom('dino-dashboard', domString);
+};
+
+const printDinosDashboard = () => {
+  dinoData.getDinos()
+    .then((dinos) => dinos.forEach((dino) => printDinos(dino)))
+    .catch((err) => console.error('printDinosDashboard broke', err));
+};
+
+export default { printDinosDashboard };
