@@ -2,8 +2,9 @@
   "name": "nutshell-jedis",
   "version": "1.0.0",
   "description": "",
-  "main": "webpack.config.js",
+  "main": "/src/javascripts/main.js",
   "dependencies": {
+    "@fortawesome/fontawesome-free": "^5.13.0",
     "axios": "^0.19.2",
     "bootstrap": "^4.4.1",
     "firebase": "^7.14.0",
@@ -41,7 +42,7 @@
   },
   "keywords": [],
   "author": "",
-  "license": "ISC",
+  "license": "MIT",
   "bugs": {
     "url": "https://github.com/nss-evening-cohort-11/nutshell-jedis/issues"
   },
