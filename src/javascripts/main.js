@@ -1,10 +1,21 @@
+import overviewComponent from './components/overview/overview';
 import navbarComponent from './components/navbar/navbar';
-
-import '../styles/main.scss';
+import dinosComponent from './components/dinos/dinos';
+import staffComponent from './components/staff/staff';
+import ridesComponent from './components/rides/rides';
+import equipmentComponent from './components/equipment/equipment';
+import vendorsComponent from './components/vendors/vendors';
 import 'bootstrap';
+import '../styles/main.scss';
 
 const init = () => {
   $('body').on('click', '.nav-icon', navbarComponent.navbarEvents);
+  overviewComponent.printOverviewDashboard();
+  dinosComponent.printDinosDashboard();
+  staffComponent.printStaffDashboard();
+  ridesComponent.printRidesDashboard();
+  equipmentComponent.printEquipmentDashboard();
+  vendorsComponent.printVendorsDashboard();
 };
 
 init();
