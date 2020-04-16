@@ -1,3 +1,9 @@
+.vscode/
+.DS_Store
+package-lock.json
+build/
+.firebase/
+
 # Logs
 logs
 *.log
@@ -102,11 +108,3 @@ dist
 
 # TernJS port file
 .tern-port
-
-.vscode/
-.DS_Store
-package-lock.json
-node_modules/
-dist/
-build/
-.firebase/
