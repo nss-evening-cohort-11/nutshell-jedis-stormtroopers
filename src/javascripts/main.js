@@ -1,3 +1,4 @@
+import overviewComponent from './components/overview/overview';
 import navbarComponent from './components/navbar/navbar';
 import dinosComponent from './components/dinos/dinos';
 import staffComponent from './components/staff/staff';
@@ -9,6 +10,7 @@ import '../styles/main.scss';
 
 const init = () => {
   $('body').on('click', '.nav-icon', navbarComponent.navbarEvents);
+  overviewComponent.printOverviewDashboard();
   dinosComponent.printDinosDashboard();
   staffComponent.printStaffDashboard();
   ridesComponent.printRidesDashboard();
