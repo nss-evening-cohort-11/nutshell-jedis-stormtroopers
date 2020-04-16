@@ -9,9 +9,16 @@ const getVendors = () => new Promise((resolve, reject) => {
       const vendorResponse = response.data;
       const vendors = [];
 
+      if (vendorResponse) {
+        Object.keys(vendorResponse).forEach((vendorId) => {
+          vendorResponse[vendorId].id = vendorId;
+          vendors.push(vendorResponse[vendorId]);
+        });
+      }
+
       resolve(vendors);
     })
-    .catch();
+    .catch((err) => reject(err));
 });
 
 export default { getVendors };
