@@ -1,19 +1,30 @@
 import utils from '../../helpers/utils';
+import vendorsData from '../../helpers/data/vendorsData';
 
 const printVendorsDashboard = () => {
-  let domString = '';
-  domString += '<div class="d-flex flex-wrap justify-content-center">';
-  domString += '  <div class="col-12 text-center">';
-  domString += '    <div class="col-lg-3 col-md-6">';
-  domString += '      <div class="card text-center">';
-  domString += '        <div class="card-body">';
-  domString += '          <h2>Vendors</h2>';
-  domString += '        </div>';
-  domString += '      </div>';
-  domString += '    </div>';
-  domString += '  </div>';
-  domString += '</div>';
-  utils.printToDom('vendors-dashboard', domString);
+  vendorsData.getVendors()
+    .then((vendors) => {
+      let domString = '';
+
+      domString += '<h2 class="text-light text-center">Vendors</h2>';
+      domString += '<div class="d-flex flex-wrap">';
+
+      vendors.forEach((vendor) => {
+        domString += '<div class="card col-md-3 m-1">';
+        domString += '  <div class="card-body text-center">';
+        domString += `    <h5 class="card-title">${vendor.name}</h5>`;
+        domString += `    <p class="card-text">${vendor.description}</p>`;
+        domString += '    <button href="#" class="btn btn-danger">Delete</button>';
+        domString += '  </div>';
+        domString += '</div>';
+      });
+
+      domString += '    </div>';
+      domString += '    </div>';
+
+      utils.printToDom('vendors-dashboard', domString);
+    })
+    .catch((err) => console.error('problem with get vendors in print vendors', err));
 };
 
 export default { printVendorsDashboard };

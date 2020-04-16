@@ -25,11 +25,11 @@ const addVendor = (newVendor) => axios.post(`${baseUrl}/vendor.json`, newVendor)
 
 const deleteVendor = (vendorId) => axios.delete(`${baseUrl}/vendor.json/${vendorId}.json`);
 
-// const updateVendor = (vendorId, modifiedVendor) => axios.patch(`${baseUrl}/vendor.json/${vendorId}.json`, newVendor);
+const updateVendor = (vendorId, modifiedVendor) => axios.put(`${baseUrl}/vendor.json/${vendorId}.json`, modifiedVendor);
 
 export default {
   getVendors,
   addVendor,
   deleteVendor,
-  // updateVendor,
+  updateVendor,
 };
