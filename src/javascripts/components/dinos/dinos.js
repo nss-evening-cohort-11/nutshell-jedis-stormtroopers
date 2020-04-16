@@ -4,7 +4,7 @@ import utils from '../../helpers/utils';
 
 const printDinos = (dino) => {
   let domString = '';
-  domString += '<div class="card col-3" style="width: 18rem;">';
+  domString += '<div class="card col-4" style="width: 18rem;">';
   domString += `<h3>${dino.name}</h3>`;
   domString += `<img class="card-img-top" src="${dino.photoUrl}" alt="Card image cap">`;
   domString += '<div class="card-body">';

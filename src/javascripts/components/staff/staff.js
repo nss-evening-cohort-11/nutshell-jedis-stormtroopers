@@ -4,9 +4,9 @@ import utils from '../../helpers/utils';
 
 const printStaff = (staff) => {
   let domString = '';
-  domString += '<div class="card col-3" style="width: 18rem;">';
+  domString += staff.isKidnapped ? '<div class="card col-4 bg-danger" style="width: 18rem;">' : '<div class="card col-4" style="width: 18rem;">';
   domString += `<h3>${staff.name}</h3>`;
-  domString += `<img class="card-img-top" src="${staff.photoUrl}" alt="Card image cap">`;
+  domString += `<img class="card-img-top img-fluid" src="${staff.photoUrl}" alt="Card image cap">`;
   domString += '<div class="card-body flex-column">';
   domString += '<div>';
   domString += staff.isKidnapped ? `${staff.name} is missing!` : `${staff.name} is accounted for.`;
