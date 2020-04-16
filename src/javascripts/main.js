@@ -1,10 +1,11 @@
+import navbarComponent from './components/navbar/navbar';
+import 'bootstrap';
 import '../styles/main.scss';
-import chart from './helpers/randChart';
+import auth from './components/auth/auth';
 
 const init = () => {
-  chart.randomChart('#3734eb', 'butts', 'farts', 100, 'chart');
+  $('body').on('click', '.nav-icon', navbarComponent.navbarEvents);
+  auth.loginButton();
 };
 
 init();
-
-console.error('hi');
