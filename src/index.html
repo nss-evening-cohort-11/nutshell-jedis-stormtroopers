@@ -1,42 +1,45 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Jurassic Park</title>
 </head>
+
 <body>
   <nav class="navbar navbar-expand-lg navbar-light">
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+      aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
-  
+
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <div>
         <ul class="navbar-nav">
           <li class="nav-item active">
-            <button id="nav-home-btn" class="btn nav-icon"><i class="fas fa-home"></i></button>  
+            <button id="nav-home-btn" class="btn nav-icon"><i class="fas fa-home"></i></button>
           </li>
           <li class="nav-item">
-            <button id="nav-dino-btn" class="btn nav-icon"><i class="fas fa-bone"></i></button>  
+            <button id="nav-dino-btn" class="btn nav-icon"><i class="fas fa-bone"></i></button>
           </li>
           <li class="nav-item">
-            <button id="nav-staff-btn" class="btn nav-icon"><i class="fas fa-user"></i></button>  
+            <button id="nav-staff-btn" class="btn nav-icon"><i class="fas fa-user"></i></button>
           </li>
           <li class="nav-item">
-            <button id="nav-rides-btn" class="btn nav-icon"><i class="fas fa-tram"></i></button>  
+            <button id="nav-rides-btn" class="btn nav-icon"><i class="fas fa-tram"></i></button>
           </li>
           <li class="nav-item">
-            <button id="nav-equipment-btn" class="btn nav-icon"><i class="fas fa-tools"></i></button>  
+            <button id="nav-equipment-btn" class="btn nav-icon"><i class="fas fa-tools"></i></button>
           </li>
           <li class="nav-item">
-            <button id="nav-vendors-btn" class="btn nav-icon"><i class="fas fa-hamburger"></i></button>  
+            <button id="nav-vendors-btn" class="btn nav-icon"><i class="fas fa-hamburger"></i></button>
           </li>
         </ul>
       </div>
-      <div id="login-btns" class="ml-auto">
-        <button id="google-auth" class="btn"><i class="fab fa-google text-danger"></i></button>
-        <button id="logout-btn" class="btn"><i class="fas fa-times text-danger"></i></button>    
+      <div id="login-btns" ml-auto>
+        <div id="auth"></div>
+        <button id="logout-btn" class="btn hide"><i class="fas fa-times text-danger"></i></button>
       </div>
     </div>
   </nav>
@@ -52,6 +55,7 @@
       <div id="chart"></div>
     </div>
   </main>
-  
+
 </body>
+
 </html>
