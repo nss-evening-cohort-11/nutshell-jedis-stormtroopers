@@ -1,6 +1,12 @@
 import utils from '../../helpers/utils';
 import vendorsData from '../../helpers/data/vendorsData';
 
+const deleteVendorEvent = (e) => {
+  const vendorId = e.target.closest('.card').id;
+
+  console.log('vendorId', vendorId);
+};
+
 const printVendorsDashboard = () => {
   vendorsData.getVendors()
     .then((vendors) => {
@@ -10,11 +16,11 @@ const printVendorsDashboard = () => {
       domString += '<div class="d-flex flex-wrap">';
 
       vendors.forEach((vendor) => {
-        domString += '<div class="card col-md-3 m-1">';
+        domString += `<div class="card col-md-3 m-1" id="${vendor.id}">`;
         domString += '  <div class="card-body text-center">';
         domString += `    <h5 class="card-title">${vendor.name}</h5>`;
         domString += `    <p class="card-text">${vendor.description}</p>`;
-        domString += '    <button href="#" class="btn btn-danger">Delete</button>';
+        domString += '    <button href="#" class="btn btn-danger delete-vendor-btn">Delete</button>';
         domString += '  </div>';
         domString += '</div>';
       });
@@ -27,4 +33,4 @@ const printVendorsDashboard = () => {
     .catch((err) => console.error('problem with get vendors in print vendors', err));
 };
 
-export default { printVendorsDashboard };
+export default { printVendorsDashboard, deleteVendorEvent };
