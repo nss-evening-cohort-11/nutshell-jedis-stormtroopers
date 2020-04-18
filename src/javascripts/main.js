@@ -14,13 +14,17 @@ import '../styles/main.scss';
 import authData from './helpers/data/authData';
 import auth from './components/auth/auth';
 
+const events = () => {
+  $('body').on('click', '.nav-icon', navbarComponent.navbarEvents);
+  ridesComponent.rideEvents();
+};
+
 const init = () => {
   firebase.initializeApp(apiKeys.firebaseKeys);
   authData.checkLoginStatus();
   auth.loginButton();
   auth.logoutEvent();
-  $('body').on('click', '.nav-icon', navbarComponent.navbarEvents);
-  // $('body').on('click', '.nav-dino-btn', navbarComponent.navbarEvents);
+  events();
   overviewComponent.printOverviewDashboard();
   dinosComponent.printDinosDashboard();
   staffComponent.printStaffDashboard();
