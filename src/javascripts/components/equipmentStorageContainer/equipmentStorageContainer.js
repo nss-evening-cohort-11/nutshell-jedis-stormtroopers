@@ -1,3 +1,6 @@
+import firebase from 'firebase/app';
+import 'firebase/auth';
+
 import equipData from '../../helpers/data/equipData';
 import utils from '../../helpers/utils';
 import equipment from '../equipment/equipment';
@@ -12,38 +15,40 @@ const removeEquipment = (e) => {
     .catch((err) => console.error('remove equipment did not work', err));
 };
 
-const addEquipment = (e) => {
+const addEquipmentToContainer = (e) => {
   e.preventDefault();
+  // 1. make a new object
+  const newEquipment = {
+    name: $('#equipment-name').val(),
+    description: $('#equipment-description').val(),
+    imageUrl: $('#equipment-image').val(),
+    isBroken: false,
+    uid: firebase.auth().currentUser.uid,
+  };
+  // 2. save to firebase
+  equipData.addEquipment(newEquipment)
+    .then(() => {
+      // 3. reprint the page
+      // eslint-disable-next-line no-use-before-define
+      printEquipmentDashboard();
+    })
+    .catch((err) => console.error('could not add new equipment', err));
+};
+
+const openEquipmentForm = () => {
   $('#equipment-form').removeClass('hide');
-  console.error('I worked');
-  // // 1. make a new cow object
-  // const newEquipment = {
-  //   name: $('#equipment-name').val(),
-  //   breed: $('#cow-breed').val(),
-  //   location: $('#cow-location').val(),
-  //   weight: $('#cow-weight').val() * 1,
-  // };
-  // // 2. save to firebase
-  // cowData.addCow(newCow)
-  //   .then(() => {
-  //     // 3. reprint cows
-  //     // eslint-disable-next-line no-use-before-define
-  //     buildCows();
-  //     utils.printToDom('new-cow', '');
-  //   })
-  //   .catch((err) => console.error('could not add cow', err));
+  equipment.buildEquipmentForm();
 };
 
 const printEquipmentDashboard = () => {
   equipData.getEquips()
     .then((equipmentArr) => {
       let domString = '';
-      domString += '<h2 class="text-center">Equipment</h2>';
-      domString += '<div class="col-12 text-center"><button id="new-equipment-btn" class="btn dashboard-btn"><i class="fas fa-plus dashboard-icon"></i></button></div>';
-      domString += '<div id="equipment-form" class="hide">';
-      equipment.buildEquipmentForm();
+      domString += '<h2 class="text-center text-light my-3">Equipment</h2>';
+      domString += '<div class="col-12 text-center my-2 mx-2"><button id="new-equipment-btn" class="btn dashboard-btn text-light"><i class="fas fa-plus dashboard-icon"></i></button></div>';
+      domString += '<div id="equipment-form" class="container hide">';
       domString += '</div>';
-      domString += '  <div class="d-flex flex-wrap justify-content-center">';
+      domString += '<div class="d-flex flex-wrap justify-content-center">';
       equipmentArr.forEach((equipments) => {
         domString += equipment.buildEquipment(equipments);
       });
@@ -58,7 +63,8 @@ const printEquipmentDashboard = () => {
 
 const equipmentEvents = () => {
   $('body').on('click', '.delete-equipment', removeEquipment);
-  $('body').on('click', '#new-equipment-btn', addEquipment);
+  $('body').on('click', '#new-equipment-btn', openEquipmentForm);
+  $('body').on('click', '#add-equipment', addEquipmentToContainer);
 };
 
 export default {

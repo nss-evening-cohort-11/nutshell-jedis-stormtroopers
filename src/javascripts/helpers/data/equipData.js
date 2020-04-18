@@ -19,7 +19,10 @@ const getEquips = () => new Promise((resolution, rejection) => {
 
 const deleteEquipment = (equipmentId) => axios.delete(`${baseUrl}/equipment/${equipmentId}.json`);
 
+const addEquipment = (newEquipment) => axios.post(`${baseUrl}/equipment.json`, newEquipment);
+
 export default {
   getEquips,
   deleteEquipment,
+  addEquipment,
 };
