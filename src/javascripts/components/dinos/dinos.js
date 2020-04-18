@@ -16,17 +16,17 @@ const newDinoForm = () => {
   domString += '<input type="text" class="form-control" id="new-dino-image">';
   domString += '</div>';
   domString += '<div class="form-group">';
-  domString += '<label for="new-dino-type">Image Url</label>';
+  domString += '<label for="new-dino-type">Type</label>';
   domString += '<input type="text" class="form-control" id="new-dino-type">';
   domString += '</div>';
   domString += '<div class="form-check">';
   domString += '<h5>Is this Dino hungry?</h5>';
-  domString += '<input class="form-check-input" type="radio" name="editDinoRadios" id="editDinoRadios" value="true">';
-  domString += '<label class="form-check-label" for="editDinoRadios">Is Hungry</div>';
+  domString += '<input class="form-check-input" type="radio" name="newDinoRadios" id="newDinoRadios" value="true">';
+  domString += '<label class="form-check-label" for="newDinoRadios">Is Hungry</div>';
   domString += '<div class="form-check">';
-  domString += '<input class="form-check-input" type="radio" name="editDinoRadios" id="editDinoRadios" value="false">';
-  domString += '<label class="form-check-label" for="editDinoRadios">Is NOT Hungry</div>';
-  domString += '<button type="submit" class="btn btn-dark" id="submit-dino-changes">Add Dino</button>';
+  domString += '<input class="form-check-input" type="radio" name="newDinoRadios" id="newDinoRadios" value="false">';
+  domString += '<label class="form-check-label" for="newDinoRadios">Is NOT Hungry</div>';
+  domString += '<button type="submit" class="btn btn-dark" id="submit-new-dino">Add Dino</button>';
   domString += '</form>';
 
   utils.printToDom('new-form-container', domString);
@@ -119,8 +119,9 @@ const makeNewDino = (e) => {
     isHungry: isHungryBool,
     // uid: myUid,
   };
-  utils.printToDom('new-form-container', '');
-  $('#new-dino-btn').addClass('collapsed');
+  console.error(newDino, 'newDino makeNewDino');
+  // utils.printToDom('new-form-container', '');
+  // $('#new-dino-btn').addClass('collapsed');
   dinoData.addDino(newDino).then(() => printDinosDashboard())
     .catch((err) => console.error('makeNewDino broke', err));
 };

@@ -21,7 +21,7 @@ const getDinos = () => new Promise((resolve, reject) => {
 
 const deleteDino = (dinoId) => axios.delete(`${baseUrl}/dinos/${dinoId}.json`);
 
-const addDino = (newDino) => axios.post(`${baseUrl}/dinos/${newDino}.json`);
+const addDino = (newDino) => axios.post(`${baseUrl}/dinos.json`, newDino);
 
 const updateDino = (dinoId, modifiedDino) => axios.put(`${baseUrl}/dinos/${dinoId}.json`, modifiedDino);
 
