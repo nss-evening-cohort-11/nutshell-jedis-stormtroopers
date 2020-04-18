@@ -21,6 +21,11 @@ const init = () => {
   auth.logoutEvent();
   $('body').on('click', '.nav-icon', navbarComponent.navbarEvents);
   $('body').on('click', '.delete-vendor-btn', vendorsComponent.deleteVendorEvent);
+  $('body').on('click', '#vendor-creator-btn', vendorsComponent.newVendorEvent);
+  $('body').on('click', '#vendor-modifier-btn', vendorsComponent.updateVendorEvent);
+  $('body').on('click', '.update-vendor-btn', vendorsComponent.updateVendorFormToggleEvent);
+  $('body').on('click', '#new-vendor-btn', vendorsComponent.newVendorFormToggleEvent);
+
   overviewComponent.printOverviewDashboard();
   dinosComponent.printDinosDashboard();
   staffComponent.printStaffDashboard();
