@@ -21,7 +21,7 @@ const getRides = () => new Promise((resolve, reject) => {
 
 const deleteRide = (rideId) => axios.delete(`${baseUrl}/rides/${rideId}.json`);
 
-const addRide = (newRide) => axios.post(`${baseUrl}/rides/${newRide}.json`);
+const addRide = (newRide) => axios.post(`${baseUrl}/rides.json`, newRide);
 
 const updateRide = (rideId, modifiedRide) => axios.put(`${baseUrl}/rides/${rideId}.json`, modifiedRide);
 
