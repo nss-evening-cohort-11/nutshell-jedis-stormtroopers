@@ -1,19 +1,37 @@
 import utils from '../../helpers/utils';
 
-const printEquipmentDashboard = () => {
+const buildEquipment = (equipments) => {
   let domString = '';
-  domString += '<div class="d-flex flex-wrap justify-content-center">';
-  domString += '  <div class="col-12 text-center">';
-  domString += '    <div class="col-lg-3 col-md-6">';
-  domString += '      <div class="card text-center">';
-  domString += '        <div class="card-body">';
-  domString += '          <h2>Equipment</h2>';
+  domString += '    <div class="my-2 col-4 text-center">';
+  domString += `      <div id="${equipments.id}" class="card text-center">`;
+  domString += `         <img class="card-img-top" src="${equipments.imageUrl}" alt="Card image cap"></img>`;
+  domString += '          <div class="card-body">';
+  domString += `           <h5 class="card-title">${equipments.name}</h5>`;
+  domString += `           <p class="card-text">${equipments.description}</p>`;
+  domString += '           <button class="card-text btn btn-danger delete-equipment">Delete</button>';
+  domString += '           </div>';
   domString += '        </div>';
-  domString += '      </div>';
-  domString += '    </div>';
-  domString += '  </div>';
-  domString += '</div>';
-  utils.printToDom('equipment-dashboard', domString);
+  domString += '     </div>';
+  return domString;
 };
 
-export default { printEquipmentDashboard };
+const buildEquipmentForm = () => {
+  let domString = '';
+  domString += '<form>';
+  domString += '<div class="form-group">';
+  domString += '<label for="equipment-name">Name</label>';
+  domString += '<input type="text" class="form-control" id="equipment-name" aria-describedby="emailHelp" placeholder="Jeep">';
+  domString += '</div>';
+  domString += '<div class="form-group">';
+  domString += '<label for="exampleInputPassword1">Password</label>';
+  domString += '<input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password">';
+  domString += '</div>';
+  domString += '<button type="submit" class="btn btn-primary">Submit</button>';
+  domString += '</form>';
+  utils.printToDom('equipment-form', domString);
+};
+
+export default {
+  buildEquipment,
+  buildEquipmentForm,
+};

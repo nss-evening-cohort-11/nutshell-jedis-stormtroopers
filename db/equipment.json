@@ -1,50 +1,58 @@
 {
-  "equipment1" :{
+  "equipment1": {
     "name": "Jeep",
     "isBroken": true,
     "description": "A Jeep painted in cool colors",
-    "uid": "Aaron"
+    "imageUrl": "https://blog.tirebuyer.com/wp-content/uploads/2019/01/Jurassic-Park-Jeep-4.jpg",
+    "uid": "dosVeTVF4pdawQA9YGSb8yI4IbC3"
   },
-  "equipment2" :{
+  "equipment2": {
     "name": "Monorail",
     "isBroken": true,
     "description": "A tribute to Disney World but also totally our own thing. It gets people around, okay.",
-    "uid": "Joey"
+    "imageUrl": "https://i2.wp.com/caps.pictures/201/5-jurrasic-world/full/jurassic-world-movie-screencaps.com-477.jpg?strip=all",
+    "uid": "dosVeTVF4pdawQA9YGSb8yI4IbC3"
   },
-  "equipment3" :{
+  "equipment3": {
     "name": "Crane",
     "isBroken": true,
     "description": "Mostly used to scratch behind the Hadrosaurs crests.",
-    "uid": "Steven"
+    "imageUrl": "https://jurassicoutpost.com/wp-content/uploads/2018/08/paul_960x540_1-1024x576.jpg",
+    "uid": "dosVeTVF4pdawQA9YGSb8yI4IbC3"
   },
-  "equipment4" :{
+  "equipment4": {
     "name": "Electric Fences",
     "isBroken": true,
     "description": "Super important. Totally safe.",
-    "uid": "John"
+    "imageUrl": "https://preview.redd.it/givtwqwkxul31.jpg?auto=webp&s=654131cd175a596f7c74fd91da7ad76125904915",
+    "uid": "dosVeTVF4pdawQA9YGSb8yI4IbC3"
   },
-  "equipment5" :{
+  "equipment5": {
     "name": "DNA Extractor",
     "isBroken": true,
     "description": "Michael Chrichton talks about this for like 30 pages in the book that inspired our totally real theme park",
-    "uid": "Steven"
+    "imageUrl": "https://www.wingclips.com/system/movie-clips/jurassic-park/dinosaur-dna/images/jurassic-park-movie-clip-screenshot-dinosaur-dna_large.jpg",
+    "uid": "dosVeTVF4pdawQA9YGSb8yI4IbC3"
   },
-  "equipment6" :{
+  "equipment6": {
     "name": "Bulldozer",
     "isBroken": true,
     "description": "AKA Dino Pooper Scooper",
-    "uid": "Joey"
+    "imageUrl": "https://m.wsj.net/video/20130826/082613dozer/082613dozer_960x540.jpg",
+    "uid": "dosVeTVF4pdawQA9YGSb8yI4IbC3"
   },
-  "equipment7" :{
+  "equipment7": {
     "name": "Clear Rolling Bubble Thing",
     "isBroken": true,
     "description": "It does what it sounds like it does, but we aren't sure it's a good idea",
-    "uid": "Aaron"
+    "imageUrl": "https://icdn3.digitaltrends.com/image/digitaltrends/jurassic-world-bubble-1500x844.jpg",
+    "uid": "dosVeTVF4pdawQA9YGSb8yI4IbC3"
   },
-  "equipment8" :{
+  "equipment8": {
     "name": "Big Door",
     "isBroken": true,
     "description": "Mostly for show. Very expensive. 90% paper mache.",
-    "uid": "John"
+    "imageUrl": "https://media.mnn.com/assets/images/2014/06/jp-mnn.jpg.653x0_q80_crop-smart.jpg",
+    "uid": "dosVeTVF4pdawQA9YGSb8yI4IbC3"
   }
 }
