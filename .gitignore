@@ -4,6 +4,7 @@ package-lock.json
 build/
 .firebase/
 
+
 # Logs
 logs
 *.log
