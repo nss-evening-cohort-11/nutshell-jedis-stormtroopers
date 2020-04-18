@@ -20,7 +20,10 @@ const init = () => {
   auth.loginButton();
   auth.logoutEvent();
   $('body').on('click', '.nav-icon', navbarComponent.navbarEvents);
-  // $('body').on('click', '.nav-dino-btn', navbarComponent.navbarEvents);
+  $('body').on('click', '.edit-dino', dinosComponent.editDinoEvent);
+  $('body').on('click', '#submit-dino-changes', dinosComponent.modifyDino);
+  $('body').on('click', '.delete-dino', dinosComponent.removeDino);
+  // $('body').on('click', '#new-dino-btn', dinosComponent.newDinoForm);
   overviewComponent.printOverviewDashboard();
   dinosComponent.printDinosDashboard();
   staffComponent.printStaffDashboard();

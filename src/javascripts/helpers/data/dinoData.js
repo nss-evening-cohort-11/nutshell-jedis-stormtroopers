@@ -23,7 +23,11 @@ const deleteDino = (dinoId) => axios.delete(`${baseUrl}/dinos/${dinoId}.json`);
 
 const addDino = (newDino) => axios.post(`${baseUrl}/dinos/${newDino}.json`);
 
-const updateDino = (dinoId, modifiedDino) => axios.put(`${baseUrl}/dinos/${dinoId}.json`, modifiedDino);
+const updateDino = (dinoId, modifiedDino) => {
+  console.error(dinoId, 'dinoId updateDino');
+  console.error(modifiedDino, 'modifiedDino updateDino');
+  axios.put(`${baseUrl}/dinos/${dinoId}.json`, modifiedDino);
+};
 
 const getSingleDino = (dinoId) => axios.get(`${baseUrl}/dinos/${dinoId}.json`);
 
