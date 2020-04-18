@@ -20,6 +20,7 @@ const init = () => {
   auth.loginButton();
   auth.logoutEvent();
   $('body').on('click', '.nav-icon', navbarComponent.navbarEvents);
+  // $('body').on('click', '.nav-dino-btn', navbarComponent.navbarEvents);
   overviewComponent.printOverviewDashboard();
   dinosComponent.printDinosDashboard();
   staffComponent.printStaffDashboard();

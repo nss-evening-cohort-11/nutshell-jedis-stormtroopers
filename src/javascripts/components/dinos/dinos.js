@@ -1,19 +1,33 @@
+import 'firebase/auth';
+import dinoData from '../../helpers/data/dinoData';
 import utils from '../../helpers/utils';
 
-const printDinosDashboard = () => {
+const printDinos = (dino) => {
   let domString = '';
-  domString += '<div class="d-flex flex-wrap justify-content-center">';
-  domString += '  <div class="col-12 text-center">';
-  domString += '    <div class="col-lg-3 col-md-6">';
-  domString += '      <div class="card text-center">';
-  domString += '        <div class="card-body">';
-  domString += '          <h2>Dinos</h2>';
-  domString += '        </div>';
-  domString += '      </div>';
-  domString += '    </div>';
-  domString += '  </div>';
+  domString += '<div id="dino-card" class="card col-4" style="width: 18rem;">';
+  domString += `<h3>${dino.name}</h3>`;
+  domString += `<img class="card-img-top" src="${dino.photoUrl}" alt="Card image cap">`;
+  domString += '<div class="card-body">';
+  domString += dino.isHungry ? `${dino.name} is hungry!` : `${dino.name} is fine.`;
   domString += '</div>';
-  utils.printToDom('dino-dashboard', domString);
+  domString += '</div>';
+
+  return domString;
+};
+
+const printDinosDashboard = () => {
+  dinoData.getDinos()
+    .then((dinos) => {
+      let domString = '';
+      domString += '<h2 class="text-light">Dinos</h2>';
+      domString += '<div class="col-12 d-flex flex-wrap justify-content-around">';
+      dinos.forEach((dino) => {
+        if (dino) domString += printDinos(dino);
+      });
+      domString += '</div>';
+      utils.printToDom('dino-dashboard', domString);
+    })
+    .catch((err) => console.error('printDinosDashboard broke', err));
 };
 
 export default { printDinosDashboard };
