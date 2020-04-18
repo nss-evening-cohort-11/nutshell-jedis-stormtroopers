@@ -48,6 +48,8 @@ const printEquipmentDashboard = () => {
       domString += '<div class="col-12 text-center my-2 mx-2"><button id="new-equipment-btn" class="btn dashboard-btn text-light"><i class="fas fa-plus dashboard-icon"></i></button></div>';
       domString += '<div id="equipment-form" class="container hide">';
       domString += '</div>';
+      domString += '<div id="equipment-update-form" class="container hide">';
+      domString += '</div>';
       domString += '<div class="d-flex flex-wrap justify-content-center">';
       equipmentArr.forEach((equipments) => {
         domString += equipment.buildEquipment(equipments);
