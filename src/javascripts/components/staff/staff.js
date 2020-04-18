@@ -4,7 +4,7 @@ import utils from '../../helpers/utils';
 
 const printStaff = (staff) => {
   let domString = '';
-  domString += staff.isKidnapped ? '<div id="staff-card" class="card col-4 bg-danger" style="width: 18rem;">' : '<div class="card col-4 staff-card" style="width: 18rem;">';
+  domString += staff.isKidnapped ? '<div id="staff-card" class="card col-4 bg-danger" style="width: 18rem;">' : '<div id="staff-card" class="card col-4 staff-card" style="width: 18rem;">';
   domString += `<h3>${staff.name}</h3>`;
   domString += `<img class="card-img-top img-fluid" src="${staff.photoUrl}" alt="Card image cap">`;
   domString += '<div class="card-body flex-column">';
@@ -24,9 +24,12 @@ const printStaffDashboard = () => {
   staffData.getStaffs()
     .then((staffs) => {
       let domString = '';
+      domString += '<h2 class="text-light">Staff</h2>';
+      domString += '<div class="col-12 d-flex flex-wrap justify-content-around">';
       staffs.forEach((staff) => {
         if (staff) domString += printStaff(staff);
       });
+      domString += '</div>';
       utils.printToDom('staff-dashboard', domString);
     })
     .catch((err) => console.error('printStaffDashboard broke', err));

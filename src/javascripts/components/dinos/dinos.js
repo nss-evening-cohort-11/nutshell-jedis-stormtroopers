@@ -19,9 +19,12 @@ const printDinosDashboard = () => {
   dinoData.getDinos()
     .then((dinos) => {
       let domString = '';
+      domString += '<h2 class="text-light">Dinos</h2>';
+      domString += '<div class="col-12 d-flex flex-wrap justify-content-around">';
       dinos.forEach((dino) => {
         if (dino) domString += printDinos(dino);
       });
+      domString += '</div>';
       utils.printToDom('dino-dashboard', domString);
     })
     .catch((err) => console.error('printDinosDashboard broke', err));
