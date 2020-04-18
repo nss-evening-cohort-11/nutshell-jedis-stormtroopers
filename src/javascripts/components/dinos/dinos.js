@@ -1,4 +1,4 @@
-// import firebase from 'firebase/app';
+import firebase from 'firebase/app';
 import 'firebase/auth';
 import dinoData from '../../helpers/data/dinoData';
 import utils from '../../helpers/utils';
@@ -62,7 +62,6 @@ const editDinoForm = (dinoId) => {
       domString += '<label class="form-check-label" for="editDinoRadios">Is NOT Hungry</div>';
       domString += '<button type="submit" class="btn btn-dark" id="submit-dino-changes">Submit Changes</button>';
       domString += '</form>';
-      console.error(`${dinoId}`, 'dino.id editDiinoForm');
       utils.printToDom('edit-form-container', domString);
     });
 };
@@ -96,7 +95,7 @@ const printDinosDashboard = () => {
     .then((dinos) => {
       let domString = '';
       domString += '<h2 class="text-light">Dinos</h2>';
-      domString += '<button id="new-dino-btn" class="btn dashboard-btn" data-toggle="collapse" href="#newFormCollapse" ="button" aria-expanded="false" aria-controls="newFormCollapse">';
+      domString += '<button id="new-dino-btn" class="btn dashboard-btn" data-toggle="collapse" href="#newFormCollapse" type="button" aria-expanded="false" aria-controls="newFormCollapse">';
       domString += '<i class="fas fa-plus dashboard-icon"></i></button>';
       domString += '<div class="col-12 d-flex flex-wrap justify-content-around">';
       dinos.forEach((dino) => {
@@ -110,25 +109,24 @@ const printDinosDashboard = () => {
 
 const makeNewDino = (e) => {
   e.preventDefault();
-  // const myUid = firebase.auth().currentUser.uid;
+  const myUid = firebase.auth().currentUser.uid;
   const isHungryBool = $("input[name='newDinoRadios']:checked").val();
   const newDino = {
     name: $('#new-dino-name').val(),
     photoUrl: $('#new-dino-image').val(),
     type: $('#new-dino-type').val(),
     isHungry: isHungryBool,
-    // uid: myUid,
+    uid: myUid,
   };
   console.error(newDino, 'newDino makeNewDino');
-  // utils.printToDom('new-form-container', '');
-  // $('#new-dino-btn').addClass('collapsed');
+  $('#newFormCollapse').removeClass('show');
   dinoData.addDino(newDino).then(() => printDinosDashboard())
     .catch((err) => console.error('makeNewDino broke', err));
 };
 
 const modifyDino = (e) => {
   e.preventDefault();
-  // const myUid = firebase.auth().currentUser.uid;
+  const myUid = firebase.auth().currentUser.uid;
   const isHungryBool = $("input[name='editDinoRadios']:checked").val();
   const dinoId = e.target.closest('.edit-dino-form').id;
   console.error(dinoId, 'dinoId modify dino');
@@ -137,9 +135,9 @@ const modifyDino = (e) => {
     photoUrl: $('#edit-dino-image').val(),
     type: $('#edit-dino-type').val(),
     isHungry: isHungryBool,
-    // uid: myUid,
+    uid: myUid,
   };
-  // utils.printToDom('edit-form-container', '');
+  utils.printToDom('edit-form-container', '');
   $('#editFormCollapse').removeClass('show');
   dinoData.updateDino(dinoId, modifiedDino)
     .then(() => printDinosDashboard())

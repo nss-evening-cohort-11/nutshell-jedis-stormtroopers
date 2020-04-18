@@ -25,8 +25,13 @@ const init = () => {
   $('body').on('click', '.delete-dino', dinosComponent.removeDino);
   $('body').on('click', '#new-dino-btn', dinosComponent.newDinoForm);
   $('body').on('click', '#submit-new-dino', dinosComponent.makeNewDino);
-  overviewComponent.printOverviewDashboard();
+  // $('body').on('click', '.edit-staff', staffComponent.editStaffEvent);
+  // $('body').on('click', '#submit-staff-changes', staffComponent.modifyStaff);
+  // $('body').on('click', '.delete-staff', staffComponent.removeStaff);
+  $('body').on('click', '#new-staff-btn', staffComponent.newStaffForm);
+  $('body').on('click', '#submit-new-staff', staffComponent.makeNewStaff);
   dinosComponent.printDinosDashboard();
+  overviewComponent.printOverviewDashboard();
   staffComponent.printStaffDashboard();
   ridesComponent.printRidesDashboard();
   equipmentComponent.printEquipmentDashboard();
