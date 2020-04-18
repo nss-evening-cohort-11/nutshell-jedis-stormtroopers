@@ -1,9 +1,3 @@
-.vscode/
-.DS_Store
-package-lock.json
-build/
-.firebase/
-
 # Logs
 logs
 *.log
@@ -116,4 +110,7 @@ node_modules/
 dist/
 build/
 .firebase/
+
 src/javascripts/helpers/apiKeys.json
+
+
