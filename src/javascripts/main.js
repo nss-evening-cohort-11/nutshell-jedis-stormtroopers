@@ -23,7 +23,7 @@ const init = () => {
   $('body').on('click', '.edit-dino', dinosComponent.editDinoEvent);
   $('body').on('click', '#submit-dino-changes', dinosComponent.modifyDino);
   $('body').on('click', '.delete-dino', dinosComponent.removeDino);
-  // $('body').on('click', '#new-dino-btn', dinosComponent.newDinoForm);
+  $('body').on('click', '#new-dino-btn', dinosComponent.newDinoForm);
   overviewComponent.printOverviewDashboard();
   dinosComponent.printDinosDashboard();
   staffComponent.printStaffDashboard();

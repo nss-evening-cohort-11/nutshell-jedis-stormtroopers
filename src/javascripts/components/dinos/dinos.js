@@ -82,9 +82,9 @@ const printDinos = (dino) => {
   domString += '<div class="card-body">';
   domString += dino.isHungry ? `${dino.name} is hungry!` : `${dino.name} is fine.`;
   domString += '<button class="btn btn-danger delete-dino d-flex justify-content-center">X</button>';
-  domString += '<a class="btn btn-success edit-dino" data-toggle="collapse" href="#editFormCollapse" role="button" aria-expanded="false" aria-controls="editFormCollapse">';
+  domString += '<button class="btn btn-success edit-dino" data-toggle="collapse" data-target="#editFormCollapse" type="button" aria-expanded="false" aria-controls="editFormCollapse">';
   domString += 'Edit Dino';
-  domString += '</a>';
+  domString += '</button>';
   domString += '</div>';
   domString += '</div>';
 
@@ -96,7 +96,7 @@ const printDinosDashboard = () => {
     .then((dinos) => {
       let domString = '';
       domString += '<h2 class="text-light">Dinos</h2>';
-      domString += '<button id="new-dino-btn" class="btn dashboard-btn" data-toggle="collapse" href="#newFormCollapse" role="button" aria-expanded="false" aria-controls="newFormCollapse">';
+      domString += '<button id="new-dino-btn" class="btn dashboard-btn" data-toggle="collapse" href="#newFormCollapse" ="button" aria-expanded="false" aria-controls="newFormCollapse">';
       domString += '<i class="fas fa-plus dashboard-icon"></i></button>';
       domString += '<div class="col-12 d-flex flex-wrap justify-content-around">';
       dinos.forEach((dino) => {
