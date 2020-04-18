@@ -21,11 +21,11 @@ const getVendors = () => new Promise((resolve, reject) => {
     .catch((err) => reject(err));
 });
 
-const addVendor = (newVendor) => axios.post(`${baseUrl}/vendor.json`, newVendor);
+const addVendor = (newVendor) => axios.post(`${baseUrl}/vendors.json`, newVendor);
 
-const deleteVendor = (vendorId) => axios.delete(`${baseUrl}/vendor.json/${vendorId}.json`);
+const deleteVendor = (vendorId) => axios.delete(`${baseUrl}/vendors/${vendorId}.json`);
 
-const updateVendor = (vendorId, modifiedVendor) => axios.put(`${baseUrl}/vendor.json/${vendorId}.json`, modifiedVendor);
+const updateVendor = (vendorId, modifiedVendor) => axios.put(`${baseUrl}/vendors/${vendorId}.json`, modifiedVendor);
 
 export default {
   getVendors,

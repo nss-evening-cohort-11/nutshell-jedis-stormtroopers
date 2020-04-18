@@ -4,7 +4,12 @@ import vendorsData from '../../helpers/data/vendorsData';
 const deleteVendorEvent = (e) => {
   const vendorId = e.target.closest('.card').id;
 
-  console.log('vendorId', vendorId);
+  vendorsData.deleteVendor(vendorId)
+    .then(() => {
+      // eslint-disable-next-line no-use-before-define
+      printVendorsDashboard();
+    })
+    .catch((err) => console.error('problem with delete vendor event', err));
 };
 
 const printVendorsDashboard = () => {
@@ -19,6 +24,9 @@ const printVendorsDashboard = () => {
         domString += `<div class="card col-md-3 m-1" id="${vendor.id}">`;
         domString += '  <div class="card-body text-center">';
         domString += `    <h5 class="card-title">${vendor.name}</h5>`;
+        if (vendor.isOpen === false) {
+          domString += '<p class="text-danger">Closed</p>';
+        }
         domString += `    <p class="card-text">${vendor.description}</p>`;
         domString += '    <button href="#" class="btn btn-danger delete-vendor-btn">Delete</button>';
         domString += '  </div>';
