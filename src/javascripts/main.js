@@ -6,7 +6,7 @@ import navbarComponent from './components/navbar/navbar';
 import dinosComponent from './components/dinos/dinos';
 import staffComponent from './components/staff/staff';
 import ridesComponent from './components/rides/rides';
-import equipmentComponent from './components/equipment/equipment';
+import equipmentComponent from './components/equipmentStorageContainer/equipmentStorageContainer';
 import vendorsComponent from './components/vendors/vendors';
 import 'bootstrap';
 import '../styles/main.scss';
@@ -28,6 +28,13 @@ const staffEvents = () => {
   $('body').on('click', '.delete-staff', staffComponent.removeStaff);
   $('body').on('click', '#new-staff-btn', staffComponent.newStaffForm);
   $('body').on('click', '#submit-new-staff', staffComponent.makeNewStaff);
+
+const events = () => {
+  $('body').on('click', '.nav-icon', navbarComponent.navbarEvents);
+  ridesComponent.rideEvents();
+  vendorsComponent.vendorsEvents();
+  dinoEvents();
+  staffEvents();
 };
 
 const init = () => {
@@ -35,9 +42,8 @@ const init = () => {
   authData.checkLoginStatus();
   auth.loginButton();
   auth.logoutEvent();
-  dinoEvents();
-  staffEvents();
-  $('body').on('click', '.nav-icon', navbarComponent.navbarEvents);
+  events();
+  overviewComponent.printOverviewDashboard();
   dinosComponent.printDinosDashboard();
   overviewComponent.printOverviewDashboard();
   staffComponent.printStaffDashboard();
