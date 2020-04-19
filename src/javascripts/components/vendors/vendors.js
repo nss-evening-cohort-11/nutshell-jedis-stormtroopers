@@ -158,11 +158,12 @@ const printVendorsDashboard = () => {
     .catch((err) => console.error('problem with get vendors in print vendors', err));
 };
 
-export default {
-  printVendorsDashboard,
-  deleteVendorEvent,
-  newVendorEvent,
-  updateVendorEvent,
-  newVendorFormEvent,
-  updateVendorFormEvent,
+const vendorsEvents = () => {
+  $('body').on('click', '.delete-vendor-btn', deleteVendorEvent);
+  $('body').on('click', '#vendor-creator-btn', newVendorEvent);
+  $('body').on('click', '#vendor-modifier-btn', updateVendorEvent);
+  $('body').on('click', '.update-vendor-btn', updateVendorFormEvent);
+  $('body').on('click', '#new-vendor-btn', newVendorFormEvent);
 };
+
+export default { printVendorsDashboard, vendorsEvents };

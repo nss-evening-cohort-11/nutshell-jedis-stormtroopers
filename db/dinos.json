@@ -22,7 +22,7 @@
   },
   "dino4": {
     "name": "Jesus",
-    "type": "Stegasaurus",
+    "type": "Stegasaurus",      
     "photoUrl": "https://vignette.wikia.nocookie.net/jurassicworld-evolution/images/d/de/Stegothumb.png/revision/latest?cb=20190817153250",
     "isHungry": true,
     "uid": "Joey"

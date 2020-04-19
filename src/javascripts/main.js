@@ -14,18 +14,18 @@ import '../styles/main.scss';
 import authData from './helpers/data/authData';
 import auth from './components/auth/auth';
 
+const events = () => {
+  $('body').on('click', '.nav-icon', navbarComponent.navbarEvents);
+  ridesComponent.rideEvents();
+  vendorsComponent.vendorsEvents();
+};
+
 const init = () => {
   firebase.initializeApp(apiKeys.firebaseKeys);
   authData.checkLoginStatus();
   auth.loginButton();
   auth.logoutEvent();
-  $('body').on('click', '.nav-icon', navbarComponent.navbarEvents);
-  $('body').on('click', '.delete-vendor-btn', vendorsComponent.deleteVendorEvent);
-  $('body').on('click', '#vendor-creator-btn', vendorsComponent.newVendorEvent);
-  $('body').on('click', '#vendor-modifier-btn', vendorsComponent.updateVendorEvent);
-  $('body').on('click', '.update-vendor-btn', vendorsComponent.updateVendorFormEvent);
-  $('body').on('click', '#new-vendor-btn', vendorsComponent.newVendorFormEvent);
-
+  events();
   overviewComponent.printOverviewDashboard();
   dinosComponent.printDinosDashboard();
   staffComponent.printStaffDashboard();
