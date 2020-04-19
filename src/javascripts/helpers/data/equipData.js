@@ -21,8 +21,14 @@ const deleteEquipment = (equipmentId) => axios.delete(`${baseUrl}/equipment/${eq
 
 const addEquipment = (newEquipment) => axios.post(`${baseUrl}/equipment.json`, newEquipment);
 
+const updateEquipment = (equipmentId, modifiedEquipment) => axios.put(`${baseUrl}/equipment/${equipmentId}.json`, modifiedEquipment);
+
+const getSingleEquipment = (equipmentId) => axios.get(`${baseUrl}/equipment/${equipmentId}.json`);
+
 export default {
   getEquips,
   deleteEquipment,
   addEquipment,
+  updateEquipment,
+  getSingleEquipment,
 };
