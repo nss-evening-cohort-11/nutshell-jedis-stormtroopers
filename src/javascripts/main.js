@@ -14,7 +14,6 @@ import '../styles/main.scss';
 import authData from './helpers/data/authData';
 import auth from './components/auth/auth';
 
-
 const dinoEvents = () => {
   $('body').on('click', '.edit-dino', dinosComponent.editDinoEvent);
   $('body').on('click', '#submit-dino-changes', dinosComponent.modifyDino);
@@ -31,13 +30,13 @@ const staffEvents = () => {
   $('body').on('click', '#submit-new-staff', staffComponent.makeNewStaff);
 };
 
+
 const events = () => {
   $('body').on('click', '.nav-icon', navbarComponent.navbarEvents);
   ridesComponent.rideEvents();
   vendorsComponent.vendorsEvents();
   dinoEvents();
   staffEvents();
-  $('body').on('click', '.nav-icon', navbarComponent.navbarEvents);
 };
 
 const init = () => {
