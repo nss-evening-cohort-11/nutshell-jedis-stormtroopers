@@ -97,6 +97,10 @@ const printDinosDashboard = () => {
       domString += '<h2 class="text-light">Dinos</h2>';
       domString += '<button id="new-dino-btn" class="btn dashboard-btn" data-toggle="collapse" href="#newFormCollapse" type="button" aria-expanded="false" aria-controls="newFormCollapse">';
       domString += '<i class="fas fa-plus dashboard-icon"></i></button>';
+      domString += '<div id="edit-form-container" class="container hide">';
+      domString += '</div>';
+      domString += '<div id="new-form-container" class="container hide">';
+      domString += '</div>';
       domString += '<div class="col-12 d-flex flex-wrap justify-content-around">';
       dinos.forEach((dino) => {
         if (dino) domString += printDinos(dino);
@@ -150,6 +154,14 @@ const removeDino = (e) => {
     .catch((err) => console.error('could not delete pin', err));
 };
 
+const dinoEvents = () => {
+  $('body').on('click', '.edit-dino', editDinoEvent);
+  $('body').on('click', '#submit-dino-changes', modifyDino);
+  $('body').on('click', '.delete-dino', removeDino);
+  $('body').on('click', '#new-dino-btn', newDinoForm);
+  $('body').on('click', '#submit-new-dino', makeNewDino);
+};
+
 export default {
   printDinosDashboard,
   editDinoEvent,
@@ -157,4 +169,5 @@ export default {
   modifyDino,
   newDinoForm,
   removeDino,
+  dinoEvents,
 };

@@ -14,29 +14,12 @@ import '../styles/main.scss';
 import authData from './helpers/data/authData';
 import auth from './components/auth/auth';
 
-const dinoEvents = () => {
-  $('body').on('click', '.edit-dino', dinosComponent.editDinoEvent);
-  $('body').on('click', '#submit-dino-changes', dinosComponent.modifyDino);
-  $('body').on('click', '.delete-dino', dinosComponent.removeDino);
-  $('body').on('click', '#new-dino-btn', dinosComponent.newDinoForm);
-  $('body').on('click', '#submit-new-dino', dinosComponent.makeNewDino);
-};
-
-const staffEvents = () => {
-  $('body').on('click', '.edit-staff', staffComponent.editStaffEvent);
-  $('body').on('click', '#submit-staff-changes', staffComponent.modifyStaff);
-  $('body').on('click', '.delete-staff', staffComponent.removeStaff);
-  $('body').on('click', '#new-staff-btn', staffComponent.newStaffForm);
-  $('body').on('click', '#submit-new-staff', staffComponent.makeNewStaff);
-};
-
-
 const events = () => {
   $('body').on('click', '.nav-icon', navbarComponent.navbarEvents);
   ridesComponent.rideEvents();
   vendorsComponent.vendorsEvents();
-  dinoEvents();
-  staffEvents();
+  dinosComponent.dinoEvents();
+  staffComponent.staffEvents();
 };
 
 const init = () => {
