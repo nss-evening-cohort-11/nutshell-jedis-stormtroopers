@@ -18,6 +18,8 @@ const events = () => {
   $('body').on('click', '.nav-icon', navbarComponent.navbarEvents);
   ridesComponent.rideEvents();
   vendorsComponent.vendorsEvents();
+  dinosComponent.dinoEvents();
+  staffComponent.staffEvents();
 };
 
 const init = () => {
@@ -28,6 +30,7 @@ const init = () => {
   events();
   overviewComponent.printOverviewDashboard();
   dinosComponent.printDinosDashboard();
+  overviewComponent.printOverviewDashboard();
   staffComponent.printStaffDashboard();
   ridesComponent.printRidesDashboard();
   equipmentComponent.printEquipmentDashboard();
