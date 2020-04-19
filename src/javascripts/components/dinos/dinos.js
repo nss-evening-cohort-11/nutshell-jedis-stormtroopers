@@ -49,7 +49,6 @@ const editDinoForm = (dinoId) => {
   dinoData.getSingleDino(dinoId)
     .then((response) => {
       const dino = response.data;
-      console.error(dino, 'dino in editDinoForm');
       let domString = '';
       domString += '<h2 class="text-center">Edit Dino</h2>';
       domString += `<form class="col-10 offset-1 edit-dino-form" id=${dinoId}>`;
@@ -133,8 +132,6 @@ const makeNewDino = (e) => {
     isHungry: JSON.parse(isHungryBool),
     uid: myUid,
   };
-  console.error(newDino, 'newDino makeNewDino');
-  $('#newFormCollapse').removeClass('show');
   dinoData.addDino(newDino).then(() => printDinosDashboard())
     .catch((err) => console.error('makeNewDino broke', err));
 };
@@ -144,7 +141,6 @@ const modifyDino = (e) => {
   const myUid = firebase.auth().currentUser.uid;
   const isHungryBool = $("input[name='editDinoRadios']:checked").val();
   const dinoId = e.target.closest('.edit-dino-form').id;
-  console.error(dinoId, 'dinoId modify dino');
   const modifiedDino = {
     name: $('#edit-dino-name').val(),
     photoUrl: $('#edit-dino-image').val(),
