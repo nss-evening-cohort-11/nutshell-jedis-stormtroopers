@@ -115,7 +115,7 @@ const makeNewDino = (e) => {
     name: $('#new-dino-name').val(),
     photoUrl: $('#new-dino-image').val(),
     type: $('#new-dino-type').val(),
-    isHungry: isHungryBool,
+    isHungry: JSON.parse(isHungryBool),
     uid: myUid,
   };
   console.error(newDino, 'newDino makeNewDino');
@@ -134,7 +134,7 @@ const modifyDino = (e) => {
     name: $('#edit-dino-name').val(),
     photoUrl: $('#edit-dino-image').val(),
     type: $('#edit-dino-type').val(),
-    isHungry: isHungryBool,
+    isHungry: JSON.parse(isHungryBool),
     uid: myUid,
   };
   utils.printToDom('edit-form-container', '');

@@ -14,22 +14,30 @@ import '../styles/main.scss';
 import authData from './helpers/data/authData';
 import auth from './components/auth/auth';
 
-const init = () => {
-  firebase.initializeApp(apiKeys.firebaseKeys);
-  authData.checkLoginStatus();
-  auth.loginButton();
-  auth.logoutEvent();
-  $('body').on('click', '.nav-icon', navbarComponent.navbarEvents);
+const dinoEvents = () => {
   $('body').on('click', '.edit-dino', dinosComponent.editDinoEvent);
   $('body').on('click', '#submit-dino-changes', dinosComponent.modifyDino);
   $('body').on('click', '.delete-dino', dinosComponent.removeDino);
   $('body').on('click', '#new-dino-btn', dinosComponent.newDinoForm);
   $('body').on('click', '#submit-new-dino', dinosComponent.makeNewDino);
-  // $('body').on('click', '.edit-staff', staffComponent.editStaffEvent);
-  // $('body').on('click', '#submit-staff-changes', staffComponent.modifyStaff);
-  // $('body').on('click', '.delete-staff', staffComponent.removeStaff);
+};
+
+const staffEvents = () => {
+  $('body').on('click', '.edit-staff', staffComponent.editStaffEvent);
+  $('body').on('click', '#submit-staff-changes', staffComponent.modifyStaff);
+  $('body').on('click', '.delete-staff', staffComponent.removeStaff);
   $('body').on('click', '#new-staff-btn', staffComponent.newStaffForm);
   $('body').on('click', '#submit-new-staff', staffComponent.makeNewStaff);
+};
+
+const init = () => {
+  firebase.initializeApp(apiKeys.firebaseKeys);
+  authData.checkLoginStatus();
+  auth.loginButton();
+  auth.logoutEvent();
+  dinoEvents();
+  staffEvents();
+  $('body').on('click', '.nav-icon', navbarComponent.navbarEvents);
   dinosComponent.printDinosDashboard();
   overviewComponent.printOverviewDashboard();
   staffComponent.printStaffDashboard();
