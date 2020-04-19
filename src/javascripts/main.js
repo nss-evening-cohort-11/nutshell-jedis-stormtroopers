@@ -17,6 +17,7 @@ import auth from './components/auth/auth';
 const events = () => {
   $('body').on('click', '.nav-icon', navbarComponent.navbarEvents);
   ridesComponent.rideEvents();
+  vendorsComponent.vendorsEvents();
 };
 
 const init = () => {
