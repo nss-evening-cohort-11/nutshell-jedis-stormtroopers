@@ -4,9 +4,8 @@ import staffData from '../../helpers/data/staffData';
 import utils from '../../helpers/utils';
 
 const showEditForm = () => {
-  $('#edit-form-container').removeClass('hide');
-  $('#new-form-container').addClass('hide');
-  console.error('edit form activated');
+  $('div#edit-staff-form-container').removeClass('hide');
+  $('div#new-staff-form-container').addClass('hide');
 };
 
 const newStaffForm = () => {
@@ -26,14 +25,12 @@ const newStaffForm = () => {
   domString += '<input type="text" class="form-control" id="new-staff-job">';
   domString += '</div>';
   domString += '<div class="form-check">';
-  domString += '<h5>Is this staff Kidnapped?</h5>';
   domString += '<input class="form-check-input" type="radio" name="newStaffRadiosKidnapped" id="newStaffRadiosKidnapped" value="true">';
   domString += '<label class="form-check-label" for="newStaffRadiosKidnapped">Kidnapped!</div>';
   domString += '<div class="form-check">';
   domString += '<input class="form-check-input" type="radio" name="newStaffRadiosKidnapped" id="newStaffRadiosKidnapped" value="false">';
   domString += '<label class="form-check-label" for="newStaffRadiosKidnapped">NOT Kidnapped</div>';
   domString += '<div class="form-check">';
-  domString += '<h5>Is this person Employee of the Month?</h5>';
   domString += '<input class="form-check-input" type="radio" name="newStaffRadiosEmployee" id="newStaffRadiosEmployee" value="true">';
   domString += '<label class="form-check-label" for="newStaffRadiosEmployee">Employee of the Month!</div>';
   domString += '<div class="form-check">';
@@ -42,17 +39,18 @@ const newStaffForm = () => {
   domString += '<button type="submit" class="btn btn-dark" id="submit-new-staff">Add staff</button>';
   domString += '</form>';
 
-  utils.printToDom('new-form-container', domString);
+  utils.printToDom('new-staff-form-container', domString);
 };
 
-// const showStaffForm = () => {
-//   // $('new-form-container').removeClass('hide');
-//   // $('edit-form-container').addClass('hide');
-//   newStaffForm();
-//   console.error('show form activated');
-// };
+const showStaffForm = () => {
+  $('#new-staff-form-container').removeClass('hide');
+  $('#edit-staff-form-container').addClass('hide');
+
+  newStaffForm();
+};
 
 const editStaffForm = (staffId) => {
+  showEditForm();
   staffData.getSingleStaffMemeber(staffId)
     .then((response) => {
       const staff = response.data;
@@ -86,13 +84,12 @@ const editStaffForm = (staffId) => {
       domString += '<button type="submit" class="btn btn-dark" id="submit-staff-changes">Submit Changes</button>';
       domString += '</form>';
 
-      utils.printToDom('edit-form-container', domString);
+      utils.printToDom('edit-staff-form-container', domString);
     });
 };
 
 const editStaffEvent = (e) => {
   e.preventDefault();
-  showEditForm();
   const staffId = e.target.closest('.card').id;
   editStaffForm(staffId);
 };
@@ -126,9 +123,9 @@ const printStaffDashboard = () => {
       domString += '<h2 class="text-light">Staff</h2>';
       domString += '<button id="new-staff-btn" class="btn dashboard-btn">';
       domString += '<i class="fas fa-plus dashboard-icon"></i></button>';
-      domString += '<div id="edit-form-container" class="container">';
+      domString += '<div id="edit-staff-form-container" class="container hide">';
       domString += '</div>';
-      domString += '<div id="new-form-container" class="container">';
+      domString += '<div id="new-staff-form-container" class="container hide">';
       domString += '</div>';
       domString += '<div class="d-flex flex-wrap justify-content-around">';
       staffs.forEach((staff) => {
@@ -181,14 +178,14 @@ const modifyStaff = (e) => {
 const removeStaff = (e) => {
   const staffId = e.target.closest('.card').id;
   staffData.deleteStaff(staffId).then(() => printStaffDashboard())
-    .catch((err) => console.error('could not delete pin', err));
+    .catch((err) => console.error('could not delete staff', err));
 };
 
 const staffEvents = () => {
   $('body').on('click', '.edit-staff', editStaffEvent);
   $('body').on('click', '#submit-staff-changes', modifyStaff);
   $('body').on('click', '.delete-staff', removeStaff);
-  $('body').on('click', '#new-staff-btn', newStaffForm);
+  $('body').on('click', '#new-staff-btn', showStaffForm);
   $('body').on('click', '#submit-new-staff', makeNewStaff);
 };
 

@@ -3,6 +3,11 @@ import 'firebase/auth';
 import dinoData from '../../helpers/data/dinoData';
 import utils from '../../helpers/utils';
 
+const showEditForm = () => {
+  $('div#edit-dino-form-container').removeClass('hide');
+  $('div#new-dino-form-container').addClass('hide');
+};
+
 const newDinoForm = () => {
   let domString = '';
   domString += '<h2 class="text-center">New Dino</h2>';
@@ -29,11 +34,18 @@ const newDinoForm = () => {
   domString += '<button type="submit" class="btn btn-dark" id="submit-new-dino">Add Dino</button>';
   domString += '</form>';
 
-  utils.printToDom('new-form-container', domString);
+  utils.printToDom('new-dino-form-container', domString);
+};
+
+const showDinoForm = () => {
+  $('#new-dino-form-container').removeClass('hide');
+  $('#edit-dino-form-container').addClass('hide');
+
+  newDinoForm();
 };
 
 const editDinoForm = (dinoId) => {
-  console.error(dinoId, 'dinoId top of editDino');
+  showEditForm();
   dinoData.getSingleDino(dinoId)
     .then((response) => {
       const dino = response.data;
@@ -62,14 +74,13 @@ const editDinoForm = (dinoId) => {
       domString += '<label class="form-check-label" for="editDinoRadios">Is NOT Hungry</div>';
       domString += '<button type="submit" class="btn btn-dark" id="submit-dino-changes">Submit Changes</button>';
       domString += '</form>';
-      utils.printToDom('edit-form-container', domString);
+      utils.printToDom('edit-dino-form-container', domString);
     });
 };
 
 const editDinoEvent = (e) => {
   e.preventDefault();
   const dinoId = e.target.closest('.card').id;
-  console.error(dinoId, 'editDinoEvent dinoId');
   editDinoForm(dinoId);
 };
 
@@ -81,7 +92,7 @@ const printDinos = (dino) => {
   domString += '<div class="card-body">';
   domString += dino.isHungry ? `${dino.name} is hungry!` : `${dino.name} is fine.`;
   domString += '<button class="btn btn-danger delete-dino d-flex justify-content-center">X</button>';
-  domString += '<button class="btn btn-success edit-dino" data-toggle="collapse" data-target="#editFormCollapse" type="button" aria-expanded="false" aria-controls="editFormCollapse">';
+  domString += '<button class="btn btn-success edit-dino">';
   domString += 'Edit Dino';
   domString += '</button>';
   domString += '</div>';
@@ -95,11 +106,11 @@ const printDinosDashboard = () => {
     .then((dinos) => {
       let domString = '';
       domString += '<h2 class="text-light">Dinos</h2>';
-      domString += '<button id="new-dino-btn" class="btn dashboard-btn" data-toggle="collapse" href="#newFormCollapse" type="button" aria-expanded="false" aria-controls="newFormCollapse">';
+      domString += '<button id="new-dino-btn" class="btn dashboard-btn">';
       domString += '<i class="fas fa-plus dashboard-icon"></i></button>';
-      domString += '<div id="edit-form-container" class="container hide">';
+      domString += '<div id="edit-dino-form-container" class="container hide">';
       domString += '</div>';
-      domString += '<div id="new-form-container" class="container hide">';
+      domString += '<div id="new-dino-form-container" class="container hide">';
       domString += '</div>';
       domString += '<div class="col-12 d-flex flex-wrap justify-content-around">';
       dinos.forEach((dino) => {
@@ -158,7 +169,7 @@ const dinoEvents = () => {
   $('body').on('click', '.edit-dino', editDinoEvent);
   $('body').on('click', '#submit-dino-changes', modifyDino);
   $('body').on('click', '.delete-dino', removeDino);
-  $('body').on('click', '#new-dino-btn', newDinoForm);
+  $('body').on('click', '#new-dino-btn', showDinoForm);
   $('body').on('click', '#submit-new-dino', makeNewDino);
 };
 
