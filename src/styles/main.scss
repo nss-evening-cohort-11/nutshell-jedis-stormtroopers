@@ -1,15 +1,32 @@
 @import "~bootstrap/scss/bootstrap";
 @import "~@fortawesome/fontawesome-free/css/all.min.css";
+@import './fonts.scss';
+@import './colors.scss';
+
+// SITE WIDE STYLES 
 
 body {
-  background-color: #002846;
+  background-color: $dark-blue;
+  font-family: 'Rajdhani';
   #overview-dashboard {
     color: white;
   }
+  h1 {
+    color: $neon;
+  }
+  h1, h2, h3 {
+    font-weight: 700;
+    text-transform: uppercase;
+  }
+  .hide {
+    display: none;
+  }
 }
 
+// NAV STYLES
+
 .navbar {
-  background-color: #117899
+  background-color: $accent-teal;
 }
 
 .dashboard-btn {
@@ -21,36 +38,88 @@ body {
 }
 
 .nav-icon {
-  color: #00d4e7;
+  color: $dark-blue;
 }
 
+.nav-btn:hover {
+  color: white;
+}
+
+#login-btns {
+  i {
+    color: $red;
+  }
+  i:hover {
+    color: white;
+  }
+}
+
+// OVERVIEW PAGE STYLES
+
 .dash-box {
-  background-color: #117899;
+  background-color: $accent-teal;
   height: 25vh;
   border-radius: 1%;
 }
 
-.hide {
-  display: none;
-}
+// DASHBOARD CONTROL BUTTON STYLES
 
 .dashboard-btn {
-  border: 1px solid #F16A0F;
+  border: 2px solid $orange;
   border-radius: 50%;
 }
 
 .dashboard-icon {
-  color: #F16A0F;
+  color: $orange;
+  margin-top: .3rem;
 }
 
 .dashboard-btn:hover {
-  background-color: #F16A0F;
+  background-color: $orange;
   .dashboard-icon {
     color: white;
   }
 }
 
+// CARD STYLES
+
+.card-header, .card-footer {
+  background-color: $card-blue;
+  color: white;
+}
+
+.card-text {
+  font-size: 1.2rem;
+}
+
+// CARD IMAGE STYLES
+
+.equip-image {
+  width: 75%;
+}
+
+// CARD BUTTON STYLES
 
 .card-btn {
+  border: 2px solid;
   border-radius: 50%;
+}
+
+.card-icon {
+  margin-top: .3rem;
+}
+
+// FORM STYLES
+
+.form-card {
+  padding-left: 0;
+  padding-right: 0;
+  background-color: $accent-teal;
+  form {
+    font-size: 1.2rem;
+  }
+  input, textarea {
+    background-color: $card-blue;
+    border-color: white;
+  }
 }

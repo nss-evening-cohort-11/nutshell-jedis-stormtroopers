@@ -83,13 +83,13 @@ const printEquipmentDashboard = () => {
   equipData.getEquips()
     .then((equipmentArr) => {
       let domString = '';
-      domString += '<h2 class="text-center text-light my-3">Equipment</h2>';
-      domString += '<div class="col-12 text-center my-2 mx-2"><button id="new-equipment-btn" class="btn dashboard-btn text-light"><i class="fas fa-plus dashboard-icon"></i></button></div>';
-      domString += '<div id="equipment-form" class="container hide">';
+      domString += '<h1 class="text-center my-3">[ Equipment ]</h1>';
+      domString += '<div class="col-12 text-center my-2"><button id="new-equipment-btn" class="btn dashboard-btn text-light"><i class="fas fa-plus dashboard-icon"></i></button></div>';
+      domString += '<div id="equipment-form" class="col-12 hide">';
       domString += '</div>';
-      domString += '<div id="equipment-update-form" class="container hide">';
+      domString += '<div id="equipment-update-form" class="col-12 hide">';
       domString += '</div>';
-      domString += '<div class="d-flex flex-wrap justify-content-center">';
+      domString += '<div class="d-flex flex-wrap">';
       equipmentArr.forEach((equipments) => {
         domString += equipment.buildEquipment(equipments);
       });
