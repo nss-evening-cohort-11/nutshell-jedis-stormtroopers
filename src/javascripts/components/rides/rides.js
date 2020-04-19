@@ -82,8 +82,8 @@ const rideEvents = () => {
 const newRideFormBuilder = () => {
   let domString = '';
   domString += '<div id="new-ride-form-container" class="col-12 my-3 hide">';
-  domString += '<div class="card col-6 offset-3">';
-  domString += '<div class="card-header">';
+  domString += '<div class="card form-card col-6 offset-3">';
+  domString += '<div class="card-header text-center">';
   domString += '<h3>Add a Ride</h3>';
   domString += '</div>';
   domString += '<div class="card-body">';
@@ -96,9 +96,11 @@ const newRideFormBuilder = () => {
   domString += '  <label for="new-ride-description">Ride Description:</label>';
   domString += '  <input type="text" class="form-control" id="new-ride-description" placeholder="Enter ride description">';
   domString += '</div>';
-  domString += '<button type="submit" id="ride-creator-btn" class="btn btn-primary">Add Ride</button>';
-  domString += '</form>';
   domString += '</div>';
+  domString += '<div class="card-footer text-center">';
+  domString += '<button type="submit" id="ride-creator-btn" class="btn btn-outline-success">Add</button>';
+  domString += '</div>';
+  domString += '</form>';
   domString += '</div>';
   domString += '</div>';
   return domString;
@@ -106,8 +108,8 @@ const newRideFormBuilder = () => {
 
 const updateRideFormBuilder = (rideId, selectedRideId) => {
   let domString = '';
-  domString += `<div class="card col-6 offset-3" data-ride-id=${rideId}>`;
-  domString += '<div class="card-header">';
+  domString += `<div class="card form-card col-6 offset-3" data-ride-id=${rideId}>`;
+  domString += '<div class="card-header text-center">';
   domString += '<h3>Edit a Ride</h3>';
   domString += '</div>';
   domString += '<div class="card-body">';
@@ -124,9 +126,11 @@ const updateRideFormBuilder = (rideId, selectedRideId) => {
   domString += `  <input type="checkbox" class="form-check-input" ${selectedRideId.data.isBroken ? 'checked' : ''} id="ride-broken-status">`;
   domString += '  <label class="form-check-label" for="ride-broken-status">Closed for Maintenance</label>';
   domString += '</div>';
-  domString += '<button type="submit" id="ride-modifier-btn" class="btn btn-primary">Update Ride</button>';
-  domString += '</form>';
   domString += '</div>';
+  domString += '<div class="card-footer text-center">';
+  domString += '<button type="submit" id="ride-modifier-btn" class="btn btn-outline-success">Update</button>';
+  domString += '</div>';
+  domString += '</form>';
   domString += '</div>';
   utils.printToDom('update-ride-form-container', domString);
 };
@@ -134,13 +138,17 @@ const updateRideFormBuilder = (rideId, selectedRideId) => {
 const rideCardBuilder = (ride) => {
   let domString = '';
   domString += '   <div class="col-lg-4 col-md-6">';
-  domString += `     <div id="${ride.id}" class="card text-center my-2 ride-card ${ride.isBroken ? 'bg-danger' : ''}">`;
+  domString += `     <div id="${ride.id}" class="card text-center my-2 ride-card ${ride.isBroken ? 'bg-danger' : 'bg-info'}">`;
+  domString += '       <div class="card-header">';
+  domString += `         <h2 class="card-title">${ride.name}</h2>`;
+  domString += '       </div>';
   domString += '       <div class="card-body">';
-  domString += `         <h2>${ride.name}</h2>`;
-  domString += `         <p>${ride.description}</p>`;
-  domString += `         <p>${ride.isBroken ? 'Ride Status: Closed for Maintenance' : 'Ride Status: Open'}</p>`;
-  domString += `         <button class="btn card-btn delete-ride-btn mx-1 ${ride.isBroken ? 'btn-outline-light' : 'btn-outline-danger'}"><i class="fas fa-trash"></i></button>`;
-  domString += `         <button class="btn card-btn update-ride-btn mx-1 ${ride.isBroken ? 'btn-outline-light' : 'btn-outline-success'}"><i class="fas fa-pencil-alt"></i></button>`;
+  domString += `         <p class="card-text">${ride.description}</p>`;
+  domString += `         <p class="card-text">${ride.isBroken ? 'Ride Status: <strong>Closed for Maintenance</strong>' : 'Ride Status: <strong>Open</strong>'}</p>`;
+  domString += '       </div>';
+  domString += '       <div class="card-footer">';
+  domString += '         <button class="btn card-btn delete-ride-btn mx-1 btn-outline-danger"><i class="fas fa-trash card-icon"></i></button>';
+  domString += '        <button class="btn card-btn update-ride-btn mx-1 btn-outline-success"><i class="fas fa-pencil-alt card-icon"></i></button>';
   domString += '       </div>';
   domString += '     </div>';
   domString += '   </div>';
@@ -151,9 +159,9 @@ const printRidesDashboard = () => {
   ridesData.getRides()
     .then((rides) => {
       let domString = '';
-      domString += '<div class="d-flex flex-wrap justify-content-center">';
-      domString += '<div class="col-12 text-white text-center"><h2>Rides</h2></div>';
-      domString += '<div class="col-12 text-center"><button id="new-ride-btn" class="btn dashboard-btn"><i class="fas fa-plus dashboard-icon"></i></button></div>';
+      domString += '<div class="d-flex flex-wrap">';
+      domString += '<div class="col-12 text-center"><h1 class="my-3">[ Rides ]</h1></div>';
+      domString += '<div class="col-12 text-center"><button id="new-ride-btn" class="btn dashboard-btn mb-2"><i class="fas fa-plus dashboard-icon"></i></button></div>';
       domString += newRideFormBuilder();
       domString += '<div id="update-ride-form-container" class="col-12 my-3 hide"></div>';
       rides.forEach((ride) => {

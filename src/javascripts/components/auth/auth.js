@@ -10,7 +10,7 @@ const signMeIn = () => {
 };
 
 const loginButton = () => {
-  const domString = '<button id="google-auth" class="btn"><i class="fab fa-google text-danger"></i></button>';
+  const domString = '<button id="google-auth" class="btn"><i class="fab fa-google"></i></button>';
   utils.printToDom('auth', domString);
   $('#google-auth').click(signMeIn);
 };
