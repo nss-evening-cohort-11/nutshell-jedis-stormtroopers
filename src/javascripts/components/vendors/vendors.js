@@ -20,8 +20,8 @@ const deleteVendorEvent = (e) => {
 
 const newVendorEvent = (e) => {
   e.preventDefault();
-  const newVendorName = $('#vendor-name').val();
-  const newVendorDescription = $('#vendor-description').val();
+  const newVendorName = $('#new-vendor-name').val();
+  const newVendorDescription = $('#new-vendor-description').val();
   const myUid = firebase.auth().currentUser.uid;
 
 
@@ -42,7 +42,25 @@ const newVendorEvent = (e) => {
 
 const updateVendorEvent = (e) => {
   e.preventDefault();
-  console.log('in edit vendor');
+  const updatedVendorId = e.target.closest('.update-vendor-form-tag').id;
+  const updatedVendorName = $('#edit-vendor-name').val();
+  const updatedVendorDescription = $('#edit-vendor-description').val();
+  const isOpenCheckBox = $('#vendor-open-checkbox').is(':checked');
+  const myUid = firebase.auth().currentUser.uid;
+
+  const updatedVendor = {
+    name: updatedVendorName,
+    description: updatedVendorDescription,
+    isOpen: isOpenCheckBox,
+    uid: myUid,
+  };
+
+  vendorsData.updateVendor(updatedVendorId, updatedVendor)
+    .then(() => {
+      // eslint-disable-next-line no-use-before-define
+      printVendorsDashboard();
+    })
+    .catch((err) => console.error('problem with update vendor in update vendor event', err));
 };
 
 const newVendorFormEvent = () => {
@@ -61,10 +79,7 @@ const updateVendorFormEvent = (e) => {
 
   // eslint-disable-next-line no-use-before-define
   updateVendorForm(vendorId);
-
-  console.log('vendorId', vendorId);
 };
-
 
 // ---  DOMSTRING FUNCTIONS  --- //
 
@@ -73,10 +88,10 @@ const newVendorForm = () => {
 
   domString += '<form class="card col-8 offset-2 mb-4 pt-4 pl-4 pr-4 new-vendor-form-tag">';
   domString += '  <div class="form-group">';
-  domString += '    <label class="font-weight-bold" for="vendor-name">Vendor Name</label>';
-  domString += '    <input type="text" class="form-control mb-3" id="vendor-name" placeholder="Enter your vendor name">';
-  domString += '    <label class="font-weight-bold" for="vendor-description">Vendor Description</label>';
-  domString += '    <textarea type="text" class="form-control mb-3" id="vendor-description" placeholder="Enter your vendor description"></textarea>';
+  domString += '    <label class="font-weight-bold" for="new-vendor-name">Vendor Name</label>';
+  domString += '    <input type="text" class="form-control mb-3" id="new-vendor-name" placeholder="Enter your vendor name">';
+  domString += '    <label class="font-weight-bold" for="new-vendor-description">Vendor Description</label>';
+  domString += '    <textarea type="text" class="form-control mb-3" id="new-vendor-description" placeholder="Enter your vendor description"></textarea>';
   domString += '    <button type="submit" class="btn btn-danger float-right" id="vendor-creator-btn">Add Vendor</button>';
   domString += '  </div>';
   domString += '</form>';
@@ -85,22 +100,27 @@ const newVendorForm = () => {
 };
 
 const updateVendorForm = (vendorId) => {
-  console.log('vendorId', vendorId);
+  vendorsData.getSingleVendorByVendorId(vendorId)
+    .then((vendor) => {
+      let domString = '';
 
+      domString += `<form class="card col-8 offset-2 mb-4 pt-4 pl-4 pr-4 update-vendor-form-tag" id=${vendorId}>`;
+      domString += '  <div class="form-group">';
+      domString += '    <label class="font-weight-bold" for="edit-vendor-name">Edit Vendor Name</label>';
+      domString += `    <input type="text" class="form-control mb-3" id="edit-vendor-name" placeholder="Edit  your vendor name" value="${vendor.name}">`;
+      domString += '    <label class="font-weight-bold" for="edit-vendor-description">Edit Vendor Description</label>';
+      domString += `    <textarea type="text" class="form-control mb-3" id="edit-vendor-description" placeholder="Edit your vendor description">${vendor.description}</textarea>`;
+      domString += '<div class="custom-control custom-checkbox">';
+      domString += '<input type="checkbox" class="custom-control-input" id="vendor-open-checkbox">';
+      domString += '<label class="custom-control-label" for="vendor-open-checkbox">Vendor is open</label>';
+      domString += '</div>';
+      domString += '    <button type="submit" class="btn btn-danger float-right" id="vendor-modifier-btn">Update Vendor</button>';
+      domString += '  </div>';
+      domString += '</form>';
 
-  let domString = '';
-
-  domString += '<form class="card col-8 offset-2 mb-4 pt-4 pl-4 pr-4 update-vendor-form-tag">';
-  domString += '  <div class="form-group">';
-  domString += '    <label class="font-weight-bold" for="vendor-name">Edit Vendor Name</label>';
-  domString += '    <input type="text" class="form-control mb-3" id="vendor-name" placeholder="Edit  your vendor name" value="Name">';
-  domString += '    <label class="font-weight-bold" for="vendor-description">Edit Vendor Description</label>';
-  domString += '    <textarea type="text" class="form-control mb-3" id="vendor-name" placeholder="Edit your vendor description">Description</textarea>';
-  domString += '    <button type="submit" class="btn btn-danger float-right" id="vendor-modifier-btn">Update Vendor</button>';
-  domString += '  </div>';
-  domString += '</form>';
-
-  utils.printToDom('update-vendor-form-containter', domString);
+      utils.printToDom('update-vendor-form-containter', domString);
+    })
+    .catch((err) => console.error('problem with get single vendor by vendor id in update vendor form', err));
 };
 
 const printVendorsDashboard = () => {
@@ -122,7 +142,7 @@ const printVendorsDashboard = () => {
         domString += '  <div class="card-body text-center">';
         domString += `    <h5 class="card-title">${vendor.name}</h5>`;
         if (vendor.isOpen === false) {
-          domString += '<p class="text-danger">Closed</p>';
+          domString += '<p class="text-light">Closed</p>';
         }
         domString += `    <p class="card-text">${vendor.description}</p>`;
         domString += '    <button class="btn btn-danger delete-vendor-btn">Delete</button>';
