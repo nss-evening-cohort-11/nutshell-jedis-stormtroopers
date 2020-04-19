@@ -37,12 +37,16 @@ const addEquipmentToContainer = (e) => {
 
 const openEquipmentForm = () => {
   $('#equipment-form').removeClass('hide');
+  $('#equipment-update-form').addClass('hide');
+
   equipment.buildEquipmentForm();
 };
 
 
 const showUpdateEquipmentForm = (equipmentId) => {
   $('#equipment-update-form').removeClass('hide');
+  $('#equipment-form').addClass('hide');
+
   equipData.getSingleEquipment(equipmentId)
     .then((selectedEquipmentId) => {
       // eslint-disable-next-line no-use-before-define
