@@ -129,16 +129,16 @@ const printVendorsDashboard = () => {
       let domString = '';
 
       domString += '<h2 class="text-light text-center">Vendors</h2>';
-      domString += '<div class="d-flex justify-content-center mb-4" id="add-pin-container">';
+      domString += '<div class="d-flex justify-content-center mb-3" id="add-pin-container">';
       domString += '<button class="btn dashboard-btn" id="new-vendor-btn" type="button"><i class="fas fa-plus dashboard-icon"></i></button>';
       domString += '</div>';
       domString += '<div id="new-vendor-form-containter"></div>';
       domString += '<div id="update-vendor-form-containter"></div>';
       domString += '<div id="edit-form-container"></div>';
-      domString += '<div class="d-flex flex-wrap ml-2">';
+      domString += '<div class="d-flex flex-wrap">';
 
       vendors.forEach((vendor) => {
-        domString += `<div class="card col-md-3 m-2 ${vendor.isOpen ? '' : 'bg-danger'}" id="${vendor.id}">`;
+        domString += `<div class="card col-md-4 ${vendor.isOpen ? '' : 'bg-danger'}" id="${vendor.id}">`;
         domString += '  <div class="card-body text-center">';
         domString += `    <h5 class="card-title">${vendor.name}</h5>`;
         if (vendor.isOpen === false) {
