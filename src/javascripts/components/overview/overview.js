@@ -9,8 +9,10 @@ const printOverviewDashboard = () => {
   domString += '  <div class="row my-4">';
   domString += '    <div class="col-md-8 my-2">';
   domString += '      <div class="card bg-info">';
-  domString += '        <div class="card-header"><h2>Staff Overview</h2></div>';
-  domString += '        <div class="card-body dash-card"></div>';
+  domString += '        <div class="card-header"><h2>Staff Overview</h2>';
+  domString += '         </div>';
+  domString += '        <div class="card-body dash-card">';
+  domString += '        </div>';
   domString += '      </div>';
   domString += '    </div>';
   domString += '    <div class="col-md-4 my-2">';
