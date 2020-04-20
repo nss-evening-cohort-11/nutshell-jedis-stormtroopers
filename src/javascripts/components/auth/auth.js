@@ -16,8 +16,8 @@ const loginButton = () => {
 };
 
 const logoutEvent = () => {
-  $('#logout-btn').click((e) => {
-    e.preventDefault();
+  $('#logout-btn').click(() => {
+    window.location.reload(false);
     firebase.auth().signOut();
   });
 };
