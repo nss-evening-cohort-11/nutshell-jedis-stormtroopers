@@ -2,9 +2,6 @@ import firebase from 'firebase/app';
 import 'firebase/auth';
 import dinoData from '../../helpers/data/dinoData';
 import utils from '../../helpers/utils';
-import chart from '../../helpers/randChart';
-
-const chartF = () => chart.randomChart('#DC3546', 'ACTIVITY MONITOR', '', 100, 'chart-card-body');
 
 const showEditForm = () => {
   $('div#edit-dino-form-container').removeClass('hide');
@@ -144,22 +141,6 @@ const printDinosDashboard = () => {
         if (dino) domString += printDinos(dino);
       });
       domString += '</div>';
-      domString += '<div class="col-12 justify-content-center">';
-      domString += '<div class="card text-center my-2 bg-info">';
-      domString += '<div class="card-header">';
-      domString += '<h2 class="card-title">Activity Monitor</h2>';
-      domString += '</div>';
-      domString += '<div id="chart-card-body">';
-      domString += '</div>';
-      domString += '<div class="card-footer">';
-      domString += '<button class="btn card-btn mx-1 btn-outline-danger delete-dino"><i class="fas fa-trash card-icon"></i></button>';
-      domString += '<button class="btn card-btn mx-1 btn-outline-success edit-dino">';
-      domString += '<i class="fas fa-pencil-alt card-icon"></i>';
-      domString += '</button>';
-      domString += '</div>';
-      domString += '</div>';
-      domString += '</div>';
-      $(document).ready(chartF);
       utils.printToDom('dino-dashboard', domString);
     })
     .catch((err) => console.error('printDinosDashboard broke', err));
