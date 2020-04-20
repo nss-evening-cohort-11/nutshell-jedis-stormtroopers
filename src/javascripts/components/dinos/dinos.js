@@ -85,7 +85,7 @@ const editDinoForm = (dinoId) => {
       domString += '<label class="form-check-label" for="editDinoRadios">Is NOT Hungry</div>';
       domString += '</div>';
       domString += '<div class="card-footer text-center">';
-      domString += '<button type="submit" class="btn btn-outline-success" id="submit-dino-changes">Upate</button>';
+      domString += '<button type="submit" class="btn btn-outline-success" id="submit-dino-changes">Update</button>';
       domString += '</div>';
       domString += '</form>';
       domString += '</div>';
