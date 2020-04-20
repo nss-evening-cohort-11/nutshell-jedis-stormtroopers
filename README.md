@@ -1,6 +1,9 @@
 # Jurassic Park Dashboard
 
 ![screenshot of jurassic world](https://i.ibb.co/r5QQHCT/Screen-Shot-2020-04-20-at-11-03-31.png)
+![screenshot of jurassic world](https://i.ibb.co/6spZcwz/Screen-Shot-2020-04-20-at-11-30-45.png)
+![screenshot of jurassic world](https://i.ibb.co/jy39Kd8/Screen-Shot-2020-04-20-at-11-29-51.png)
+![screenshot of jurassic world](https://i.ibb.co/myw61fj/Screen-Shot-2020-04-20-at-11-32-56.png)
 
 ## Manage your dinosaur theme park with our state-of-the-art management interface.
 
