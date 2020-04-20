@@ -25,10 +25,13 @@ const updateEquipment = (equipmentId, modifiedEquipment) => axios.put(`${baseUrl
 
 const getSingleEquipment = (equipmentId) => axios.get(`${baseUrl}/equipment/${equipmentId}.json`);
 
+const breakEquipment = (equipmentId) => axios.patch(`${baseUrl}/equipment/${equipmentId}.json`, { isBroken: true });
+
 export default {
   getEquips,
   deleteEquipment,
   addEquipment,
   updateEquipment,
   getSingleEquipment,
+  breakEquipment,
 };

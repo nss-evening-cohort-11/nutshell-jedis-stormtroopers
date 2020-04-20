@@ -13,6 +13,7 @@ import '../styles/main.scss';
 
 import authData from './helpers/data/authData';
 import auth from './components/auth/auth';
+import chaosMonkey from './components/chaosMonkey/chaosMonkey';
 
 const mainEvents = () => {
   $('body').on('click', '.nav-icon', navbarComponent.navbarEvents);
@@ -32,6 +33,7 @@ const init = () => {
   ridesComponent.printRidesDashboard();
   equipmentComponent.printEquipmentDashboard();
   vendorsComponent.printVendorsDashboard();
+  chaosMonkey.unleashChaosMonkey();
 };
 
 init();
