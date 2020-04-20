@@ -15,20 +15,17 @@ import authData from './helpers/data/authData';
 import auth from './components/auth/auth';
 // import chaosMonkey from './components/chaosMonkey/chaosMonkey';
 
-const events = () => {
+const mainEvents = () => {
   $('body').on('click', '.nav-icon', navbarComponent.navbarEvents);
-  ridesComponent.rideEvents();
-  vendorsComponent.vendorsEvents();
-  dinosComponent.dinoEvents();
-  staffComponent.staffEvents();
 };
+
 
 const init = () => {
   firebase.initializeApp(apiKeys.firebaseKeys);
   authData.checkLoginStatus();
   auth.loginButton();
   auth.logoutEvent();
-  events();
+  mainEvents();
   overviewComponent.printOverviewDashboard();
   dinosComponent.printDinosDashboard();
   overviewComponent.printOverviewDashboard();
