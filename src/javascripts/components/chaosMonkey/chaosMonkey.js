@@ -19,17 +19,24 @@ const randomChaosMonkeyStrike = () => {
       equipData.getEquips()
         .then((allEquipment) => {
           const equipRandNum = Math.ceil(Math.random() * allEquipment.length - 1);
-          const randEquipId = allEquipment[equipRandNum].id;
 
-          randomStrike = `broke the ${allEquipment[equipRandNum].name}`;
-          // eslint-disable-next-line no-use-before-define
-          chaosMonkeyAlert(randomStrike);
+          if (allEquipment[equipRandNum].isBroken === false) {
+            const randEquipId = allEquipment[equipRandNum].id;
 
-          equipData.breakEquipment(randEquipId)
-            .then(() => {
-              equipmentStorageContainer.printEquipmentDashboard();
-            })
-            .catch((err) => console.error('problem with break equipment in Chaos Monkey', err));
+            randomStrike = `broke the ${allEquipment[equipRandNum].name}`;
+            // eslint-disable-next-line no-use-before-define
+            chaosMonkeyAlert(randomStrike);
+
+            equipData.breakEquipment(randEquipId)
+              .then(() => {
+                equipmentStorageContainer.printEquipmentDashboard();
+              })
+              .catch((err) => console.error('problem with break equipment in Chaos Monkey', err));
+          } else {
+            randomStrike = `fixes the ${allEquipment[equipRandNum].name}, and breaks it again`;
+            // eslint-disable-next-line no-use-before-define
+            chaosMonkeyAlert(randomStrike);
+          }
         })
         .catch((err) => console.error('problem with get equips in Chaos Monkey', err));
       break;
@@ -37,17 +44,24 @@ const randomChaosMonkeyStrike = () => {
       staffData.getStaffs()
         .then((allStaff) => {
           const staffRandNum = Math.ceil(Math.random() * allStaff.length - 1);
-          const randStaffId = allStaff[staffRandNum].id;
 
-          randomStrike = `kidnapped ${allStaff[staffRandNum].name}`;
-          // eslint-disable-next-line no-use-before-define
-          chaosMonkeyAlert(randomStrike);
+          if (allStaff[staffRandNum].isKidnapped === false) {
+            const randStaffId = allStaff[staffRandNum].id;
 
-          staffData.kidnapStaff(randStaffId)
-            .then(() => {
-              staffComponent.printStaffDashboard();
-            })
-            .catch((err) => console.error('problem with kidnap staff in Chaos Monkey', err));
+            randomStrike = `kidnapped ${allStaff[staffRandNum].name}`;
+            // eslint-disable-next-line no-use-before-define
+            chaosMonkeyAlert(randomStrike);
+
+            staffData.kidnapStaff(randStaffId)
+              .then(() => {
+                staffComponent.printStaffDashboard();
+              })
+              .catch((err) => console.error('problem with kidnap staff in Chaos Monkey', err));
+          } else {
+            randomStrike = `has ${allStaff[staffRandNum].name} captive`;
+            // eslint-disable-next-line no-use-before-define
+            chaosMonkeyAlert(randomStrike);
+          }
         })
         .catch((err) => console.error('problem with get staffs in Chaos Monkey', err));
 
@@ -58,15 +72,21 @@ const randomChaosMonkeyStrike = () => {
           const ridesRandNum = Math.ceil(Math.random() * allRides.length - 1);
           const randRideId = allRides[ridesRandNum].id;
 
-          randomStrike = `broke the ${allRides[ridesRandNum].name}`;
-          // eslint-disable-next-line no-use-before-define
-          chaosMonkeyAlert(randomStrike);
+          if (allRides[ridesRandNum].isBroken === false) {
+            randomStrike = `broke the ${allRides[ridesRandNum].name}`;
+            // eslint-disable-next-line no-use-before-define
+            chaosMonkeyAlert(randomStrike);
 
-          ridesData.breakRide(randRideId)
-            .then(() => {
-              ridesComponent.printRidesDashboard();
-            })
-            .catch((err) => console.error('problem with break ride in Chaos Monkey', err));
+            ridesData.breakRide(randRideId)
+              .then(() => {
+                ridesComponent.printRidesDashboard();
+              })
+              .catch((err) => console.error('problem with break ride in Chaos Monkey', err));
+          } else {
+            randomStrike = `smashes the ${allRides[ridesRandNum].name} one more time`;
+            // eslint-disable-next-line no-use-before-define
+            chaosMonkeyAlert(randomStrike);
+          }
         })
         .catch((err) => console.error('problem with get rides in Chaos Monkey', err));
       break;
