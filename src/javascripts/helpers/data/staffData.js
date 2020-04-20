@@ -21,7 +21,7 @@ const getStaffs = () => new Promise((resolve, reject) => {
 
 const deleteStaff = (staffId) => axios.delete(`${baseUrl}/staff/${staffId}.json`);
 
-const addStaff = (newDino) => axios.post(`${baseUrl}/staff/${newDino}.json`);
+const addStaff = (newStaff) => axios.post(`${baseUrl}/staff.json`, newStaff);
 
 const updateStaff = (staffId, modifiedStaff) => axios.put(`${baseUrl}/staff/${staffId}.json`, modifiedStaff);
 

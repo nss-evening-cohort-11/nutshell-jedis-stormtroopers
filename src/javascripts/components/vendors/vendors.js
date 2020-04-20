@@ -86,15 +86,24 @@ const updateVendorFormEvent = (e) => {
 const newVendorForm = () => {
   let domString = '';
 
-  domString += '<form class="card col-8 offset-2 mb-4 pt-4 pl-4 pr-4 new-vendor-form-tag">';
-  domString += '  <div class="form-group">';
-  domString += '    <label class="font-weight-bold" for="new-vendor-name">Vendor Name</label>';
-  domString += '    <input type="text" class="form-control mb-3" id="new-vendor-name" placeholder="Enter your vendor name">';
-  domString += '    <label class="font-weight-bold" for="new-vendor-description">Vendor Description</label>';
-  domString += '    <textarea type="text" class="form-control mb-3" id="new-vendor-description" placeholder="Enter your vendor description"></textarea>';
-  domString += '    <button type="submit" class="btn btn-danger float-right" id="vendor-creator-btn">Add Vendor</button>';
+  domString += '<div class="card form-card col-6 offset-3 new-vendor-form-tag">';
+  domString += '  <div class="card-header text-center">';
+  domString += '  <h3>Add a Vendor</h3>';
   domString += '  </div>';
-  domString += '</form>';
+  domString += '  <div class="card-body">';
+  domString += '  <form>';
+  domString += '  <div class="form-group">';
+  domString += '    <label for="new-vendor-name">Vendor Name</label>';
+  domString += '    <input type="text" class="form-control mb-3" id="new-vendor-name" placeholder="Enter your vendor name">';
+  domString += '    <label for="new-vendor-description">Vendor Description</label>';
+  domString += '    <textarea type="text" class="form-control mb-3" id="new-vendor-description" placeholder="Enter your vendor description"></textarea>';
+  domString += '  </div>';
+  domString += '  </div>';
+  domString += '  <div class="card-footer text-center">';
+  domString += '    <button type="submit" class="btn btn-outline-success" id="vendor-creator-btn">Add</button>';
+  domString += '  </div>';
+  domString += '  </form>';
+  domString += '</div>';
 
   utils.printToDom('new-vendor-form-containter', domString);
 };
@@ -104,19 +113,28 @@ const updateVendorForm = (vendorId) => {
     .then((vendor) => {
       let domString = '';
 
-      domString += `<form class="card col-8 offset-2 mb-4 pt-4 pl-4 pr-4 update-vendor-form-tag" id=${vendorId}>`;
-      domString += '  <div class="form-group">';
-      domString += '    <label class="font-weight-bold" for="edit-vendor-name">Edit Vendor Name</label>';
-      domString += `    <input type="text" class="form-control mb-3" id="edit-vendor-name" placeholder="Edit  your vendor name" value="${vendor.name}">`;
-      domString += '    <label class="font-weight-bold" for="edit-vendor-description">Edit Vendor Description</label>';
-      domString += `    <textarea type="text" class="form-control mb-3" id="edit-vendor-description" placeholder="Edit your vendor description">${vendor.description}</textarea>`;
-      domString += '<div class="custom-control custom-checkbox">';
-      domString += '<input type="checkbox" class="custom-control-input" id="vendor-open-checkbox">';
-      domString += '<label class="custom-control-label" for="vendor-open-checkbox">Vendor is open</label>';
-      domString += '</div>';
-      domString += '    <button type="submit" class="btn btn-danger float-right" id="vendor-modifier-btn">Update Vendor</button>';
+      domString += `<fo class="card form-card col-6 offset-3 update-vendor-form-tag" id=${vendorId}>`;
+      domString += '  <div class="card-header text-center">';
+      domString += '  <h3>Edit a Vendor</h3>';
       domString += '  </div>';
-      domString += '</form>';
+      domString += '  <div class="card-body">';
+      domString += '  <form>';
+      domString += '  <div class="form-group">';
+      domString += '    <label for="edit-vendor-name">Edit Vendor Name</label>';
+      domString += `    <input type="text" class="form-control mb-3" id="edit-vendor-name" placeholder="Edit  your vendor name" value="${vendor.name}">`;
+      domString += '    <label for="edit-vendor-description">Edit Vendor Description</label>';
+      domString += `    <textarea type="text" class="form-control mb-3" id="edit-vendor-description" placeholder="Edit your vendor description">${vendor.description}</textarea>`;
+      domString += '    <div class="custom-control custom-checkbox">';
+      domString += `      <input type="checkbox" class="custom-control-input" id="vendor-open-checkbox" ${vendor.isOpen ? 'checked' : ''}>`;
+      domString += '      <label class="custom-control-label" for="vendor-open-checkbox">Vendor is open</label>';
+      domString += '    </div>';
+      domString += '  </div>';
+      domString += '  </div>';
+      domString += '  <div class="card-footer text-center">';
+      domString += '    <button type="submit" class="btn btn-outline-success" id="vendor-modifier-btn">Update</button>';
+      domString += '  </div>';
+      domString += '  </form>';
+      domString += '</div>';
 
       utils.printToDom('update-vendor-form-containter', domString);
     })
@@ -128,26 +146,33 @@ const printVendorsDashboard = () => {
     .then((vendors) => {
       let domString = '';
 
-      domString += '<h2 class="text-light text-center">Vendors</h2>';
+      domString += '<h1 class="text-center my-3">[ Vendors ]</h1>';
       domString += '<div class="d-flex justify-content-center mb-3" id="add-pin-container">';
       domString += '<button class="btn dashboard-btn" id="new-vendor-btn" type="button"><i class="fas fa-plus dashboard-icon"></i></button>';
       domString += '</div>';
-      domString += '<div id="new-vendor-form-containter"></div>';
-      domString += '<div id="update-vendor-form-containter"></div>';
+      domString += '<div id="new-vendor-form-containter" class="my-3"></div>';
+      domString += '<div id="update-vendor-form-containter" class="my-3"></div>';
       domString += '<div id="edit-form-container"></div>';
       domString += '<div class="d-flex flex-wrap">';
 
       vendors.forEach((vendor) => {
-        domString += `<div class="card col-md-4 ${vendor.isOpen ? '' : 'bg-danger'}" id="${vendor.id}">`;
+        domString += '<div class="col-lg-4 col-md-6">';
+        domString += `<div class="card text-center my-2 ${vendor.isOpen ? 'bg-info' : 'bg-danger'}" id="${vendor.id}">`;
+        domString += '  <div class="card-header">';
+        domString += `    <h2 class="card-title">${vendor.name}</h2>`;
+        domString += '  </div>';
         domString += '  <div class="card-body text-center">';
-        domString += `    <h5 class="card-title">${vendor.name}</h5>`;
         if (vendor.isOpen === false) {
-          domString += '<p class="text-light">Closed</p>';
+          domString += '<p class="card-text text-light"><strong>Closed</strong></p>';
         }
         domString += `    <p class="card-text">${vendor.description}</p>`;
-        domString += '    <button class="btn btn-danger delete-vendor-btn">Delete</button>';
-        domString += '    <button class="btn btn-danger update-vendor-btn" type="button" data-toggle="collapse" data-target="#update-vendor-form" aria-expanded="false" aria-controls="updateVendorForm">Edit</button>';
         domString += '  </div>';
+        domString += '  <div class="card-footer">';
+        domString += '    <button class="btn card-btn mx-1 btn-outline-danger delete-vendor-btn"><i class="fas fa-trash card-icon"></i></button>';
+        // eslint-disable-next-line max-len
+        domString += '    <button class="btn card-btn mx-1 btn-outline-success update-vendor-btn" type="button" data-toggle="collapse" data-target="#update-vendor-form" aria-expanded="false" aria-controls="updateVendorForm"><i class="fas fa-pencil-alt card-icon"></i></button>';
+        domString += '  </div>';
+        domString += '</div>';
         domString += '</div>';
       });
 
