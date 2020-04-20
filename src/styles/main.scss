@@ -57,7 +57,21 @@ body {
 // OVERVIEW PAGE STYLES
 
 .dash-card {
-  height: 25vh;
+  height: 300px;
+}
+
+#overview-dashboard p {
+  font-size: 1.2rem;
+}
+
+#eotm-photo {
+  max-height: 200px;
+  max-width: 200px;
+}
+
+#missing-staff-count {
+  font-size: 5rem;
+  color: $red;
 }
 
 // DASHBOARD CONTROL BUTTON STYLES

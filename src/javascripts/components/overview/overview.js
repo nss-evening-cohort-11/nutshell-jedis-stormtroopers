@@ -1,4 +1,5 @@
 import utils from '../../helpers/utils';
+import staffOverview from './staffOverview';
 
 const printOverviewDashboard = () => {
   let domString = '';
@@ -7,7 +8,9 @@ const printOverviewDashboard = () => {
   domString += '    <div class="col-md-8 my-2">';
   domString += '      <div class="card bg-info">';
   domString += '        <div class="card-header"><h2>Staff Overview</h2></div>';
-  domString += '        <div class="card-body dash-card"></div>';
+  domString += '        <div class="card-body dash-card"><div class="d-flex flex-row justify-content-around">';
+  domString += staffOverview.buildStaffOverview();
+  domString += '        </div></div>';
   domString += '      </div>';
   domString += '    </div>';
   domString += '    <div class="col-md-4 my-2">';
