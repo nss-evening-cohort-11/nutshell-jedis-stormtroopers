@@ -9,7 +9,7 @@ const buildEquipment = (equipments) => {
   domString += '          </div>';
   domString += '          <div class="card-body">';
   domString += '           <div>';
-  domString += `             <img class="card-img-top equip-image" src="${equipments.imageUrl}" alt="Card image cap"></img>`;
+  domString += `             <img class="card-img-top cards-image" src="${equipments.imageUrl}" alt="Card image cap"></img>`;
   domString += '           </div>';
   domString += `           <p class="card-text mt-3">${equipments.description}</p>`;
   domString += '           </div>';

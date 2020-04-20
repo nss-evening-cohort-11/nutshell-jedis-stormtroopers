@@ -62,6 +62,10 @@ body {
   border-radius: 1%;
 }
 
+.dash-card {
+  height: 25vh;
+}
+
 // DASHBOARD CONTROL BUTTON STYLES
 
 .dashboard-btn {
@@ -94,8 +98,9 @@ body {
 
 // CARD IMAGE STYLES
 
-.equip-image {
+.cards-image {
   width: 75%;
+  max-height: 425px;
 }
 
 // CARD BUTTON STYLES
