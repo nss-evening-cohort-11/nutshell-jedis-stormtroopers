@@ -27,10 +27,13 @@ const updateRide = (rideId, modifiedRide) => axios.put(`${baseUrl}/rides/${rideI
 
 const getSingleRide = (rideId) => axios.get(`${baseUrl}/rides/${rideId}.json`);
 
+const breakRide = (rideId) => axios.patch(`${baseUrl}/rides/${rideId}.json`, { isBroken: true });
+
 export default {
   getRides,
   deleteRide,
   addRide,
   updateRide,
   getSingleRide,
+  breakRide,
 };
