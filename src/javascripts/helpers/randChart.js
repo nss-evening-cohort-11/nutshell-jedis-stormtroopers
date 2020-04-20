@@ -9,7 +9,7 @@ const randomChart = (color, xlabel, ylabel, randRange, divId) => {
   }], {
     colorway: [`${color}`],
     autosize: false,
-    width: 1240,
+    width: 1200,
     height: 400,
     margin: {
       l: 50,
