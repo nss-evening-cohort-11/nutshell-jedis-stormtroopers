@@ -147,7 +147,7 @@ const printDinosDashboard = () => {
       domString += '<div class="col-12 justify-content-center">';
       domString += '<div class="card text-center my-2 bg-info">';
       domString += '<div class="card-header">';
-      domString += '<h2 class="card-title">Chart</h2>';
+      domString += '<h2 class="card-title">Activity Monitor</h2>';
       domString += '</div>';
       domString += '<div id="chart-card-body">';
       domString += '</div>';
