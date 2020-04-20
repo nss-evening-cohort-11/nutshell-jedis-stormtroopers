@@ -1,6 +1,8 @@
 import utils from '../../helpers/utils';
 import chart from '../../helpers/randChart';
 
+import staffOverview from './staffOverview';
+
 const showChart = () => chart.randomChart('16A2B8', '', '', 1000, 'dash-card-overview');
 
 const printOverviewDashboard = () => {
@@ -9,10 +11,10 @@ const printOverviewDashboard = () => {
   domString += '  <div class="row my-4">';
   domString += '    <div class="col-md-8 my-2">';
   domString += '      <div class="card bg-info">';
-  domString += '        <div class="card-header"><h2>Staff Overview</h2>';
-  domString += '         </div>';
-  domString += '        <div class="card-body dash-card">';
-  domString += '        </div>';
+  domString += '        <div class="card-header"><h2>Staff Overview</h2></div>';
+  domString += '        <div class="card-body dash-card"><div class="d-flex flex-row justify-content-around">';
+  domString += staffOverview.buildStaffOverview();
+  domString += '        </div></div>';
   domString += '      </div>';
   domString += '    </div>';
   domString += '    <div class="col-md-4 my-2">';

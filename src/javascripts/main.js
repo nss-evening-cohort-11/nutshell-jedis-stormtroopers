@@ -28,7 +28,6 @@ const init = () => {
   mainEvents();
   overviewComponent.printOverviewDashboard();
   dinosComponent.printDinosDashboard();
-  overviewComponent.printOverviewDashboard();
   staffComponent.printStaffDashboard();
   ridesComponent.printRidesDashboard();
   equipmentComponent.printEquipmentDashboard();
