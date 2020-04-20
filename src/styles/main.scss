@@ -56,10 +56,8 @@ body {
 
 // OVERVIEW PAGE STYLES
 
-.dash-box {
-  background-color: $accent-teal;
+.dash-card {
   height: 25vh;
-  border-radius: 1%;
 }
 
 // DASHBOARD CONTROL BUTTON STYLES
@@ -92,13 +90,10 @@ body {
   font-size: 1.2rem;
 }
 
-// CARD IMAGE STYLES
-
-.equip-image {
+.cards-image {
   width: 75%;
+  max-height: 425px;
 }
-
-// CARD BUTTON STYLES
 
 .card-btn {
   border: 2px solid;

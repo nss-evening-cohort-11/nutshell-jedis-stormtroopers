@@ -1,7 +1,7 @@
 const navbarEvents = (e) => {
   const btnId = e.target.closest('.btn').id;
   if (btnId === 'nav-dino-btn') {
-    $('#dino-dashboard').toggleClass('hide');
+    $('#dino-dashboard').removeClass('hide');
     $('#overview-dashboard, #staff-dashboard, #rides-dashboard, #equipment-dashboard, #vendors-dashboard').addClass('hide');
   } else if (btnId === 'nav-staff-btn') {
     $('#staff-dashboard').removeClass('hide');
