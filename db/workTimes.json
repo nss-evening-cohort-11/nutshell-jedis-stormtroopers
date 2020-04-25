@@ -1,8 +1,8 @@
 {
-  "workTime1": {
-    "dayName": "AM"
-  },
-  "workTime2": {
-    "dayName": "PM"
-  }
+    "workTime1" : {
+      "dayName" : "AM"
+    },
+    "workTime2" : {
+      "dayName" : "PM"
+    }
 }

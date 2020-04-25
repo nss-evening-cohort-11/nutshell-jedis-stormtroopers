@@ -1,0 +1,42 @@
+{
+    "assignment1" : {
+        "staffId" : "staffMember1",
+        "entityId" : "dino1",
+        "jobTypeId" : "jobType1"
+    },
+    "assignment2" : {
+        "staffId" : "staffMember2",
+        "entityId" : "equipment1",
+        "jobTypeId" : "jobType2"
+    },
+    "assignment3" : {
+        "staffId" : "staffMember3",
+        "entityId" : "ride4",
+        "jobTypeId" : "jobType4"
+    },
+    "assignment4" : {
+        "staffId" : "staffMember4",
+        "entityId" : "vendor5",
+        "jobTypeId" : "jobType3"
+    },
+    "assignment5" : {
+        "staffId" : "staffMember5",
+        "entityId" : "dino1",
+        "jobTypeId" : "jobType1"
+    },
+    "assignment6" : {
+        "staffId" : "staffMember6",
+        "entityId" : "dino2",
+        "jobTypeId" : "jobType1"
+    },
+    "assignment7" : {
+        "staffId" : "staffMember6",
+        "entityId" : "dino2",
+        "jobTypeId" : "jobType1"
+    },
+    "assignment8" : {
+        "staffId" : "staffMember8",
+        "entityId" : "ride5",
+        "jobTypeId" : "jobType4"
+    }
+}
