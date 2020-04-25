@@ -5,13 +5,14 @@ import staffComponent from '../staff/staff';
 import equipData from '../../helpers/data/equipData';
 import ridesData from '../../helpers/data/ridesData';
 import staffData from '../../helpers/data/staffData';
+import smash from '../../helpers/data/smash';
 
 import utils from '../../helpers/utils';
 
 const moment = require('moment');
 
 const randomChaosMonkeyStrike = () => {
-  const randNum = Math.ceil(Math.random() * 3);
+  const randNum = 1; /* Math.ceil(Math.random() * 3); */
   let randomStrike = '';
 
   switch (randNum) {
@@ -29,6 +30,7 @@ const randomChaosMonkeyStrike = () => {
 
             equipData.breakEquipment(randEquipId)
               .then(() => {
+                smash.completelyRemoveTask(randEquipId);
                 equipmentStorageContainer.printEquipmentDashboard();
               })
               .catch((err) => console.error('problem with break equipment in Chaos Monkey', err));
@@ -110,7 +112,7 @@ const chaosMonkeyAlert = (randomStrike) => {
 };
 
 const unleashChaosMonkey = () => {
-  setInterval(randomChaosMonkeyStrike, 60 * 1000);
+  setInterval(randomChaosMonkeyStrike, 20 * 1000);
 };
 
 export default { unleashChaosMonkey };
