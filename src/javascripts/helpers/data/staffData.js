@@ -3,6 +3,22 @@ import apiKeys from '../apiKeys.json';
 
 const baseUrl = apiKeys.firebaseKeys.databaseURL;
 
+const getAllAssignments = () => new Promise((resolve, reject) => {
+  axios.get(`${baseUrl}/assignments.json`)
+    .then((response) => {
+      const theAssignments = response.data;
+      const assignments = [];
+      if (theAssignments) {
+        Object.keys(theAssignments).forEach((assignmentId) => {
+          theAssignments[assignmentId].id = assignmentId;
+          assignments.push(theAssignments[assignmentId]);
+        });
+      }
+      resolve(assignments);
+    })
+    .catch((err) => console.error('getStaff broke', reject(err)));
+});
+
 const getStaffs = () => new Promise((resolve, reject) => {
   axios.get(`${baseUrl}/staff.json`)
     .then((response) => {
@@ -17,6 +33,26 @@ const getStaffs = () => new Promise((resolve, reject) => {
       resolve(staff);
     })
     .catch((err) => console.error('getStaff broke', reject(err)));
+});
+
+const deleteStaffAssignmentsAndShifts = (staffMemberId) => new Promise((resolve, reject) => {
+  getStaffs()
+    .then((staffArray) => {
+      const kidnappedStaffMember = staffArray.find((x) => x.id === staffMemberId); // find the staff member who was kidnapped, by Id
+      getAllAssignments()
+        .then((assignmentsArray) => {
+          const removeThisAssignment = assignmentsArray.find((a) => a.staffId === staffMemberId);
+          if (removeThisAssignment) {
+            // axios.delete(`${baseUrl}/assignments/${removeThisAssignment}.json`);
+            console.error('delete axios:', `${baseUrl}/assignments/${removeThisAssignment}.json`);
+          } else {
+            console.error('no assigments to delete');
+          }
+          resolve(console.error('remove this:', removeThisAssignment));
+        });
+      resolve(console.error('kidnapped:', kidnappedStaffMember));
+    })
+    .catch((err) => console.error('problem with deleting assignments for staff', reject(err)));
 });
 
 const deleteStaff = (staffId) => axios.delete(`${baseUrl}/staff/${staffId}.json`);
@@ -37,4 +73,5 @@ export default {
   getSingleStaffMemeber,
   getStaffs,
   kidnapStaff,
+  deleteStaffAssignmentsAndShifts,
 };
