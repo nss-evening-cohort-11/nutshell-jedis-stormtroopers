@@ -43,7 +43,7 @@ const randomChaosMonkeyStrike = () => {
     case 2: // Kidnap Staff Member
       staffData.getStaffs()
         .then((allStaff) => {
-          const staffRandNum = Math.ceil(Math.random() * allStaff.length - 1);
+          const staffRandNum = 5;// Math.ceil(Math.random() * allStaff.length - 1);
 
           if (allStaff[staffRandNum].isKidnapped === false) { // check if already kidnapped
             const randStaffId = allStaff[staffRandNum].id; // find a random staff member
@@ -59,7 +59,7 @@ const randomChaosMonkeyStrike = () => {
               })
               .catch((err) => console.error('problem with kidnap staff in Chaos Monkey', err));
           } else {
-            randomStrike = `has ${allStaff[staffRandNum].name} captive`; // assign the Alert message if already kidnapped
+            randomStrike = `sent a ransom note for captive ${allStaff[staffRandNum].name}`; // assign the Alert message if already kidnapped
             // eslint-disable-next-line no-use-before-define
             chaosMonkeyAlert(randomStrike); // print the Alert message to dashboard
           }
@@ -111,7 +111,7 @@ const chaosMonkeyAlert = (randomStrike) => {
 };
 
 const unleashChaosMonkey = () => {
-  setInterval(randomChaosMonkeyStrike, 300000 * 1000);
+  setInterval(randomChaosMonkeyStrike, 30 * 1000);
 };
 
 export default { unleashChaosMonkey };

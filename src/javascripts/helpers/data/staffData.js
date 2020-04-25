@@ -19,6 +19,22 @@ const getAllAssignments = () => new Promise((resolve, reject) => {
     .catch((err) => console.error('getStaff broke', reject(err)));
 });
 
+const getAllShifts = () => new Promise((resolve, reject) => {
+  axios.get(`${baseUrl}/shifts.json`)
+    .then((response) => {
+      const theShifts = response.data;
+      const shifts = [];
+      if (theShifts) {
+        Object.keys(theShifts).forEach((shiftId) => {
+          theShifts[shiftId].id = shiftId;
+          shifts.push(theShifts[shiftId]);
+        });
+      }
+      resolve(shifts);
+    })
+    .catch((err) => console.error('getStaff broke', reject(err)));
+});
+
 const getStaffs = () => new Promise((resolve, reject) => {
   axios.get(`${baseUrl}/staff.json`)
     .then((response) => {
@@ -36,21 +52,18 @@ const getStaffs = () => new Promise((resolve, reject) => {
 });
 
 const deleteStaffAssignmentsAndShifts = (staffMemberId) => new Promise((resolve, reject) => {
-  getStaffs()
-    .then((staffArray) => {
-      const kidnappedStaffMember = staffArray.find((x) => x.id === staffMemberId); // find the staff member who was kidnapped, by Id
-      getAllAssignments()
-        .then((assignmentsArray) => {
-          const removeThisAssignment = assignmentsArray.find((a) => a.staffId === staffMemberId);
-          if (removeThisAssignment) {
-            // axios.delete(`${baseUrl}/assignments/${removeThisAssignment}.json`);
-            console.error('delete axios:', `${baseUrl}/assignments/${removeThisAssignment}.json`);
-          } else {
-            console.error('no assigments to delete');
-          }
-          resolve(console.error('remove this:', removeThisAssignment));
-        });
-      resolve(console.error('kidnapped:', kidnappedStaffMember));
+  getAllAssignments()
+    .then((assignmentsArray) => {
+      const assignmentsToRemove = assignmentsArray.filter((a) => a.staffId === staffMemberId);
+      assignmentsToRemove.forEach((item) => {
+        axios.delete(`${baseUrl}/assignments/${item.id}.json`);
+        getAllShifts()
+          .then((shiftsArray) => {
+            const deleteThisShift = shiftsArray.find((shift) => shift.assignmentId === item.id);
+            axios.delete(`${baseUrl}/shifts/${deleteThisShift.id}.json`);
+          });
+      });
+      resolve();
     })
     .catch((err) => console.error('problem with deleting assignments for staff', reject(err)));
 });
