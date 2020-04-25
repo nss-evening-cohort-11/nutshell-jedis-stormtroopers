@@ -1,0 +1,22 @@
+{
+  "chaosEvent1": {
+    "timestamp": "April 25th 2020, 9:00:00 am",
+    "eventType": "kidnap",
+    "affectedEntityId": "staffMember3"
+  },
+  "chaosEvent2": {
+    "timestamp": "April 25th 2020, 10:00:00 am",
+    "eventType": "broken",
+    "affectedEntityId": "ride2"
+  },
+  "chaosEvent3": {
+    "timestamp": "April 25th 2020, 11:00:00 am",
+    "eventType": "broken",
+    "affectedEntityId": "equipment5"
+  },
+  "chaosEvent4": {
+    "timestamp": "April 25th 2020, 8:00:00 am",
+    "eventType": "broken",
+    "affectedEntityId": "ride1"
+  }
+}
