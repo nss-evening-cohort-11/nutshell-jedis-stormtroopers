@@ -12,7 +12,7 @@ import utils from '../../helpers/utils';
 const moment = require('moment');
 
 const randomChaosMonkeyStrike = () => {
-  const randNum = 2; // Math.ceil(Math.random() * 3);
+  const randNum = Math.ceil(Math.random() * 3);
   let randomStrike = '';
 
   switch (randNum) {
@@ -44,7 +44,7 @@ const randomChaosMonkeyStrike = () => {
     case 2: // Kidnap Staff Member
       staffData.getStaffs()
         .then((allStaff) => {
-          const staffRandNum = 5;// Math.ceil(Math.random() * allStaff.length - 1);
+          const staffRandNum = Math.ceil(Math.random() * allStaff.length - 1);
 
           if (allStaff[staffRandNum].isKidnapped === false) { // check if already kidnapped
             const randStaffId = allStaff[staffRandNum].id; // find a random staff member
@@ -55,7 +55,7 @@ const randomChaosMonkeyStrike = () => {
 
             staffData.kidnapStaff(randStaffId) // change staff's boolean isKidnapped to 'true'
               .then(() => {
-                staffData.deleteStaffAssignmentsAndShifts(randStaffId); // delete existing assignments and shifts for the kidnapped staff member
+                smash.deleteStaffAssignmentsAndShifts(randStaffId); // delete existing assignments and shifts for the kidnapped staff member
                 staffComponent.printStaffDashboard(); // update the staff dashboard to current
               })
               .catch((err) => console.error('problem with kidnap staff in Chaos Monkey', err));
@@ -115,7 +115,7 @@ const chaosMonkeyAlert = (randomStrike) => {
 };
 
 const unleashChaosMonkey = () => {
-  setInterval(randomChaosMonkeyStrike, 30 * 1000);
+  setInterval(randomChaosMonkeyStrike, 60 * 1000);
 };
 
 export default { unleashChaosMonkey };
