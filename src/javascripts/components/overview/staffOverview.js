@@ -27,9 +27,9 @@ const getMissingStaff = () => {
 
 const buildStaffOverview = () => {
   let domString = '';
-  // domString += '<div id="EOTM" class="text-center">';
+  domString += '<div id="EOTM" class="text-center">';
   // domString += getEmployeeOfTheMonth();
-  // domString += '</div>';
+  domString += '</div>';
   domString += '<div id="missing-staff">';
   domString += getMissingStaff();
   domString += '</div>';

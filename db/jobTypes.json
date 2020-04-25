@@ -1,14 +1,14 @@
 {
-	"jobType1": {
-		"name": "Dino Attendant"
-	},
-	"jobType2": {
-		"name": "Equipment Attendant"
-	},
-	"jobType3": {
-		"name": "Vendor Attendant"
-	},
-	"jobType4": {
-		"name": "Ride Attendant"
-	}
+    "jobType1" : {
+        "name" : "Dino Attendant"
+    },
+    "jobType2" : {
+        "name" : "Equipment Attendant"
+    },
+    "jobType3" : {
+        "name" : "Vendor Attendant"
+    },
+    "jobType4" : {
+        "name" : "Ride Attendant"
+    }
 }

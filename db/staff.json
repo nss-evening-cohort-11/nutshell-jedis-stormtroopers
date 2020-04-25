@@ -1,58 +1,58 @@
 {
-	"staffMember1": {
-		"isKidnapped": true,
-		"job": "CEO",
-		"name": "Richard Attenborough",
-		"photoUrl": "https://jurassicoutpost.com/encyclopedia/images/3/32/John_Hammond_%28Film_Universe%29.png",
-		"uid": "Aaron"
-	},
-	"staffMember2": {
-		"isKidnapped": true,
-		"job": "Mathematician",
-		"name": "Dr. Ian Malcolm",
-		"photoUrl": "https://filmschoolrejects.com/wp-content/uploads/2019/08/jeff-goldblum-1280x720.jpg",
-		"uid": "Steven"
-	},
-	"staffMember3": {
-		"isKidnapped": true,
-		"job": "Archaeologist",
-		"name": "Alan Grant",
-		"photoUrl": "https://2.bp.blogspot.com/-1QpJ2T18_8A/UZGO162GZ2I/AAAAAAAAAe0/DUFuDgN7tMY/s1600/The+Smirk.png",
-		"uid": "Joey"
-	},
-	"staffMember4": {
-		"isKidnapped": false,
-		"job": "Database Administrator",
-		"name": "Dennis Nedry",
-		"photoUrl": "https://cdn.vox-cdn.com/thumbor/sJrY5JmgU0qN54z2XqUa2Cltfms=/0x0:1440x653/1200x800/filters:focal(314x95:544x325)/cdn.vox-cdn.com/uploads/chorus_image/image/60017631/dennis_nedry_1440.0.jpg",
-		"uid": "John"
-	},
-	"staffMember5": {
-		"isKidnapped": false,
-		"job": "Archaeologist",
-		"name": "Ellie Sattler",
-		"photoUrl": "https://i.pinimg.com/originals/b0/08/dc/b008dceba104bc1a561095387c8defbd.jpg",
-		"uid": "Aaron"
-	},
-	"staffMember6": {
-		"isKidnapped": false,
-		"job": "Dino Wrangler",
-		"name": "Robert Muldoon",
-		"photoUrl": "https://themusic-images.sgp1.cdn.digitaloceanspaces.com/standard/news-15/jurassic-park-robert-muldoon-H-0615-02-970x645.jpg",
-		"uid": "Steven"
-	},
-	"staffMember7": {
-		"isKidnapped": true,
-		"job": "Senior Full Stack Engineer",
-		"name": "Ray Arnold",
-		"photoUrl": "https://vignette.wikia.nocookie.net/to-hollywood-and-beyond/images/c/cd/Ray_Arnold_park.jpg/revision/latest/scale-to-width-down/340?cb=20170424175934",
-		"uid": "Joey"
-	},
-	"staffMember8": {
-		"isKidnapped": true,
-		"job": "Lawyer",
-		"name": "Donald Gennaro",
-		"photoUrl": "https://vignette.wikia.nocookie.net/jurassicpark/images/3/34/JP-DonaldGennaro.jpg/revision/latest/top-crop/width/360/height/360?cb=20110307034225",
-		"uid": "John"
-	}
+  "staffMember1": {
+    "name": "Richard Attenborough",
+    "photoUrl": "https://jurassicoutpost.com/encyclopedia/images/3/32/John_Hammond_%28Film_Universe%29.png",
+    "isKidnapped": false,
+    "job": "CEO",
+    "uid": "Aaron"
+  },
+  "staffMember2": {
+    "name": "Dr. Ian Malcolm",
+    "photoUrl": "https://filmschoolrejects.com/wp-content/uploads/2019/08/jeff-goldblum-1280x720.jpg",
+    "isKidnapped": false,
+    "job": "Mathematician",
+    "uid": "Steven"
+  },
+  "staffMember3": {
+    "name": "Alan Grant",
+    "photoUrl": "https://2.bp.blogspot.com/-1QpJ2T18_8A/UZGO162GZ2I/AAAAAAAAAe0/DUFuDgN7tMY/s1600/The+Smirk.png",
+    "isKidnapped": true,
+    "job": "Archaeologist",
+    "uid": "Joey"
+  },
+  "staffMember4": {
+    "name": "Dennis Nedry",
+    "photoUrl": "https://cdn.vox-cdn.com/thumbor/sJrY5JmgU0qN54z2XqUa2Cltfms=/0x0:1440x653/1200x800/filters:focal(314x95:544x325)/cdn.vox-cdn.com/uploads/chorus_image/image/60017631/dennis_nedry_1440.0.jpg",
+    "isKidnapped": false,
+    "job": "Database Administrator",
+    "uid": "John"
+  },
+  "staffMember5": {
+    "name": "Ellie Sattler",
+    "photoUrl": "https://i.pinimg.com/originals/b0/08/dc/b008dceba104bc1a561095387c8defbd.jpg",
+    "isKidnapped": false,
+    "job": "Archaeologist",
+    "uid": "Aaron"
+  },
+  "staffMember6": {
+    "name": "Robert Muldoon",
+    "photoUrl": "https://themusic-images.sgp1.cdn.digitaloceanspaces.com/standard/news-15/jurassic-park-robert-muldoon-H-0615-02-970x645.jpg",
+    "isKidnapped": false,
+    "job": "Dino Wrangler",
+    "uid": "Steven"
+  },
+  "staffMember7": {
+    "name": "Ray Arnold",
+    "photoUrl": "https://vignette.wikia.nocookie.net/to-hollywood-and-beyond/images/c/cd/Ray_Arnold_park.jpg/revision/latest/scale-to-width-down/340?cb=20170424175934",
+    "isKidnapped": false,
+    "job": "Senior Full Stack Engineer",
+    "uid": "Joey"
+  },
+  "staffMember8": {
+    "name": "Donald Gennaro",
+    "photoUrl": "https://vignette.wikia.nocookie.net/jurassicpark/images/3/34/JP-DonaldGennaro.jpg/revision/latest/top-crop/width/360/height/360?cb=20110307034225",
+    "isKidnapped": false,
+    "job": "Lawyer",
+    "uid": "John"
+  }
 }
