@@ -5,6 +5,7 @@ import staffComponent from '../staff/staff';
 import equipData from '../../helpers/data/equipData';
 import ridesData from '../../helpers/data/ridesData';
 import staffData from '../../helpers/data/staffData';
+import smash from '../../helpers/data/smash';
 
 import utils from '../../helpers/utils';
 
@@ -72,7 +73,10 @@ const randomChaosMonkeyStrike = () => {
         .then((allRides) => {
           const ridesRandNum = Math.ceil(Math.random() * allRides.length - 1);
           const randRideId = allRides[ridesRandNum].id;
-
+          smash.removeAllAssignmentsAndShiftsByEntityId(randRideId)
+            .then(() => {
+            })
+            .catch((err) => console.error('There is a problem with your smash function:', err));
           if (allRides[ridesRandNum].isBroken === false) {
             randomStrike = `broke the ${allRides[ridesRandNum].name}`;
             // eslint-disable-next-line no-use-before-define
