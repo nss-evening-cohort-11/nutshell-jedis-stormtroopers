@@ -3,6 +3,22 @@ import apiKeys from '../apiKeys.json';
 
 const baseUrl = apiKeys.firebaseKeys.databaseURL;
 
+const getAllShifts = () => new Promise((resolve, reject) => {
+  axios.get(`${baseUrl}/shifts.json`)
+    .then((response) => {
+      const theShifts = response.data;
+      const shifts = [];
+      if (theShifts) {
+        Object.keys(theShifts).forEach((shiftId) => {
+          theShifts[shiftId].id = shiftId;
+          shifts.push(theShifts[shiftId]);
+        });
+      }
+      resolve(shifts);
+    })
+    .catch((err) => console.error('getStaff broke', reject(err)));
+});
+
 const getShiftsByAssignmentId = (assignmentId) => new Promise((resolve, reject) => {
   axios.get(`${baseUrl}/shifts.json?orderBy="assignmentId"&equalTo="${assignmentId}"`)
     .then((response) => {
@@ -19,4 +35,4 @@ const getShiftsByAssignmentId = (assignmentId) => new Promise((resolve, reject) 
 
 const deleteShiftById = (shiftId) => axios.delete(`${baseUrl}/shifts/${shiftId}.json`);
 
-export default { getShiftsByAssignmentId, deleteShiftById };
+export default { getShiftsByAssignmentId, deleteShiftById, getAllShifts };

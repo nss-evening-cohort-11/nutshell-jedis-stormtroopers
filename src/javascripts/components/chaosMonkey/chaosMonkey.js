@@ -46,22 +46,23 @@ const randomChaosMonkeyStrike = () => {
         .then((allStaff) => {
           const staffRandNum = Math.ceil(Math.random() * allStaff.length - 1);
 
-          if (allStaff[staffRandNum].isKidnapped === false) {
-            const randStaffId = allStaff[staffRandNum].id;
+          if (allStaff[staffRandNum].isKidnapped === false) { // check if already kidnapped
+            const randStaffId = allStaff[staffRandNum].id; // find a random staff member
 
-            randomStrike = `kidnapped ${allStaff[staffRandNum].name}`;
+            randomStrike = `kidnapped ${allStaff[staffRandNum].name}`; // assign the Alert message
             // eslint-disable-next-line no-use-before-define
-            chaosMonkeyAlert(randomStrike);
+            chaosMonkeyAlert(randomStrike); // print the Alert message to dashboard
 
-            staffData.kidnapStaff(randStaffId)
+            staffData.kidnapStaff(randStaffId) // change staff's boolean isKidnapped to 'true'
               .then(() => {
-                staffComponent.printStaffDashboard();
+                smash.deleteStaffAssignmentsAndShifts(randStaffId); // delete existing assignments and shifts for the kidnapped staff member
+                staffComponent.printStaffDashboard(); // update the staff dashboard to current
               })
               .catch((err) => console.error('problem with kidnap staff in Chaos Monkey', err));
           } else {
-            randomStrike = `has ${allStaff[staffRandNum].name} captive`;
+            randomStrike = `sent a ransom note for captive ${allStaff[staffRandNum].name}`; // assign the Alert message if already kidnapped
             // eslint-disable-next-line no-use-before-define
-            chaosMonkeyAlert(randomStrike);
+            chaosMonkeyAlert(randomStrike); // print the Alert message to dashboard
           }
         })
         .catch((err) => console.error('problem with get staffs in Chaos Monkey', err));
