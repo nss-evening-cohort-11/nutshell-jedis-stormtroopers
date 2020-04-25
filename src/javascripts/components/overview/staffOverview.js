@@ -1,17 +1,17 @@
 import utils from '../../helpers/utils';
 import staffData from '../../helpers/data/staffData';
 
-const getEmployeeOfTheMonth = () => {
-  staffData.getStaffs()
-    .then((resp) => {
-      const EOTM = resp.find((x) => x.isEOTM);
-      let domString = '';
-      domString += '<p>Congratulations to our Employee of the Month!</p>';
-      domString += `<img id="eotm-photo" class="img-fluid cards-image" src="${EOTM.photoUrl}">`;
-      utils.printToDom('EOTM', domString);
-    })
-    .catch((err) => console.error('could not get EOTM', err));
-};
+// const getEmployeeOfTheMonth = () => {
+//   staffData.getStaffs()
+//     .then((resp) => {
+//       const EOTM = resp.find((x) => x.isEOTM);
+//       let domString = '';
+//       domString += '<p>Congratulations to our Employee of the Month!</p>';
+//       domString += `<img id="eotm-photo" class="img-fluid cards-image" src="${EOTM.photoUrl}">`;
+//       utils.printToDom('EOTM', domString);
+//     })
+//     .catch((err) => console.error('could not get EOTM', err));
+// };
 
 const getMissingStaff = () => {
   staffData.getStaffs()
@@ -27,9 +27,9 @@ const getMissingStaff = () => {
 
 const buildStaffOverview = () => {
   let domString = '';
-  domString += '<div id="EOTM" class="text-center">';
-  domString += getEmployeeOfTheMonth();
-  domString += '</div>';
+  // domString += '<div id="EOTM" class="text-center">';
+  // domString += getEmployeeOfTheMonth();
+  // domString += '</div>';
   domString += '<div id="missing-staff">';
   domString += getMissingStaff();
   domString += '</div>';

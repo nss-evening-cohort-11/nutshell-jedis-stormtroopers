@@ -1,6 +1,8 @@
 import equipmentStorageContainer from '../equipmentStorageContainer/equipmentStorageContainer';
 import ridesComponent from '../rides/rides';
 import staffComponent from '../staff/staff';
+import vendorsComponent from '../vendors/vendors';
+
 
 import equipData from '../../helpers/data/equipData';
 import ridesData from '../../helpers/data/ridesData';
@@ -55,6 +57,7 @@ const randomChaosMonkeyStrike = () => {
             staffData.kidnapStaff(randStaffId)
               .then(() => {
                 staffComponent.printStaffDashboard();
+                vendorsComponent.checkIfVendorsAreStaffed();
               })
               .catch((err) => console.error('problem with kidnap staff in Chaos Monkey', err));
           } else {
@@ -110,7 +113,7 @@ const chaosMonkeyAlert = (randomStrike) => {
 };
 
 const unleashChaosMonkey = () => {
-  setInterval(randomChaosMonkeyStrike, 60 * 1000);
+  setInterval(randomChaosMonkeyStrike, 60000 * 1000);
 };
 
 export default { unleashChaosMonkey };

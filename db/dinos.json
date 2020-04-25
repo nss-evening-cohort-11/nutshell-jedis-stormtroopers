@@ -1,58 +1,58 @@
 {
-  "dino1": {
-    "name": "Fred",
-    "type": "T-Rex",
-    "photoUrl": "https://i.insider.com/5c81956b2628980318753311?width=1100&format=jpeg&auto=webp",
-    "isHungry": true,
-    "uid": "Aaron"
-  },
-  "dino2": {
-    "name": "Amanda",
-    "type": "Albertosaurus",
-    "photoUrl": "https://vignette.wikia.nocookie.net/jurassicworld-evolution/images/4/46/Albertothumb.png/revision/latest?cb=20190817155122",
-    "isHungry": true,
-    "uid": "John"
-  },
-  "dino3": {
-    "name": "Christopher",
-    "type": "Hadrosaur",
-    "photoUrl": "https://i.pinimg.com/originals/26/a6/9d/26a69d0aac3bb6e58b45240caa783408.gif",
-    "isHungry": true,
-    "uid": "Steven"
-  },
-  "dino4": {
-    "name": "Jesus",
-    "type": "Stegasaurus",      
-    "photoUrl": "https://vignette.wikia.nocookie.net/jurassicworld-evolution/images/d/de/Stegothumb.png/revision/latest?cb=20190817153250",
-    "isHungry": true,
-    "uid": "Joey"
-  },
-  "dino5": {
-    "name": "Marianne",
-    "type": "Troodon",
-    "photoUrl": "https://vignette.wikia.nocookie.net/jurassicworld-evolution/images/1/1c/Troothumb.png/revision/latest?cb=20190817154528",
-    "isHungry": true,
-    "uid": "Steven"
-  },
-  "dino6": {
-    "name": "Peggy",
-    "type": "Velociraptor",
-    "photoUrl": "https://cdn.shopify.com/s/files/1/0001/8861/2640/products/16Velociraptor_2_x1600.jpg?v=1570222734",
-    "isHungry": true,
-    "uid": "John"
-  },
-  "dino7": {
-    "name": "Wilma",
-    "type": "Velociraptor",
-    "photoUrl": "https://cdn.shopify.com/s/files/1/0001/8861/2640/products/16Velociraptor_2_x1600.jpg?v=1570222734",
-    "isHungry": true,
-    "uid": "Joey"
-  },
-  "dino8": {
-    "name": "Arnold",
-    "type": "Diplodocus",
-    "photoUrl": "https://res.cloudinary.com/dk-find-out/image/upload/q_80,h_1000,f_auto/diplodocus_whole_amzt6e.jpg",
-    "isHungry": true,
-    "uid": "Aaron"
-  }
+	"dino1": {
+		"isEnclosed": true,
+		"name": "Fred",
+		"photoUrl": "https://i.insider.com/5c81956b2628980318753311?width=1100&format=jpeg&auto=webp",
+		"type": "T-Rex",
+		"uid": "Aaron"
+	},
+	"dino2": {
+		"isEnclosed": true,
+		"name": "Amanda",
+		"photoUrl": "https://vignette.wikia.nocookie.net/jurassicworld-evolution/images/4/46/Albertothumb.png/revision/latest?cb=20190817155122",
+		"type": "Albertosaurus",
+		"uid": "John"
+	},
+	"dino3": {
+		"isEnclosed": true,
+		"name": "Christopher",
+		"photoUrl": "https://i.pinimg.com/originals/26/a6/9d/26a69d0aac3bb6e58b45240caa783408.gif",
+		"type": "Hadrosaur",
+		"uid": "Steven"
+	},
+	"dino4": {
+		"isEnclosed": true,
+		"name": "Jesus",
+		"photoUrl": "https://vignette.wikia.nocookie.net/jurassicworld-evolution/images/d/de/Stegothumb.png/revision/latest?cb=20190817153250",
+		"type": "Stegasaurus",
+		"uid": "Joey"
+	},
+	"dino5": {
+		"isEnclosed": true,
+		"name": "Marianne",
+		"photoUrl": "https://vignette.wikia.nocookie.net/jurassicworld-evolution/images/1/1c/Troothumb.png/revision/latest?cb=20190817154528",
+		"type": "Troodon",
+		"uid": "Steven"
+	},
+	"dino6": {
+		"isEnclosed": true,
+		"name": "Peggy",
+		"photoUrl": "https://cdn.shopify.com/s/files/1/0001/8861/2640/products/16Velociraptor_2_x1600.jpg?v=1570222734",
+		"type": "Velociraptor",
+		"uid": "John"
+	},
+	"dino7": {
+		"isEnclosed": true,
+		"name": "Wilma",
+		"photoUrl": "https://cdn.shopify.com/s/files/1/0001/8861/2640/products/16Velociraptor_2_x1600.jpg?v=1570222734",
+		"type": "Velociraptor",
+		"uid": "Joey"
+	},
+	"dino8": {
+		"isEnclosed": true,
+		"name": "Arnold",
+		"photoUrl": "https://res.cloudinary.com/dk-find-out/image/upload/q_80,h_1000,f_auto/diplodocus_whole_amzt6e.jpg",
+		"type": "Diplodocus",
+		"uid": "Aaron"
+	}
 }

@@ -3,7 +3,23 @@ import 'firebase/auth';
 
 import utils from '../../helpers/utils';
 import vendorsData from '../../helpers/data/vendorsData';
+import smashData from '../../helpers/data/smashData';
 
+const checkIfVendorsAreStaffed = () => {
+  smashData.getVendorsWithAssignments().then((assignedVendors) => {
+    assignedVendors.forEach((vendorAssignment) => {
+      const vendorId = vendorAssignment.id;
+      if (vendorAssignment.assignments.length === 0) {
+        console.log('assigned vendors', vendorAssignment);
+        vendorsData.updateStaffedVendors(vendorId);
+      }
+    });
+    // }
+  })
+    .catch((err) => console.error('could not get vendors with assignments', err));
+  // eslint-disable-next-line no-use-before-define
+  printVendorsDashboard();
+};
 
 // ---  EVENT FUNCTIONS  --- //
 
@@ -189,6 +205,7 @@ const vendorsEvents = () => {
   $('body').on('click', '#vendor-modifier-btn', updateVendorEvent);
   $('body').on('click', '.update-vendor-btn', updateVendorFormEvent);
   $('body').on('click', '#new-vendor-btn', newVendorFormEvent);
+  checkIfVendorsAreStaffed();
 };
 
 export default { printVendorsDashboard, vendorsEvents };

@@ -1,6 +1,5 @@
 import firebase from 'firebase/app';
 import apiKeys from './helpers/apiKeys.json';
-
 import overviewComponent from './components/overview/overview';
 import navbarComponent from './components/navbar/navbar';
 import dinosComponent from './components/dinos/dinos';
