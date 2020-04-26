@@ -205,7 +205,6 @@ const vendorsEvents = () => {
   $('body').on('click', '#vendor-modifier-btn', updateVendorEvent);
   $('body').on('click', '.update-vendor-btn', updateVendorFormEvent);
   $('body').on('click', '#new-vendor-btn', newVendorFormEvent);
-  checkIfVendorsAreStaffed();
 };
 
-export default { printVendorsDashboard, vendorsEvents };
+export default { printVendorsDashboard, vendorsEvents, checkIfVendorsAreStaffed };

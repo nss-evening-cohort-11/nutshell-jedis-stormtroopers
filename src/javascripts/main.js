@@ -32,6 +32,7 @@ const init = () => {
   equipmentComponent.printEquipmentDashboard();
   vendorsComponent.printVendorsDashboard();
   chaosMonkey.unleashChaosMonkey();
+  vendorsComponent.checkIfVendorsAreStaffed();
 };
 
 init();
