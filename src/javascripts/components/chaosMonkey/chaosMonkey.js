@@ -57,9 +57,9 @@ const randomChaosMonkeyStrike = () => {
 
             staffData.kidnapStaff(randStaffId) // change staff's boolean isKidnapped to 'true'
               .then(() => {
-                vendorsComponent.checkIfVendorsAreStaffed();
                 smash.deleteStaffAssignmentsAndShifts(randStaffId); // delete existing assignments and shifts for the kidnapped staff member
                 staffComponent.printStaffDashboard(); // update the staff dashboard to current
+                vendorsComponent.checkIfVendorsAreStaffed(); // update vendor dashboard to current
               })
               .catch((err) => console.error('problem with kidnap staff in Chaos Monkey', err));
           } else {

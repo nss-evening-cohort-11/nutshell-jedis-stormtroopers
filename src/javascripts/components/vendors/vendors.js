@@ -9,7 +9,7 @@ const checkIfVendorsAreStaffed = () => {
   smashData.getVendorsWithAssignments().then((assignedVendors) => {
     assignedVendors.forEach((vendorAssignment) => {
       const vendorId = vendorAssignment.id;
-      if (vendorAssignment.assignments.length === 0) {
+      if (vendorAssignment.assignments.length < 1) {
         console.log('assigned vendors', vendorAssignment);
         vendorsData.updateStaffedVendors(vendorId);
       }

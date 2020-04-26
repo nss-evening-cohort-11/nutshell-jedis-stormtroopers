@@ -1,5 +1,6 @@
 import utils from '../../helpers/utils';
 import staffOverview from './staffOverview';
+import venderOverview from './vendorOverview';
 
 const printOverviewDashboard = () => {
   let domString = '';
@@ -36,7 +37,9 @@ const printOverviewDashboard = () => {
   domString += '    <div class="col-md-4 my-2">';
   domString += '      <div class="card bg-info">';
   domString += '        <div class="card-header"><h2>Vendors Overview</h2></div>';
-  domString += '        <div class="card-body dash-card"></div>';
+  domString += '        <div class="card-body dash-card">';
+  domString += venderOverview.buildVendorOverview();
+  domString += '        </div>';
   domString += '      </div>';
   domString += '    </div>';
   domString += '  </div>';
