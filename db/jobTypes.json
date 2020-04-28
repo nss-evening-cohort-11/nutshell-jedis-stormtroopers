@@ -1,14 +1,842 @@
 {
-    "jobType1" : {
-        "name" : "Dino Attendant"
+    "job1": {
+        "assetId": "dino1",
+        "name": "Dino Attendant",
+        "shiftId": "shift1"
     },
-    "jobType2" : {
-        "name" : "Equipment Attendant"
+    "job2": {
+        "assetId": "dino1",
+        "name": "Dino Attendant",
+        "shiftId": "shift1"
     },
-    "jobType3" : {
-        "name" : "Vendor Attendant"
+    "job3": {
+        "assetId": "dino1",
+        "name": "Dino Attendant",
+        "shiftId": "shift2"
     },
-    "jobType4" : {
-        "name" : "Ride Attendant"
+    "job4": {
+        "assetId": "dino1",
+        "name": "Dino Attendant",
+        "shiftId": "shift2"
+    },
+    "job5": {
+        "assetId": "dino1",
+        "name": "Dino Attendant",
+        "shiftId": "shift3"
+    },
+    "job6": {
+        "assetId": "dino1",
+        "name": "Dino Attendant",
+        "shiftId": "shift3"
+    },
+    "job7": {
+        "assetId": "dino1",
+        "name": "Dino Attendant",
+        "shiftId": "shift4"
+    },
+    "job8": {
+        "assetId": "dino1",
+        "name": "Dino Attendant",
+        "shiftId": "shift4"
+    },
+    "job9": {
+        "assetId": "dino1",
+        "name": "Dino Attendant",
+        "shiftId": "shift5"
+    },
+    "job10": {
+        "assetId": "dino1",
+        "name": "Dino Attendant",
+        "shiftId": "shift5"
+    },
+    "job11": {
+        "assetId": "dino1",
+        "name": "Dino Attendant",
+        "shiftId": "shift6"
+    },
+    "job12": {
+        "assetId": "dino1",
+        "name": "Dino Attendant",
+        "shiftId": "shift6"
+    },
+    "job13": {
+        "assetId": "dino1",
+        "name": "Dino Attendant",
+        "shiftId": "shift7"
+    },
+    "job14": {
+        "assetId": "dino1",
+        "name": "Dino Attendant",
+        "shiftId": "shift7"
+    },
+    "job15": {
+        "assetId": "dino1",
+        "name": "Dino Attendant",
+        "shiftId": "shift8"
+    },
+    "job16": {
+        "assetId": "dino1",
+        "name": "Dino Attendant",
+        "shiftId": "shift8"
+    },
+    "job17": {
+        "assetId": "dino1",
+        "name": "Dino Attendant",
+        "shiftId": "shift9"
+    },
+    "job18": {
+        "assetId": "dino1",
+        "name": "Dino Attendant",
+        "shiftId": "shift9"
+    },
+    "job19": {
+        "assetId": "dino1",
+        "name": "Dino Attendant",
+        "shiftId": "shift10"
+    },
+    "job20": {
+        "assetId": "dino1",
+        "name": "Dino Attendant",
+        "shiftId": "shift10"
+    },
+    "job21": {
+        "assetId": "dino1",
+        "name": "Dino Attendant",
+        "shiftId": "shift11"
+    },
+    "job22": {
+        "assetId": "dino1",
+        "name": "Dino Attendant",
+        "shiftId": "shift11"
+    },
+    "job23": {
+        "assetId": "dino1",
+        "name": "Dino Attendant",
+        "shiftId": "shift12"
+    },
+    "job24": {
+        "assetId": "dino1",
+        "name": "Dino Attendant",
+        "shiftId": "shift12"
+    },
+    "job25": {
+        "assetId": "dino1",
+        "name": "Dino Attendant",
+        "shiftId": "shift13"
+    },
+    "job26": {
+        "assetId": "dino1",
+        "name": "Dino Attendant",
+        "shiftId": "shift13"
+    },
+    "job27": {
+        "assetId": "dino1",
+        "name": "Dino Attendant",
+        "shiftId": "shift14"
+    },
+    "job28": {
+        "assetId": "dino1",
+        "name": "Dino Attendant",
+        "shiftId": "shift14"
+    },
+    "job29": {
+        "assetId": "dino2",
+        "name": "Dino Attendant",
+        "shiftId": "shift1"
+    },
+    "job30": {
+        "assetId": "dino2",
+        "name": "Dino Attendant",
+        "shiftId": "shift1"
+    },
+    "job31": {
+        "assetId": "dino2",
+        "name": "Dino Attendant",
+        "shiftId": "shift2"
+    },
+    "job32": {
+        "assetId": "dino2",
+        "name": "Dino Attendant",
+        "shiftId": "shift2"
+    },
+    "job33": {
+        "assetId": "dino2",
+        "name": "Dino Attendant",
+        "shiftId": "shift3"
+    },
+    "job34": {
+        "assetId": "dino2",
+        "name": "Dino Attendant",
+        "shiftId": "shift3"
+    },
+    "job35": {
+        "assetId": "dino2",
+        "name": "Dino Attendant",
+        "shiftId": "shift4"
+    },
+    "job36": {
+        "assetId": "dino2",
+        "name": "Dino Attendant",
+        "shiftId": "shift4"
+    },
+    "job37": {
+        "assetId": "dino2",
+        "name": "Dino Attendant",
+        "shiftId": "shift5"
+    },
+    "job38": {
+        "assetId": "dino2",
+        "name": "Dino Attendant",
+        "shiftId": "shift5"
+    },
+    "job39": {
+        "assetId": "dino2",
+        "name": "Dino Attendant",
+        "shiftId": "shift6"
+    },
+    "job40": {
+        "assetId": "dino2",
+        "name": "Dino Attendant",
+        "shiftId": "shift6"
+    },
+    "job41": {
+        "assetId": "dino2",
+        "name": "Dino Attendant",
+        "shiftId": "shift7"
+    },
+    "job42": {
+        "assetId": "dino2",
+        "name": "Dino Attendant",
+        "shiftId": "shift7"
+    },
+    "job43": {
+        "assetId": "dino2",
+        "name": "Dino Attendant",
+        "shiftId": "shift8"
+    },
+    "job44": {
+        "assetId": "dino2",
+        "name": "Dino Attendant",
+        "shiftId": "shift8"
+    },
+    "job45": {
+        "assetId": "dino2",
+        "name": "Dino Attendant",
+        "shiftId": "shift9"
+    },
+    "job46": {
+        "assetId": "dino2",
+        "name": "Dino Attendant",
+        "shiftId": "shift9"
+    },
+    "job47": {
+        "assetId": "dino2",
+        "name": "Dino Attendant",
+        "shiftId": "shift10"
+    },
+    "job48": {
+        "assetId": "dino2",
+        "name": "Dino Attendant",
+        "shiftId": "shift10"
+    },
+    "job49": {
+        "assetId": "dino2",
+        "name": "Dino Attendant",
+        "shiftId": "shift11"
+    },
+    "job50": {
+        "assetId": "dino2",
+        "name": "Dino Attendant",
+        "shiftId": "shift11"
+    },
+    "job51": {
+        "assetId": "dino2",
+        "name": "Dino Attendant",
+        "shiftId": "shift12"
+    },
+    "job52": {
+        "assetId": "dino2",
+        "name": "Dino Attendant",
+        "shiftId": "shift12"
+    },
+    "job53": {
+        "assetId": "dino2",
+        "name": "Dino Attendant",
+        "shiftId": "shift13"
+    },
+    "job54": {
+        "assetId": "dino2",
+        "name": "Dino Attendant",
+        "shiftId": "shift13"
+    },
+    "job55": {
+        "assetId": "dino2",
+        "name": "Dino Attendant",
+        "shiftId": "shift14"
+    },
+    "job56": {
+        "assetId": "dino2",
+        "name": "Dino Attendant",
+        "shiftId": "shift14"
+    },
+    "job57": {
+        "assetId": "ride1",
+        "name": "Ride Attendant",
+        "shiftId": "shift1"
+    },
+    "job58": {
+        "assetId": "ride1",
+        "name": "Ride Attendant",
+        "shiftId": "shift2"
+    },
+    "job59": {
+        "assetId": "ride1",
+        "name": "Ride Attendant",
+        "shiftId": "shift3"
+    },
+    "job60": {
+        "assetId": "ride1",
+        "name": "Ride Attendant",
+        "shiftId": "shift4"
+    },
+    "job61": {
+        "assetId": "ride1",
+        "name": "Ride Attendant",
+        "shiftId": "shift5"
+    },
+    "job62": {
+        "assetId": "ride1",
+        "name": "Ride Attendant",
+        "shiftId": "shift6"
+    },
+    "job63": {
+        "assetId": "ride1",
+        "name": "Ride Attendant",
+        "shiftId": "shift7"
+    },
+    "job64": {
+        "assetId": "ride1",
+        "name": "Ride Attendant",
+        "shiftId": "shift8"
+    },
+    "job65": {
+        "assetId": "ride1",
+        "name": "Ride Attendant",
+        "shiftId": "shift9"
+    },
+    "job66": {
+        "assetId": "ride1",
+        "name": "Ride Attendant",
+        "shiftId": "shift10"
+    },
+    "job67": {
+        "assetId": "ride1",
+        "name": "Ride Attendant",
+        "shiftId": "shift11"
+    },
+    "job68": {
+        "assetId": "ride1",
+        "name": "Ride Attendant",
+        "shiftId": "shift12"
+    },
+    "job69": {
+        "assetId": "ride1",
+        "name": "Ride Attendant",
+        "shiftId": "shift13"
+    },
+    "job70": {
+        "assetId": "ride1",
+        "name": "Ride Attendant",
+        "shiftId": "shift14"
+    },
+    "job71": {
+        "assetId": "ride2",
+        "name": "Ride Attendant",
+        "shiftId": "shift1"
+    },
+    "job72": {
+        "assetId": "ride2",
+        "name": "Ride Attendant",
+        "shiftId": "shift2"
+    },
+    "job73": {
+        "assetId": "ride2",
+        "name": "Ride Attendant",
+        "shiftId": "shift3"
+    },
+    "job74": {
+        "assetId": "ride2",
+        "name": "Ride Attendant",
+        "shiftId": "shift4"
+    },
+    "job75": {
+        "assetId": "ride2",
+        "name": "Ride Attendant",
+        "shiftId": "shift5"
+    },
+    "job76": {
+        "assetId": "ride2",
+        "name": "Ride Attendant",
+        "shiftId": "shift6"
+    },
+    "job77": {
+        "assetId": "ride2",
+        "name": "Ride Attendant",
+        "shiftId": "shift7"
+    },
+    "job78": {
+        "assetId": "ride2",
+        "name": "Ride Attendant",
+        "shiftId": "shift8"
+    },
+    "job79": {
+        "assetId": "ride2",
+        "name": "Ride Attendant",
+        "shiftId": "shift9"
+    },
+    "job80": {
+        "assetId": "ride2",
+        "name": "Ride Attendant",
+        "shiftId": "shift10"
+    },
+    "job81": {
+        "assetId": "ride2",
+        "name": "Ride Attendant",
+        "shiftId": "shift11"
+    },
+    "job82": {
+        "assetId": "ride2",
+        "name": "Ride Attendant",
+        "shiftId": "shift12"
+    },
+    "job83": {
+        "assetId": "ride2",
+        "name": "Ride Attendant",
+        "shiftId": "shift13"
+    },
+    "job84": {
+        "assetId": "ride2",
+        "name": "Ride Attendant",
+        "shiftId": "shift14"
+    },
+    "job85": {
+        "assetId": "ride3",
+        "name": "Ride Attendant",
+        "shiftId": "shift1"
+    },
+    "job86": {
+        "assetId": "ride3",
+        "name": "Ride Attendant",
+        "shiftId": "shift2"
+    },
+    "job87": {
+        "assetId": "ride3",
+        "name": "Ride Attendant",
+        "shiftId": "shift3"
+    },
+    "job88": {
+        "assetId": "ride3",
+        "name": "Ride Attendant",
+        "shiftId": "shift4"
+    },
+    "job89": {
+        "assetId": "ride3",
+        "name": "Ride Attendant",
+        "shiftId": "shift5"
+    },
+    "job90": {
+        "assetId": "ride3",
+        "name": "Ride Attendant",
+        "shiftId": "shift6"
+    },
+    "job91": {
+        "assetId": "ride3",
+        "name": "Ride Attendant",
+        "shiftId": "shift7"
+    },
+    "job92": {
+        "assetId": "ride3",
+        "name": "Ride Attendant",
+        "shiftId": "shift8"
+    },
+    "job93": {
+        "assetId": "ride3",
+        "name": "Ride Attendant",
+        "shiftId": "shift9"
+    },
+    "job94": {
+        "assetId": "ride3",
+        "name": "Ride Attendant",
+        "shiftId": "shift10"
+    },
+    "job95": {
+        "assetId": "ride3",
+        "name": "Ride Attendant",
+        "shiftId": "shift11"
+    },
+    "job96": {
+        "assetId": "ride3",
+        "name": "Ride Attendant",
+        "shiftId": "shift12"
+    },
+    "job97": {
+        "assetId": "ride3",
+        "name": "Ride Attendant",
+        "shiftId": "shift13"
+    },
+    "job98": {
+        "assetId": "ride3",
+        "name": "Ride Attendant",
+        "shiftId": "shift14"
+    },
+    "job99": {
+        "assetId": "ride4",
+        "name": "Vendor Attendant",
+        "shiftId": "shift1"
+    },
+    "job100": {
+        "assetId": "ride4",
+        "name": "Vendor Attendant",
+        "shiftId": "shift2"
+    },
+    "job101": {
+        "assetId": "ride4",
+        "name": "Vendor Attendant",
+        "shiftId": "shift3"
+    },
+    "job102": {
+        "assetId": "ride4",
+        "name": "Vendor Attendant",
+        "shiftId": "shift4"
+    },
+    "job103": {
+        "assetId": "ride4",
+        "name": "Vendor Attendant",
+        "shiftId": "shift5"
+    },
+    "job104": {
+        "assetId": "ride4",
+        "name": "Vendor Attendant",
+        "shiftId": "shift6"
+    },
+    "job105": {
+        "assetId": "ride4",
+        "name": "Vendor Attendant",
+        "shiftId": "shift7"
+    },
+    "job106": {
+        "assetId": "ride4",
+        "name": "Vendor Attendant",
+        "shiftId": "shift8"
+    },
+    "job107": {
+        "assetId": "ride4",
+        "name": "Vendor Attendant",
+        "shiftId": "shift9"
+    },
+    "job108": {
+        "assetId": "ride4",
+        "name": "Vendor Attendant",
+        "shiftId": "shift10"
+    },
+    "job109": {
+        "assetId": "ride4",
+        "name": "Vendor Attendant",
+        "shiftId": "shift11"
+    },
+    "job110": {
+        "assetId": "ride4",
+        "name": "Vendor Attendant",
+        "shiftId": "shift12"
+    },
+    "job111": {
+        "assetId": "ride4",
+        "name": "Vendor Attendant",
+        "shiftId": "shift13"
+    },
+    "job112": {
+        "assetId": "ride4",
+        "name": "Vendor Attendant",
+        "shiftId": "shift14"
+    },
+    "job113": {
+        "assetId": "vendor1",
+        "name": "Vendor Attendant",
+        "shiftId": "shift1"
+    },
+    "job114": {
+        "assetId": "vendor1",
+        "name": "Vendor Attendant",
+        "shiftId": "shift2"
+    },
+    "job115": {
+        "assetId": "vendor1",
+        "name": "Vendor Attendant",
+        "shiftId": "shift3"
+    },
+    "job116": {
+        "assetId": "vendor1",
+        "name": "Vendor Attendant",
+        "shiftId": "shift4"
+    },
+    "job117": {
+        "assetId": "vendor1",
+        "name": "Vendor Attendant",
+        "shiftId": "shift5"
+    },
+    "job118": {
+        "assetId": "vendor1",
+        "name": "Vendor Attendant",
+        "shiftId": "shift6"
+    },
+    "job119": {
+        "assetId": "vendor1",
+        "name": "Vendor Attendant",
+        "shiftId": "shift7"
+    },
+    "job120": {
+        "assetId": "vendor1",
+        "name": "Vendor Attendant",
+        "shiftId": "shift8"
+    },
+    "job121": {
+        "assetId": "vendor1",
+        "name": "Vendor Attendant",
+        "shiftId": "shift9"
+    },
+    "job122": {
+        "assetId": "vendor1",
+        "name": "Vendor Attendant",
+        "shiftId": "shift10"
+    },
+    "job123": {
+        "assetId": "vendor1",
+        "name": "Vendor Attendant",
+        "shiftId": "shift11"
+    },
+    "job124": {
+        "assetId": "vendor1",
+        "name": "Vendor Attendant",
+        "shiftId": "shift12"
+    },
+    "job125": {
+        "assetId": "vendor1",
+        "name": "Vendor Attendant",
+        "shiftId": "shift13"
+    },
+    "job126": {
+        "assetId": "vendor1",
+        "name": "Vendor Attendant",
+        "shiftId": "shift14"
+    },
+    "job127": {
+        "assetId": "vendor2",
+        "name": "Vendor Attendant",
+        "shiftId": "shift1"
+    },
+    "job128": {
+        "assetId": "vendor2",
+        "name": "Vendor Attendant",
+        "shiftId": "shift2"
+    },
+    "job129": {
+        "assetId": "vendor2",
+        "name": "Vendor Attendant",
+        "shiftId": "shift3"
+    },
+    "job130": {
+        "assetId": "vendor2",
+        "name": "Vendor Attendant",
+        "shiftId": "shift4"
+    },
+    "job131": {
+        "assetId": "vendor2",
+        "name": "Vendor Attendant",
+        "shiftId": "shift5"
+    },
+    "job132": {
+        "assetId": "vendor2",
+        "name": "Vendor Attendant",
+        "shiftId": "shift6"
+    },
+    "job133": {
+        "assetId": "vendor2",
+        "name": "Vendor Attendant",
+        "shiftId": "shift7"
+    },
+    "job134": {
+        "assetId": "vendor2",
+        "name": "Vendor Attendant",
+        "shiftId": "shift8"
+    },
+    "job135": {
+        "assetId": "vendor2",
+        "name": "Vendor Attendant",
+        "shiftId": "shift9"
+    },
+    "job136": {
+        "assetId": "vendor2",
+        "name": "Vendor Attendant",
+        "shiftId": "shift10"
+    },
+    "job137": {
+        "assetId": "vendor2",
+        "name": "Vendor Attendant",
+        "shiftId": "shift11"
+    },
+    "job138": {
+        "assetId": "vendor2",
+        "name": "Vendor Attendant",
+        "shiftId": "shift12"
+    },
+    "job139": {
+        "assetId": "vendor2",
+        "name": "Vendor Attendant",
+        "shiftId": "shift13"
+    },
+    "job140": {
+        "assetId": "vendor2",
+        "name": "Vendor Attendant",
+        "shiftId": "shift14"
+    },
+    "job141": {
+        "assetId": "vendor3",
+        "name": "Vendor Attendant",
+        "shiftId": "shift1"
+    },
+    "job142": {
+        "assetId": "vendor3",
+        "name": "Vendor Attendant",
+        "shiftId": "shift2"
+    },
+    "job143": {
+        "assetId": "vendor3",
+        "name": "Vendor Attendant",
+        "shiftId": "shift3"
+    },
+    "job144": {
+        "assetId": "vendor3",
+        "name": "Vendor Attendant",
+        "shiftId": "shift4"
+    },
+    "job145": {
+        "assetId": "vendor3",
+        "name": "Vendor Attendant",
+        "shiftId": "shift5"
+    },
+    "job146": {
+        "assetId": "vendor3",
+        "name": "Vendor Attendant",
+        "shiftId": "shift6"
+    },
+    "job147": {
+        "assetId": "vendor3",
+        "name": "Vendor Attendant",
+        "shiftId": "shift7"
+    },
+    "job148": {
+        "assetId": "vendor3",
+        "name": "Vendor Attendant",
+        "shiftId": "shift8"
+    },
+    "job149": {
+        "assetId": "vendor3",
+        "name": "Vendor Attendant",
+        "shiftId": "shift9"
+    },
+    "job150": {
+        "assetId": "vendor3",
+        "name": "Vendor Attendant",
+        "shiftId": "shift10"
+    },
+    "job151": {
+        "assetId": "vendor3",
+        "name": "Vendor Attendant",
+        "shiftId": "shift11"
+    },
+    "job152": {
+        "assetId": "vendor3",
+        "name": "Vendor Attendant",
+        "shiftId": "shift12"
+    },
+    "job153": {
+        "assetId": "vendor3",
+        "name": "Vendor Attendant",
+        "shiftId": "shift13"
+    },
+    "job154": {
+        "assetId": "vendor3",
+        "name": "Vendor Attendant",
+        "shiftId": "shift14"
+    },
+    "job155": {
+        "assetId": "vendor4",
+        "name": "Vendor Attendant",
+        "shiftId": "shift1"
+    },
+    "job156": {
+        "assetId": "vendor4",
+        "name": "Vendor Attendant",
+        "shiftId": "shift2"
+    },
+    "job157": {
+        "assetId": "vendor4",
+        "name": "Vendor Attendant",
+        "shiftId": "shift3"
+    },
+    "job158": {
+        "assetId": "vendor4",
+        "name": "Vendor Attendant",
+        "shiftId": "shift4"
+    },
+    "job159": {
+        "assetId": "vendor4",
+        "name": "Vendor Attendant",
+        "shiftId": "shift5"
+    },
+    "job160": {
+        "assetId": "vendor4",
+        "name": "Vendor Attendant",
+        "shiftId": "shift6"
+    },
+    "job161": {
+        "assetId": "vendor4",
+        "name": "Vendor Attendant",
+        "shiftId": "shift7"
+    },
+    "job162": {
+        "assetId": "vendor4",
+        "name": "Vendor Attendant",
+        "shiftId": "shift8"
+    },
+    "job163": {
+        "assetId": "vendor4",
+        "name": "Vendor Attendant",
+        "shiftId": "shift9"
+    },
+    "job164": {
+        "assetId": "vendor4",
+        "name": "Vendor Attendant",
+        "shiftId": "shift10"
+    },
+    "job165": {
+        "assetId": "vendor4",
+        "name": "Vendor Attendant",
+        "shiftId": "shift11"
+    },
+    "job166": {
+        "assetId": "vendor4",
+        "name": "Vendor Attendant",
+        "shiftId": "shift12"
+    },
+    "job167": {
+        "assetId": "vendor4",
+        "name": "Vendor Attendant",
+        "shiftId": "shift13"
+    },
+    "job168": {
+        "assetId": "vendor4",
+        "name": "Vendor Attendant",
+        "shiftId": "shift14"
     }
-}
+    }
