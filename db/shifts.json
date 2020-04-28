@@ -1,42 +1,58 @@
 {
     "shift1" : {
-        "assignmentId" : "assignment1",
         "dayName" : "Monday",
-        "workTimeId" : "workTime1"
+        "workHours" : "AM"
     },
     "shift2" : {
-        "assignmentId" : "assignment2",
         "dayName" : "Monday",
-        "workTimeId" : "workTime2"
+        "workHours" : "PM"
     },
     "shift3" : {
-        "assignmentId" : "assignment3",
         "dayName" : "Tuesday",
-        "workTimeId" : "workTime1"
+        "workHours" : "AM"
     },
     "shift4" : {
-        "assignmentId" : "assignment4",
         "dayName" : "Tuesday",
-        "workTimeId" : "workTime2"
+        "workHours" : "PM"
     },
     "shift5" : {
-        "assignmentId" : "assignment5",
         "dayName" : "Wednesday",
-        "workTimeId" : "workTime1"
+        "workHours" : "AM"
     },
     "shift6" : {
-        "assignmentId" : "assignment6",
         "dayName" : "Wednesday",
-        "workTimeId" : "workTime2"
+        "workHours" : "PM"
     },
     "shift7" : {
-        "assignmentId" : "assignment7",
         "dayName" : "Thursday",
-        "workTimeId" : "workTime1"
+        "workHours" : "AM"
     },
-    "shift8" : {
-        "assignmentId" : "assignment8",
+    "shift9" : {
+        "dayName" : "Thursday",
+        "workHours" : "PM"
+    },
+    "shift10" : {
         "dayName" : "Friday",
-        "workTimeId" : "workTime1"
+        "workHours" : "AM"
+    },
+    "shift11" : {
+        "dayName" : "Friday",
+        "workHours" : "PM"
+    },
+    "shift12" : {
+        "dayName" : "Saturday",
+        "workHours" : "AM"
+    },
+    "shift13" : {
+        "dayName" : "Saturday",
+        "workHours" : "PM"
+    },
+    "shift14" : {
+        "dayName" : "Sunday",
+        "workHours" : "AM"
+    },
+    "shift15" : {
+        "dayName" : "Sunday",
+        "workHours" : "PM"
     }
 }
