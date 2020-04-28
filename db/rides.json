@@ -22,29 +22,5 @@
     "description": "Not our IP but inspired by our IP so we're gonna take credit for it. Very unsettling. 18+ ONLY.",
     "isBroken": false,
     "uid": "Aaron"
-  },
-  "ride5" : {
-    "name": "Tyrannocoaster",
-    "description": "John said we needed one of those rides where your feet dangle over a pit of hungry T-Rex's. Legal says it's insane. Requires many consent forms.",
-    "isBroken": false,
-    "uid": "John"
-  },
-  "ride6" : {
-    "name": "Egg Spinner",
-    "description": "It's not a copyright violation because it's eggs, not teacups and our lawyers said it was okay.",
-    "isBroken": false,
-    "uid": "Joey"
-  },
-  "ride7" : {
-    "name": "Cretaceous Cruise",
-    "description": "Relaxing cruise on our fake river through our Cretaceous section. Basically, Log Ride but for adults. Bar Service.",
-    "isBroken": false,
-    "uid": "Steven"
-  },
-  "ride8" : {
-    "name": "Gondola Lift",
-    "description": "Gondola takes you from Jurassic to Cretaceous Park, suspending the guests hundreds of feet above the enclosures. Breaks constantly.",
-    "isBroken": true,
-    "uid": "Aaron"
   }
 }

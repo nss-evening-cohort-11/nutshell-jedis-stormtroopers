@@ -22,29 +22,5 @@
     "description": "You have to walk through it to exit. Basically free money.",
     "isOpen": true,
     "uid": "Aaron"
-  },
-  "vendor5" : {
-    "name": "Jurassic Lounge",
-    "description": "Bar with a view of the Triassic section.",
-    "isOpen": true,
-    "uid": "Aaron"
-  },
-  "vendor6" : {
-    "name": "Orange Julius",
-    "description": "Everyone loves/knows what this is, right?",
-    "isOpen": true,
-    "uid": "Aaron"
-  },
-  "vendor7" : {
-    "name": "Cold Stone",
-    "description": "Eat some ice cream. Shovel it in.",
-    "isOpen": true,
-    "uid": "Aaron"
-  },
-  "vendor8" : {
-    "name": "Cheescake Factory",
-    "description": "That's how you know this is a fancy place. Now with a 900 page, dinosaur-themed menu.",
-    "isOpen": true,
-    "uid": "Aaron"
   }
 }
