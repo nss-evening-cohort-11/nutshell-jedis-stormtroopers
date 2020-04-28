@@ -2,6 +2,7 @@ import axios from 'axios';
 import apiKeys from '../apiKeys.json';
 
 const baseUrl = apiKeys.firebaseKeys.databaseURL;
+const moment = require('moment');
 
 const getChaosEventsByType = (eventFilterType) => new Promise((resolve, reject) => {
   axios.get(`${baseUrl}/chaosMonkeyEvents.json`)
@@ -20,8 +21,19 @@ const getChaosEventsByType = (eventFilterType) => new Promise((resolve, reject) 
     .catch((err) => console.error('problem with getChaosEventsByType', reject(err)));
 });
 
-const addEventToChaosHistory = () => {
-  console.log('add something to chaos history');
+const postChaosEvent = (event) => axios.post(`${baseUrl}/chaosMonkeyEvents.json`, event);
+
+const addEventToChaosHistory = (eventType, entityId) => {
+  if (eventType === 'kidnap') {
+    const newEvent = {
+      affectedEntityId: entityId,
+      eventType: 'kidnap',
+      timestamp: moment().format('MMMM Do YYYY, h:mm:ss a'),
+    };
+    postChaosEvent(newEvent);
+
+    console.log('add something to chaos history:', newEvent);
+  }
 };
 
 export default { getChaosEventsByType, addEventToChaosHistory };

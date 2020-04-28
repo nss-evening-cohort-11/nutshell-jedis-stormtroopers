@@ -8,12 +8,21 @@ const getMissingStaffList = () => {
       let domString = '';
       eventsArray.forEach((event) => {
         domString += '<p>';
-        const staffId = event.affectectEntityId;
+        const staffId = event.affectedEntityId;
+        console.log('get event/ person id:', event.affectedEntityId);
         staffData.getSingleStaffMemeber(staffId)
-        .then(() => domString += `${staffMember.name}`);
-        domString += '(presumed dead) - kidnapped/missing ${event.timestamp}</p>';
-      })
-      utils.printToDom('staff-overview-container', domString),
+          .then((response) => {
+            const staffMember = response.data;
+            console.log('got staffMember:', staffMember.name);
+            domString += `${staffMember.name}`;
+            domString += `(presumed dead) - kidnapped/missing ${event.timestamp}</p>`;
+            console.log('inside then domstring:', domString);
+          });
+        console.log('domstring::', domString);
+        utils.printToDom('staff-overview-container', domString);
+      });
+      // console.log('domstring::', domString);
+      // utils.printToDom('staff-overview-container', domString);
     })
     .catch((err) => console.error('problem with getMissingStaffList', err));
 };

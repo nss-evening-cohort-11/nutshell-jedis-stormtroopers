@@ -13,7 +13,7 @@ import utils from '../../helpers/utils';
 const moment = require('moment');
 
 const randomChaosMonkeyStrike = () => {
-  const randNum = Math.ceil(Math.random() * 3);
+  const randNum = 2; // Math.ceil(Math.random() * 3);
   let randomStrike = '';
 
   switch (randNum) {
@@ -57,7 +57,7 @@ const randomChaosMonkeyStrike = () => {
             staffData.kidnapStaff(randStaffId) // change staff's boolean isKidnapped to 'true'
               .then(() => {
                 smash.deleteStaffAssignmentsAndShifts(randStaffId); // delete existing assignments and shifts for the kidnapped staff member
-                chaosMonkeyData.addEventToChaosHistory();
+                chaosMonkeyData.addEventToChaosHistory('kidnap', randStaffId);
                 staffComponent.printStaffDashboard(); // update the staff dashboard to current
               })
               .catch((err) => console.error('problem with kidnap staff in Chaos Monkey', err));
@@ -102,7 +102,7 @@ const randomChaosMonkeyStrike = () => {
 };
 
 const chaosMonkeyAlert = (randomStrike) => {
-  const time = moment().format('MMMM Do YYYY, h:mm:ss a');
+  const time = moment().format('MMMM Do YYYY, h:mm a');
   let domString = '';
 
   domString += '<div class="alert bg-danger alert-dismissible fade show" role="alert">';
@@ -117,7 +117,7 @@ const chaosMonkeyAlert = (randomStrike) => {
 };
 
 const unleashChaosMonkey = () => {
-  setInterval(randomChaosMonkeyStrike, 60 * 1000);
+  setInterval(randomChaosMonkeyStrike, 300000 * 1000);
 };
 
 export default { unleashChaosMonkey };
