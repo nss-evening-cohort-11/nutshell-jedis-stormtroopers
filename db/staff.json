@@ -4,55 +4,209 @@
     "photoUrl": "https://jurassicoutpost.com/encyclopedia/images/3/32/John_Hammond_%28Film_Universe%29.png",
     "isKidnapped": false,
     "job": "CEO",
-    "uid": "Aaron"
+    "uid": "1111111111"
   },
   "staffMember2": {
     "name": "Dr. Ian Malcolm",
     "photoUrl": "https://filmschoolrejects.com/wp-content/uploads/2019/08/jeff-goldblum-1280x720.jpg",
     "isKidnapped": false,
     "job": "Mathematician",
-    "uid": "Steven"
+    "uid": "222222222"
   },
   "staffMember3": {
     "name": "Alan Grant",
     "photoUrl": "https://2.bp.blogspot.com/-1QpJ2T18_8A/UZGO162GZ2I/AAAAAAAAAe0/DUFuDgN7tMY/s1600/The+Smirk.png",
     "isKidnapped": true,
     "job": "Archaeologist",
-    "uid": "Joey"
+    "uid": "3333333333"
   },
   "staffMember4": {
     "name": "Dennis Nedry",
     "photoUrl": "https://cdn.vox-cdn.com/thumbor/sJrY5JmgU0qN54z2XqUa2Cltfms=/0x0:1440x653/1200x800/filters:focal(314x95:544x325)/cdn.vox-cdn.com/uploads/chorus_image/image/60017631/dennis_nedry_1440.0.jpg",
     "isKidnapped": false,
     "job": "Database Administrator",
-    "uid": "John"
+    "uid": "4444444444"
   },
   "staffMember5": {
     "name": "Ellie Sattler",
     "photoUrl": "https://i.pinimg.com/originals/b0/08/dc/b008dceba104bc1a561095387c8defbd.jpg",
     "isKidnapped": false,
     "job": "Archaeologist",
-    "uid": "Aaron"
+    "uid": "5555555555"
   },
   "staffMember6": {
     "name": "Robert Muldoon",
     "photoUrl": "https://themusic-images.sgp1.cdn.digitaloceanspaces.com/standard/news-15/jurassic-park-robert-muldoon-H-0615-02-970x645.jpg",
     "isKidnapped": false,
     "job": "Dino Wrangler",
-    "uid": "Steven"
+    "uid": "6666666666"
   },
   "staffMember7": {
     "name": "Ray Arnold",
     "photoUrl": "https://vignette.wikia.nocookie.net/to-hollywood-and-beyond/images/c/cd/Ray_Arnold_park.jpg/revision/latest/scale-to-width-down/340?cb=20170424175934",
     "isKidnapped": false,
     "job": "Senior Full Stack Engineer",
-    "uid": "Joey"
+    "uid": "7777777777"
   },
   "staffMember8": {
     "name": "Donald Gennaro",
     "photoUrl": "https://vignette.wikia.nocookie.net/jurassicpark/images/3/34/JP-DonaldGennaro.jpg/revision/latest/top-crop/width/360/height/360?cb=20110307034225",
     "isKidnapped": false,
     "job": "Lawyer",
-    "uid": "John"
+    "uid": "8888888888"
+  },
+  "staffMember9": {
+    "name": "Aaron Lain",
+    "photoUrl": "https://avatars0.githubusercontent.com/u/13320382?s=400&u=efaf3a6afcff59ecea9a582fee7d9fb5b0a00c33&v=4",
+    "isKidnapped": false,
+    "job": "NSS Student",
+    "uid": "9999999999"
+  },
+  "staffMember10": {
+    "name": "Anca Simon",
+    "photoUrl": "https://avatars3.githubusercontent.com/u/59633395?s=400&u=641b13076629e146468941dc9efa4c2953a2f4fb&v=4",
+    "isKidnapped": false,
+    "job": "NSS Student",
+    "uid": "1010101010"
+  },
+  "staffMember11": {
+    "name": "Beth Nielsen",
+    "photoUrl": "https://avatars0.githubusercontent.com/u/55928310?s=400&u=5901a5f992033bd88e192c827fc8e46f3b521159&v=4",
+    "isKidnapped": false,
+    "job": "NSS Student",
+    "uid": "0101010101"
+  },
+  "staffMember12": {
+    "name": "Bethany Whiworth",
+    "photoUrl": "https://avatars2.githubusercontent.com/u/52139891?s=400&u=8371e8f05e5cfde98b4e2ae03b142a3a9ca9eb4d&v=4",
+    "isKidnapped": false,
+    "job": "NSS Student",
+    "uid": "YYPi4jgVSwUsISXRl8fVkeLdKk62"
+  },
+  "staffMember13": {
+    "name": "Christopher Johnson",
+    "photoUrl": "https://avatars1.githubusercontent.com/u/58916138?s=400&u=5a27c4f499b7bb2734233188e1c5aaeb887e00ef&v=4",
+    "isKidnapped": false,
+    "job": "NSS Student",
+    "uid": "1313131313"
+  },
+  "staffMember14": {
+    "name": "David Everett",
+    "photoUrl": "https://avatars2.githubusercontent.com/u/59631645?s=400&u=57590eb3fda8bbaa5c28bd7abb757edc1b936d6c&v=4",
+    "isKidnapped": false,
+    "job": "NSS Student",
+    "uid": "hH5U8uQuhYTxsbuTg8DbPZrMxI52"
+  },
+  "staffMember15": {
+    "name": "Davis Lindell",
+    "photoUrl": "https://avatars0.githubusercontent.com/u/59629663?s=400&u=3d79b5e0f2c7b20831eb9eb5088493561c785c6a&v=4",
+    "isKidnapped": false,
+    "job": "NSS Student",
+    "uid": "7ZNLTk0fskTNhMA4LXirqHUe2r73"
+  },
+  "staffMember16": {
+    "name": "Joey Petrone",
+    "photoUrl": "https://avatars1.githubusercontent.com/u/59629666?s=400&u=d8252a2a3c66f81f6736fb4260dd8ef66d7052f9&v=4",
+    "isKidnapped": false,
+    "job": "NSS Student",
+    "uid": "1414141414"
+  },
+  "staffMember17": {
+    "name": "John Fleming",
+    "photoUrl": "https://avatars2.githubusercontent.com/u/51543096?s=400&u=a457001b3d524741ba5f679cdbca3aee634f6864&v=4",
+    "isKidnapped": false,
+    "job": "NSS Student",
+    "uid": "1515151515"
+  },
+  "staffMember18": {
+    "name": "John Johnson",
+    "photoUrl": "https://avatars2.githubusercontent.com/u/51214463?s=400&u=bf38790b2acacad17741a86c07dfe6fab445b429&v=4",
+    "isKidnapped": false,
+    "job": "NSS Student",
+    "uid": "1616161616"
+  },
+  "staffMember19": {
+    "name": "Jose Marquez",
+    "photoUrl": "https://avatars0.githubusercontent.com/u/58397561?s=400&u=e16970e597d62168ff278119d2a235d0e9b00685&v=4",
+    "isKidnapped": false,
+    "job": "NSS Student",
+    "uid": "1717171717"
+  },
+  "staffMember20": {
+    "name": "Kayla Melton",
+    "photoUrl": "https://avatars2.githubusercontent.com/u/55811958?s=400&u=f98b118db66afc75cac3117a1ae925c41b72700c&v=4",
+    "isKidnapped": false,
+    "job": "NSS Student",
+    "uid": "1818181818"
+  },
+  "staffMember21": {
+    "name": "Kenneth McEastland",
+    "photoUrl": "https://avatars2.githubusercontent.com/u/50973891?s=400&u=3edb65ceed1e510185964569e219a6201bb377d9&v=4",
+    "isKidnapped": false,
+    "job": "NSS Student",
+    "uid": "1919191919"
+  },
+  "staffMember22": {
+    "name": "Liza Star",
+    "photoUrl": "https://avatars3.githubusercontent.com/u/59629649?s=400&u=370e7d0c46d6ff4eaa06a0ba68ce4727a66d29f7&v=4",
+    "isKidnapped": false,
+    "job": "NSS Student",
+    "uid": "2020202020"
+  },
+  "staffMember23": {
+    "name": "Michele Rawlins",
+    "photoUrl": "https://avatars0.githubusercontent.com/u/51183779?s=400&u=211566ee2d94da159afa6cc377c2544ef5baf84b&v=4",
+    "isKidnapped": false,
+    "job": "NSS Student",
+    "uid": "2121212121"
+  },
+  "staffMember24": {
+    "name": "Monique Bass",
+    "photoUrl": "https://avatars2.githubusercontent.com/u/57569571?s=400&v=4",
+    "isKidnapped": false,
+    "job": "NSS Student",
+    "uid": "2222222222"
+  },
+  "staffMember25": {
+    "name": "Ola Oladinni",
+    "photoUrl": "https://avatars2.githubusercontent.com/u/59629698?s=400&u=3779d89caf83172b61f1a48123c6290d6cfb4eeb&v=4",
+    "isKidnapped": false,
+    "job": "NSS Student",
+    "uid": "2323232323"
+  },
+  "staffMember26": {
+    "name": "Sarah Holder",
+    "photoUrl": "https://avatars0.githubusercontent.com/u/59459651?s=400&u=359d17d7c17db9e2d1b726e24f2302c3ef89010a&v=4",
+    "isKidnapped": false,
+    "job": "NSS Student",
+    "uid": "2424242424"
+  },
+  "staffMember27": {
+    "name": "Stephen Castaneda",
+    "photoUrl": "https://avatars3.githubusercontent.com/u/59769978?s=400&u=d8424acf4b203f2702a99183d28f2bac4a0364c4&v=4",
+    "isKidnapped": false,
+    "job": "NSS Student",
+    "uid": "2525252525"
+  },
+  "staffMember28": {
+    "name": "Steven Zelenak",
+    "photoUrl": "https://avatars0.githubusercontent.com/u/57852913?s=400&u=a2658cd582411714667d066a1b29ca2da6df67f2&v=4",
+    "isKidnapped": false,
+    "job": "NSS Student",
+    "uid": "2626262626"
+  },
+  "staffMember29": {
+    "name": "Todd Spainhour",
+    "photoUrl": "https://avatars3.githubusercontent.com/u/59629794?s=400&u=d27d29b576069327554e63726c2072f55b3f133f&v=4",
+    "isKidnapped": false,
+    "job": "NSS Student",
+    "uid": "2727272727"
+  },
+  "staffMember30": {
+    "name": "Zachary Crumpton",
+    "photoUrl": "https://avatars3.githubusercontent.com/u/26338952?s=400&u=a4c433bf599d6c00e875768cc2c0f21e73d4c126&v=4",
+    "isKidnapped": false,
+    "job": "NSS Student",
+    "uid": "2828282828"
   }
 }
