@@ -19,6 +19,8 @@ const completelyRemoveTask = (randEquipId) => new Promise((resolve, reject) => {
                 if (oneShift.assignmentId === oneAssignment.id) {
                   shiftsData.deleteShiftById(oneShift.id);
                   assignmentsData.deleteAssignmentById(oneAssignment.id);
+                  console.log('shifts', shifts);
+                  console.log('assignments', assignments);
                 }
               });
             }
