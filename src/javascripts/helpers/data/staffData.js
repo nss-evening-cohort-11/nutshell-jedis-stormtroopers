@@ -25,7 +25,7 @@ const addStaff = (newStaff) => axios.post(`${baseUrl}/staff.json`, newStaff);
 
 const updateStaff = (staffId, modifiedStaff) => axios.put(`${baseUrl}/staff/${staffId}.json`, modifiedStaff);
 
-const getSingleStaffMemeber = (staffId) => axios.get(`${baseUrl}/staff/${staffId}.json`);
+const getSingleStaffMember = (staffId) => axios.get(`${baseUrl}/staff/${staffId}.json`);
 
 const kidnapStaff = (staffId) => axios.patch(`${baseUrl}/staff/${staffId}.json`, { isKidnapped: true });
 
@@ -34,7 +34,7 @@ export default {
   deleteStaff,
   addStaff,
   updateStaff,
-  getSingleStaffMemeber,
+  getSingleStaffMember,
   getStaffs,
   kidnapStaff,
 };

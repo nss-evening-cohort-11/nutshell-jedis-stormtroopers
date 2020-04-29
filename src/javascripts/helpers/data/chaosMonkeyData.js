@@ -4,27 +4,25 @@ import apiKeys from '../apiKeys.json';
 const baseUrl = apiKeys.firebaseKeys.databaseURL;
 const moment = require('moment');
 
-const getChaosEventsByType = (eventFilterType) => new Promise((resolve, reject) => {
+const getAllChaosEvents = () => new Promise((resolve, reject) => {
   axios.get(`${baseUrl}/chaosMonkeyEvents.json`)
     .then((response) => {
-      const allTheEvents = response.data;
+      const allEvents = response.data;
       const eventsArray = [];
-      if (allTheEvents) {
-        Object.keys(allTheEvents).forEach((eventId) => {
-          allTheEvents[eventId].id = eventId;
-          eventsArray.push(allTheEvents[eventId]);
+      if (allEvents) {
+        Object.keys(allEvents).forEach((eventId) => {
+          allEvents[eventId].id = eventId;
+          eventsArray.push(allEvents[eventId]);
         });
       }
-      const filteredEvents = eventsArray.filter((event) => event.eventType === eventFilterType);
-      resolve(filteredEvents);
+      resolve(eventsArray);
     })
-    .catch((err) => console.error('problem with getChaosEventsByType', reject(err)));
+    .catch((err) => console.error('problem with getAllChaosEvents', reject(err)));
 });
 
 const postChaosEvent = (event) => axios.post(`${baseUrl}/chaosMonkeyEvents.json`, event);
 
 const addEventToChaosHistory = (eventType, entityId) => {
-  console.error('inside addEventToHistory... event Type, entity Id:', eventType, entityId);
   if (eventType === 'kidnap') {
     const newEvent = {
       affectedEntityId: entityId,
@@ -32,9 +30,14 @@ const addEventToChaosHistory = (eventType, entityId) => {
       timestamp: moment().format('MMMM Do YYYY, h:mm:ss a'),
     };
     postChaosEvent(newEvent);
-
-    console.log('add something to chaos history:', newEvent);
+  } else {
+    const newEvent = {
+      affectedEntityId: entityId,
+      eventType: 'broken',
+      timestamp: moment().format('MMMM Do YYYY, h:mm:ss a'),
+    };
+    postChaosEvent(newEvent);
   }
 };
 
-export default { getChaosEventsByType, addEventToChaosHistory };
+export default { getAllChaosEvents, addEventToChaosHistory };
