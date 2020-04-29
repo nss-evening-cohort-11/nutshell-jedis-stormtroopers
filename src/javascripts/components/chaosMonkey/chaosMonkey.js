@@ -47,7 +47,7 @@ const randomChaosMonkeyStrike = () => {
     case 2: // Kidnap Staff Member
       staffData.getStaffs()
         .then((allStaff) => {
-          const staffRandNum = Math.ceil(Math.random() * allStaff.length - 1);
+          const staffRandNum = 11; // Math.ceil(Math.random() * allStaff.length - 1);
 
           if (allStaff[staffRandNum].isKidnapped === false) { // check if already kidnapped
             const randStaffId = allStaff[staffRandNum].id; // find a random staff member
@@ -121,7 +121,8 @@ const chaosMonkeyAlert = (randomStrike) => {
 };
 
 const unleashChaosMonkey = () => {
-  setInterval(randomChaosMonkeyStrike, 300000 * 1000);
+  // setInterval(randomChaosMonkeyStrike, 300000 * 1000);
+  randomChaosMonkeyStrike();
 };
 
 export default { unleashChaosMonkey };
