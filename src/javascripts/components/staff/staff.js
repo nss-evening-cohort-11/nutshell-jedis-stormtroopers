@@ -1,18 +1,50 @@
+/* eslint-disable no-console */
 import firebase from 'firebase/app';
 import 'firebase/auth';
+
 import staffData from '../../helpers/data/staffData';
 import utils from '../../helpers/utils';
+import smash from '../../helpers/data/smash';
+// import smash from '../../helpers/data/smash';
 
 const showEditForm = () => {
-  $('div#edit-staff-form-container').removeClass('hide');
-  $('div#new-staff-form-container').addClass('hide');
+  $('#edit-staff-form-container').removeClass('hide');
+  $('#new-staff-form-container').addClass('hide');
+  $('#schedule-staff-form-container').addClass('hide');
+};
+
+const showSingleStaffView = () => {
+  $('#edit-staff-form-container').addClass('hide');
+  $('#new-staff-form-container').addClass('hide');
+  $('#single-staff-form-container').removeClass('hide');
+};
+
+const buildSingleStaffMember = (staffId) => {
+  smash.getAllWeeklyShiftsWithSingleStaffMemberJobAssignments(staffId)
+    .then((finalShifts) => {
+      console.log(finalShifts);
+      let domString = '';
+      domString += '<div class="col-12">';
+      domString += '  <div class="card">';
+      domString += '  </div>';
+      domString += '</div>';
+      utils.printToDom('single-staff-form-container', domString);
+    })
+    .catch((err) => console.error('This is not working!', err));
+  showSingleStaffView();
+};
+
+const closeFormButton = () => {
+  const domString = '<button id="close-form-button" class="btn btn-outline-light"><i class="text-white fas fa-times"></i></button>';
+  return domString;
 };
 
 const newStaffForm = () => {
   let domString = '';
   domString += '<div class="card form-card col-6 offset-3">';
-  domString += '<div class="card-header text-center">';
+  domString += '<div class="d-flex justify-content-between align-items-center card-header text-center">';
   domString += '<h2>New Staff Member</h2>';
+  domString += closeFormButton();
   domString += '</div>';
   domString += '<div class="card-body">';
   domString += '<form class="new-staff-form">';
@@ -53,6 +85,7 @@ const newStaffForm = () => {
 const showStaffForm = () => {
   $('#new-staff-form-container').removeClass('hide');
   $('#edit-staff-form-container').addClass('hide');
+  $('#schedule-staff-form-container').addClass('hide');
 
   newStaffForm();
 };
@@ -64,8 +97,9 @@ const editStaffForm = (staffId) => {
       const staff = response.data;
       let domString = '';
       domString += '<div class="card form-card col-6 offset-3">';
-      domString += '<div class="card-header text-center">';
+      domString += '<div class="d-flex flex-row justify-content-between align-items-center card-header text-center">';
       domString += '<h2>Edit staff</h2>';
+      domString += closeFormButton();
       domString += '</div>';
       domString += '<div class="card-body">';
       domString += `<form class="edit-staff-form" id=${staffId}>`;
@@ -130,9 +164,8 @@ const printStaff = (staff) => {
   domString += '</div>';
   domString += '<div class="card-footer">';
   domString += '<button class="btn card-btn mx-1 btn-outline-danger delete-staff"><i class="fas fa-trash card-icon"></i></button>';
-  domString += '<button class="btn card-btn mx-1 btn-outline-success edit-staff">';
-  domString += '<i class="fas fa-pencil-alt card-icon"></i>';
-  domString += '</button>';
+  domString += `${staff.isKidnapped ? '' : '<button class="btn card-btn mx-1 btn-outline-success edit-staff"><i class="fas fa-pencil-alt card-icon"></i></button>'}`;
+  domString += `${staff.isKidnapped ? '' : '<button class="btn card-btn mx-1 btn-outline-info staff-single-view"><i class="mt-1 far fa-calendar-alt"></i></button>'}`;
   domString += '</div>';
   domString += '</div>';
   domString += '</div>';
@@ -148,9 +181,11 @@ const printStaffDashboard = () => {
       domString += '<div class="col-12 text-center"><h1 class="my-3">[ Staff ]</h1></div>';
       domString += '<div class="col-12 text-center"><button id="new-staff-btn" class="btn dashboard-btn mb-2">';
       domString += '<i class="fas fa-plus dashboard-icon"></i></button></div>';
-      domString += '<div id="edit-staff-form-container" class="col-12 my-3 hide">';
+      domString += '<div id="edit-staff-form-container" class="form-container col-12 my-3 hide">';
       domString += '</div>';
-      domString += '<div id="new-staff-form-container" class="col-12 my-3 hide">';
+      domString += '<div id="new-staff-form-container" class="form-container col-12 my-3 hide">';
+      domString += '</div>';
+      domString += '<div id="single-staff-form-container" class="form-container container-fluid my-3 hide">';
       domString += '</div>';
       staffs.forEach((staff) => {
         if (staff) domString += printStaff(staff);
@@ -199,10 +234,21 @@ const modifyStaff = (e) => {
     .catch((err) => console.error('Modify Pin Broke', err));
 };
 
+const closeStaffForm = (e) => {
+  const containerId = e.target.closest('.form-container').id;
+  $(`#${containerId}`).addClass('hide');
+  utils.printToDom(`${containerId}`, '');
+};
+
 const removeStaff = (e) => {
   const staffId = e.target.closest('.card').id;
   staffData.deleteStaff(staffId).then(() => printStaffDashboard())
     .catch((err) => console.error('could not delete staff', err));
+};
+
+const singleStaffMemberEvent = (e) => {
+  const staffId = e.target.closest('.card').id;
+  buildSingleStaffMember(staffId);
 };
 
 const staffEvents = () => {
@@ -211,6 +257,8 @@ const staffEvents = () => {
   $('body').on('click', '.delete-staff', removeStaff);
   $('body').on('click', '#new-staff-btn', showStaffForm);
   $('body').on('click', '#submit-new-staff', makeNewStaff);
+  $('body').on('click', '#close-form-button', closeStaffForm);
+  $('body').on('click', '.staff-single-view', singleStaffMemberEvent);
 };
 
 export default {

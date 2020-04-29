@@ -1,11 +1,57 @@
+/* eslint-disable no-console */
 import axios from 'axios';
 import apiKeys from '../apiKeys.json';
 
+import staffData from './staffData';
 import assignmentsData from './assignmentsData';
 import shiftsData from './shiftsData';
 import jobTypeData from './jobTypeData';
 
 const baseUrl = apiKeys.firebaseKeys.databaseURL;
+
+const getSingleStaffMemberWithAssignedJobs = (staffId) => new Promise((resolve, reject) => {
+  staffData.getSingleStaffMemeber(staffId).then((staffResponse) => {
+    const staffMember = staffResponse.data;
+    staffMember.id = staffId;
+    staffMember.assignedJobs = [];
+    assignmentsData.getAssignmentsByStaffId(staffId).then((assignments) => {
+      jobTypeData.getJobTypes().then((jobTypes) => {
+        assignments.forEach((singleAssignment) => {
+          const assignedJobs = jobTypes.filter((job) => job.id === singleAssignment.jobId);
+          staffMember.assignedJobs.push(assignedJobs);
+        });
+        resolve(staffMember);
+      });
+    });
+  })
+    .catch((err) => reject(err));
+});
+
+const getAllWeeklyShiftsWithSingleStaffMemberJobAssignments = (staffId) => new Promise((resolve, reject) => {
+  getSingleStaffMemberWithAssignedJobs(staffId).then((staffMember) => {
+    shiftsData.getAllShifts().then((shifts) => {
+      assignmentsData.getAllAssignments().then((assignments) => {
+        jobTypeData.getJobTypes().then((jobTypes) => {
+          const finalShiftsBeingWorkedByStaffMember = [];
+          shifts.forEach((oneShift) => {
+            const shift = { thisStaffMemberJobs: [], ...oneShift };
+            const jobAssignmentsOnThisShift = jobTypes.filter((job) => job.shiftId === oneShift.id);
+            assignments.forEach((singleAssignment) => {
+              jobAssignmentsOnThisShift.forEach((job) => {
+                if (singleAssignment.jobId === job.id && singleAssignment.staffId === staffMember.id) {
+                  shift.thisStaffMemberJobs.push(singleAssignment);
+                }
+              });
+            });
+            finalShiftsBeingWorkedByStaffMember.push(shift);
+          });
+          resolve(finalShiftsBeingWorkedByStaffMember);
+        });
+      });
+    });
+  })
+    .catch((err) => reject(err));
+});
 
 const removeAllJobAssignmentsByAssetId = (assetId) => new Promise((resolve, reject) => {
   jobTypeData.getJobTypesByAssetId(assetId)
@@ -42,4 +88,9 @@ const deleteStaffAssignmentsAndShifts = (staffMemberId) => new Promise((resolve,
     .catch((err) => console.error('problem with deleting assignments for staff', reject(err)));
 });
 
-export default { deleteStaffAssignmentsAndShifts, removeAllJobAssignmentsByAssetId };
+export default {
+  deleteStaffAssignmentsAndShifts,
+  removeAllJobAssignmentsByAssetId,
+  getSingleStaffMemberWithAssignedJobs,
+  getAllWeeklyShiftsWithSingleStaffMemberJobAssignments,
+};

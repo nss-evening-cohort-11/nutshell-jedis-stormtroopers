@@ -57,7 +57,6 @@ const showUpdateEquipmentForm = (equipmentId) => {
 
 const editEquipmentEvent = (e) => {
   const equipmentId = e.target.closest('.card').id;
-  console.error(equipmentId);
   showUpdateEquipmentForm(equipmentId);
 };
 

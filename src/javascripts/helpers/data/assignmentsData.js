@@ -33,6 +33,25 @@ const getAssignmentsByJobTypeId = (jobTypeId) => new Promise((resolve, reject) =
     .catch((err) => reject(err));
 });
 
+const getAssignmentsByStaffId = (staffId) => new Promise((resolve, reject) => {
+  axios.get(`${baseUrl}/assignments.json?orderBy="staffId"&equalTo="${staffId}"`)
+    .then((response) => {
+      const theseAssignments = response.data;
+      const assignments = [];
+      Object.keys(theseAssignments).forEach((assignmentId) => {
+        theseAssignments[assignmentId].id = assignmentId;
+        assignments.push(theseAssignments[assignmentId]);
+      });
+      resolve(assignments);
+    })
+    .catch((err) => reject(err));
+});
+
 const deleteAssignmentById = (assignmentId) => axios.delete(`${baseUrl}/assignments/${assignmentId}.json`);
 
-export default { getAssignmentsByJobTypeId, deleteAssignmentById, getAllAssignments };
+export default {
+  getAssignmentsByJobTypeId,
+  deleteAssignmentById,
+  getAllAssignments,
+  getAssignmentsByStaffId,
+};
