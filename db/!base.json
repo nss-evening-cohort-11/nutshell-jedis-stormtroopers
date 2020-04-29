@@ -1,7 +1,10 @@
 {
   "assignments": "???",
+<<<<<<< HEAD
   "calendar": "???",
   "chaosMonkeyEvents": "??",
+=======
+>>>>>>> master
   "dinos": "?",
   "equipment": "??",
   "jobTypes": "???",
@@ -9,5 +12,11 @@
   "shifts": "???",
   "staff": "????",
   "vendors": "?????",
+<<<<<<< HEAD
   "workTimes": "???"
+=======
+  "chaosMonkeyEvents": "???",
+  "shifts": "???",
+  "jobTypes": "???"
+>>>>>>> master
 }
