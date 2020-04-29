@@ -14,8 +14,7 @@ import utils from '../../helpers/utils';
 const moment = require('moment');
 
 const randomChaosMonkeyStrike = () => {
-  // const randNum = Math.ceil(Math.random() * 3);
-  const randNum = 3;
+  const randNum = Math.ceil(Math.random() * 3);
   let randomStrike = '';
 
   switch (randNum) {
@@ -75,10 +74,10 @@ const randomChaosMonkeyStrike = () => {
     case 3: // Break Ride
       ridesData.getRides()
         .then((allRides) => {
-          // const ridesRandNum = Math.ceil(Math.random() * allRides.length - 1);
-          const ridesRandNum = 1;
+          const ridesRandNum = Math.ceil(Math.random() * allRides.length - 1);
           const randRideId = allRides[ridesRandNum].id;
-          smash.removeAllAssignmentsAndShiftsByEntityId(randRideId)
+          console.error(randRideId);
+          smash.removeAllJobAssignmentsByAssetId(randRideId)
             .then(() => {
             })
             .catch((err) => console.error('There is a problem with your smash function:', err));
@@ -120,8 +119,7 @@ const chaosMonkeyAlert = (randomStrike) => {
 };
 
 const unleashChaosMonkey = () => {
-  // setInterval(randomChaosMonkeyStrike, 60000 * 1000);
-  randomChaosMonkeyStrike();
+  setInterval(randomChaosMonkeyStrike, 60000 * 1000);
 };
 
 export default { unleashChaosMonkey };
