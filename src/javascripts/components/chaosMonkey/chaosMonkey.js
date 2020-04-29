@@ -1,6 +1,8 @@
 import equipmentStorageContainer from '../equipmentStorageContainer/equipmentStorageContainer';
 import ridesComponent from '../rides/rides';
 import staffComponent from '../staff/staff';
+import vendorsComponent from '../vendors/vendors';
+
 
 import chaosMonkeyData from '../../helpers/data/chaosMonkeyData';
 import equipData from '../../helpers/data/equipData';
@@ -56,9 +58,10 @@ const randomChaosMonkeyStrike = () => {
 
             staffData.kidnapStaff(randStaffId) // change staff's boolean isKidnapped to 'true'
               .then(() => {
-                smash.deleteStaffAssignmentsAndShifts(randStaffId); // delete existing assignments and shifts for the kidnapped staff member
-                chaosMonkeyData.addEventToChaosHistory('kidnap', randStaffId);
+                smash.deleteStaffAssignments(randStaffId); // delete existing assignments for the kidnapped staff member
+                chaosMonkeyData.addEventToChaosHistory('kidnap', randStaffId);// add this event to history of Chaos Monkey
                 staffComponent.printStaffDashboard(); // update the staff dashboard to current
+                vendorsComponent.checkIfVendorsAreStaffed(); // update vendor dashboard to current
               })
               .catch((err) => console.error('problem with kidnap staff in Chaos Monkey', err));
           } else {
@@ -73,7 +76,8 @@ const randomChaosMonkeyStrike = () => {
     case 3: // Break Ride
       ridesData.getRides()
         .then((allRides) => {
-          const ridesRandNum = Math.ceil(Math.random() * allRides.length - 1);
+          // const ridesRandNum = Math.ceil(Math.random() * allRides.length - 1);
+          const ridesRandNum = 1;
           const randRideId = allRides[ridesRandNum].id;
           smash.removeAllAssignmentsAndShiftsByEntityId(randRideId)
             .then(() => {

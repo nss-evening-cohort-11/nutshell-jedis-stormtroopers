@@ -1,42 +1,50 @@
 {
-    "assignment1" : {
-        "staffId" : "staffMember1",
-        "entityId" : "dino1",
-        "jobTypeId" : "jobType1"
+    "assignment1": {
+        "staffId": "staffMember1",
+        "jobId": "job1"
     },
-    "assignment2" : {
-        "staffId" : "staffMember2",
-        "entityId" : "equipment2",
-        "jobTypeId" : "jobType2"
+    "assignment2": {
+        "staffId": "staffMember2",
+        "jobId": "job2"
     },
-    "assignment3" : {
-        "staffId" : "staffMember3",
-        "entityId" : "ride4",
-        "jobTypeId" : "jobType4"
+    "assignment3": {
+        "staffId": "staffMember3",
+        "jobId": "job3"
     },
-    "assignment4" : {
-        "staffId" : "staffMember4",
-        "entityId" : "vendor5",
-        "jobTypeId" : "jobType3"
+    "assignment4": {
+        "staffId": "staffMember4",
+        "jobId": "job4"
     },
-    "assignment5" : {
-        "staffId" : "staffMember5",
-        "entityId" : "dino1",
-        "jobTypeId" : "jobType1"
+    "assignment5": {
+        "staffId": "staffMember5",
+        "jobId": "job57"
     },
-    "assignment6" : {
-        "staffId" : "staffMember6",
-        "entityId" : "dino3",
-        "jobTypeId" : "jobType1"
+    "assignment6": {
+        "staffId": "staffMember6",
+        "jobId": "job58"
     },
-    "assignment7" : {
-        "staffId" : "staffMember6",
-        "entityId" : "dino2",
-        "jobTypeId" : "jobType1"
+    "assignment7": {
+        "staffId": "staffMember7",
+        "jobId": "job61"
     },
-    "assignment8" : {
-        "staffId" : "staffMember8",
-        "entityId" : "ride5",
-        "jobTypeId" : "jobType4"
-    }
+    "assignment8": {
+        "staffId": "staffMember8",
+        "jobId": "job75"
+    },
+    "assignment9": {
+        "staffId": "staffMember9",
+        "jobId": "job101"
+    },
+    "assignment10": {
+        "staffId": "staffMember10",
+        "jobId": "job102"
+    },
+    "assignment11": {
+        "staffId": "staffMember11",
+        "jobId": "job106"
+    },
+    "assignment12": {
+        "staffId": "staffMember12",
+        "jobId": "job53"
+   }
 }

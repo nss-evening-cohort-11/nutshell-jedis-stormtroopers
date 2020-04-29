@@ -24,6 +24,7 @@ const getChaosEventsByType = (eventFilterType) => new Promise((resolve, reject) 
 const postChaosEvent = (event) => axios.post(`${baseUrl}/chaosMonkeyEvents.json`, event);
 
 const addEventToChaosHistory = (eventType, entityId) => {
+  console.error('inside addEventToHistory... event Type, entity Id:', eventType, entityId);
   if (eventType === 'kidnap') {
     const newEvent = {
       affectedEntityId: entityId,

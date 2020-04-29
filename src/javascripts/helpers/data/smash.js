@@ -6,7 +6,7 @@ import shiftsData from './shiftsData';
 
 const baseUrl = apiKeys.firebaseKeys.databaseURL;
 
-const removeAllAssignmentsAndShiftsByEntityId = (entityId) => new Promise((resolve, reject) => {
+const removeAllJobsAndAssignmentsByEntityId = (entityId) => new Promise((resolve, reject) => {
   assignmentsData.getRideAssignmentsByEntityId(entityId)
     .then((assignments) => {
       assignments.forEach((singleAssignment) => {
@@ -25,7 +25,7 @@ const removeAllAssignmentsAndShiftsByEntityId = (entityId) => new Promise((resol
     .catch((err) => reject(err));
 });
 
-const deleteStaffAssignmentsAndShifts = (staffMemberId) => new Promise((resolve, reject) => {
+const deleteStaffAssignments = (staffMemberId) => new Promise((resolve, reject) => {
   assignmentsData.getAllAssignments()
     .then((assignmentsArray) => {
       const assignmentsToRemove = assignmentsArray.filter((a) => a.staffId === staffMemberId);
@@ -42,4 +42,4 @@ const deleteStaffAssignmentsAndShifts = (staffMemberId) => new Promise((resolve,
     .catch((err) => console.error('problem with deleting assignments for staff', reject(err)));
 });
 
-export default { removeAllAssignmentsAndShiftsByEntityId, deleteStaffAssignmentsAndShifts };
+export default { removeAllJobsAndAssignmentsByEntityId, deleteStaffAssignments };
