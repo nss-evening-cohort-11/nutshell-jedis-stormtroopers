@@ -5,7 +5,12 @@ import 'firebase/auth';
 import staffData from '../../helpers/data/staffData';
 import utils from '../../helpers/utils';
 import smash from '../../helpers/data/smash';
-// import smash from '../../helpers/data/smash';
+import timeTableBuilder from '../timeTableBuilder/timeTableBuilder';
+
+const closeFormButton = () => {
+  const domString = '<button id="close-form-button" class="btn btn-outline-light"><i class="text-white fas fa-times"></i></button>';
+  return domString;
+};
 
 const showEditForm = () => {
   $('#edit-staff-form-container').removeClass('hide');
@@ -21,22 +26,47 @@ const showSingleStaffView = () => {
 
 const buildSingleStaffMember = (staffId) => {
   smash.getAllWeeklyShiftsWithSingleStaffMemberJobAssignments(staffId)
-    .then((finalShifts) => {
-      console.log(finalShifts);
+    .then((staffMember) => {
+      console.log(staffMember);
       let domString = '';
-      domString += '<div class="col-12">';
-      domString += '  <div class="card">';
+      domString += `<div data-staff-id="${staffMember.id}" class="card form-card col-12">`;
+      domString += '  <div class="d-flex flex-row justify-content-between align-items-center card-header text-center">';
+      domString += `    <h2>Staff Member Schedule: ${staffMember.name}</h2>`;
+      domString += closeFormButton();
       domString += '  </div>';
+      domString += '<div class="text-light">';
+      domString += timeTableBuilder.timeTableBuilder(staffMember.schedule);
       domString += '</div>';
       utils.printToDom('single-staff-form-container', domString);
+      // domString += '  <form class="card-body d-flex flex-row justify-content-center align-items-center">';
+      // staffMember.schedule.forEach((shift) => {
+      //   domString += '    <div class="col-6">';
+      //   if (shift.workHours === 'AM') {
+      //     domString += `        <h3>Jobs Available for ${shift.dayName} in the ${shift.workHours}:</h3>`;
+      //     unscheduledAMJobs.forEach((job) => {
+      //       domString += '      <div class="custom-control custom-radio">';
+      //       domString += `        <input type="radio" id="${job.id}-AM" name="jobRadio" class="custom-control-input" value="${job.id}-${shift.id}">`;
+      //       domString += `        <label class="custom-control-label" for="${job.id}-AM">${job.name}</label>`;
+      //       domString += '      </div>';
+      //     });
+      // //   } else if (shift.workHours === 'PM') {
+      // //     domString += `        <h3>Jobs Available for ${finalDay.dayName} in the ${shift.workHours}:</h3>`;
+      // //     unscheduledPMJobs.forEach((job) => {
+      // //       domString += '      <div class="custom-control custom-radio">';
+      // //       domString += `        <input type="radio" id="${job.id}-PM" name="jobRadio" class="custom-control-input" value="${job.id}-${shift.id}">`;
+      // //       domString += `        <label class="custom-control-label" for="${job.id}-PM">${job.name}</label>`;
+      // //       domString += '      </div>';
+      // //     });
+      // //   }
+      // //   domString += '    </div>';
+      // });
+      // domString += '  </form>';
+      // domString += '  <button type="button" class="m-5 btn btn-outline-dark" id="submit-staff-schedule-job">Continue</button>';
+      // domString += '<div>';
+      // utils.printToDom('single-staff-form-container', domString);
     })
     .catch((err) => console.error('This is not working!', err));
   showSingleStaffView();
-};
-
-const closeFormButton = () => {
-  const domString = '<button id="close-form-button" class="btn btn-outline-light"><i class="text-white fas fa-times"></i></button>';
-  return domString;
 };
 
 const newStaffForm = () => {
@@ -85,7 +115,7 @@ const newStaffForm = () => {
 const showStaffForm = () => {
   $('#new-staff-form-container').removeClass('hide');
   $('#edit-staff-form-container').addClass('hide');
-  $('#schedule-staff-form-container').addClass('hide');
+  $('#single-staff-form-container').addClass('hide');
 
   newStaffForm();
 };

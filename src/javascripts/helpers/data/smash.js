@@ -28,7 +28,9 @@ const getSingleStaffMemberWithAssignedJobs = (staffId) => new Promise((resolve, 
 });
 
 const getAllWeeklyShiftsWithSingleStaffMemberJobAssignments = (staffId) => new Promise((resolve, reject) => {
-  getSingleStaffMemberWithAssignedJobs(staffId).then((staffMember) => {
+  staffData.getSingleStaffMemeber(staffId).then((staffResponse) => {
+    const staffMember = staffResponse.data;
+    staffMember.id = staffId;
     shiftsData.getAllShifts().then((shifts) => {
       assignmentsData.getAllAssignments().then((assignments) => {
         jobTypeData.getJobTypes().then((jobTypes) => {
@@ -45,7 +47,8 @@ const getAllWeeklyShiftsWithSingleStaffMemberJobAssignments = (staffId) => new P
             });
             finalShiftsBeingWorkedByStaffMember.push(shift);
           });
-          resolve(finalShiftsBeingWorkedByStaffMember);
+          staffMember.schedule = finalShiftsBeingWorkedByStaffMember;
+          resolve(staffMember);
         });
       });
     });
