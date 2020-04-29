@@ -10,23 +10,8 @@ const completelyRemoveTask = (randEquipId) => new Promise((resolve, reject) => {
   assignmentsData.getAllAssignments()
     .then((assignResponse) => {
       const assignments = assignResponse;
-      shiftsData.getAllShifts()
-        .then((shiftsResponse) => {
-          const shifts = shiftsResponse;
-          assignments.forEach((oneAssignment) => {
-            if (oneAssignment.entityId === randEquipId) {
-              shifts.forEach((oneShift) => {
-                if (oneShift.assignmentId === oneAssignment.id) {
-                  shiftsData.deleteShiftById(oneShift.id);
-                  assignmentsData.deleteAssignmentById(oneAssignment.id);
-                  console.log('shifts', shifts);
-                  console.log('assignments', assignments);
-                }
-              });
-            }
-          });
-          resolve();
-        });
+      console.log('assignments', assignments);
+      console.log('randEquipId', randEquipId);
     })
     .catch((err) => reject(err));
 });
