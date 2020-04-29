@@ -19,8 +19,8 @@ const getAllAssignments = () => new Promise((resolve, reject) => {
     .catch((err) => console.error('getStaff broke', reject(err)));
 });
 
-const getRideAssignmentsByEntityId = (entityId) => new Promise((resolve, reject) => {
-  axios.get(`${baseUrl}/assignments.json?orderBy="entityId"&equalTo="${entityId}"`)
+const getAssignmentsByJobTypeId = (jobTypeId) => new Promise((resolve, reject) => {
+  axios.get(`${baseUrl}/assignments.json?orderBy="jobId"&equalTo="${jobTypeId}"`)
     .then((response) => {
       const theseAssignments = response.data;
       const assignments = [];
@@ -35,4 +35,4 @@ const getRideAssignmentsByEntityId = (entityId) => new Promise((resolve, reject)
 
 const deleteAssignmentById = (assignmentId) => axios.delete(`${baseUrl}/assignments/${assignmentId}.json`);
 
-export default { getRideAssignmentsByEntityId, deleteAssignmentById, getAllAssignments };
+export default { getAssignmentsByJobTypeId, deleteAssignmentById, getAllAssignments };
