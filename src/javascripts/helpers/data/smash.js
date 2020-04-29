@@ -4,15 +4,32 @@ import apiKeys from '../apiKeys.json';
 import assignmentsData from './assignmentsData';
 import shiftsData from './shiftsData';
 import jobTypeData from './jobTypeData';
+import equipJobsData from './equipJobsData';
 
 const baseUrl = apiKeys.firebaseKeys.databaseURL;
 
 const completelyRemoveTask = (randEquipId) => new Promise((resolve, reject) => {
   assignmentsData.getAllAssignments()
     .then((assignResponse) => {
-      const assignments = assignResponse;
-      console.log('assignments', assignments);
-      console.log('randEquipId', randEquipId);
+      equipJobsData.getAllEquipJobs()
+        .then((equipJobsResponse) => {
+          const assignments = assignResponse;
+          const equipJobs = equipJobsResponse;
+          assignments.forEach((assignment) => {
+            equipJobs.forEach((equipJob) => {
+              if (randEquipId === equipJob.equipId) {
+                if (equipJob.jobId === assignment.jobId) {
+                  console.log('assignment', assignment);
+                  console.log('equipJob', equipJob);
+                }
+              }
+            });
+          });
+          console.log('equipJobs', equipJobs);
+          console.log('assignments', assignments);
+          console.log('randEquipId', randEquipId);
+        });
+      resolve();
     })
     .catch((err) => reject(err));
 });
