@@ -77,7 +77,8 @@ const randomChaosMonkeyStrike = () => {
           // const ridesRandNum = Math.ceil(Math.random() * allRides.length - 1);
           const ridesRandNum = 1;
           const randRideId = allRides[ridesRandNum].id;
-          smash.removeAllAssignmentsAndShiftsByEntityId(randRideId)
+          console.error(randRideId);
+          smash.removeAllJobAssignmentsByAssetId(randRideId)
             .then(() => {
             })
             .catch((err) => console.error('There is a problem with your smash function:', err));

@@ -16,7 +16,7 @@ import chaosMonkey from './components/chaosMonkey/chaosMonkey';
 
 const mainEvents = () => {
   $('body').on('click', '.nav-icon', navbarComponent.navbarEvents);
-  $('body').on('click', '#monkey-test-button', chaosMonkey.unleashChaosMonkey);
+  $('body').on('click', '#test', chaosMonkey.unleashChaosMonkey);
 };
 
 

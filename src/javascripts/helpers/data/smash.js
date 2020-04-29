@@ -3,6 +3,7 @@ import apiKeys from '../apiKeys.json';
 
 import assignmentsData from './assignmentsData';
 import shiftsData from './shiftsData';
+import jobTypeData from './jobTypeData';
 
 const baseUrl = apiKeys.firebaseKeys.databaseURL;
 
@@ -16,19 +17,18 @@ const completelyRemoveTask = (randEquipId) => new Promise((resolve, reject) => {
     .catch((err) => reject(err));
 });
 
-const removeAllAssignmentsAndShiftsByEntityId = (entityId) => new Promise((resolve, reject) => {
-  assignmentsData.getRideAssignmentsByEntityId(entityId)
-    .then((assignments) => {
-      assignments.forEach((singleAssignment) => {
-        const assignmentId = singleAssignment.id;
-        shiftsData.getShiftsByAssignmentId(assignmentId)
-          .then((shifts) => {
-            shifts.forEach((singleShift) => {
-              const shiftId = singleShift.id;
-              shiftsData.deleteShiftById(shiftId);
+const removeAllJobAssignmentsByAssetId = (assetId) => new Promise((resolve, reject) => {
+  jobTypeData.getJobTypesByAssetId(assetId)
+    .then((jobTypes) => {
+      jobTypes.forEach((singleJobType) => {
+        const jobTypeId = singleJobType.id;
+        assignmentsData.getAssignmentsByJobTypeId(jobTypeId)
+          .then((assignments) => {
+            assignments.forEach((singleAssignment) => {
+              const assignmentId = singleAssignment.id;
+              assignmentsData.deleteAssignmentById(assignmentId);
             });
           });
-        assignmentsData.deleteAssignmentById(assignmentId);
       });
       resolve();
     })
@@ -52,4 +52,4 @@ const deleteStaffAssignmentsAndShifts = (staffMemberId) => new Promise((resolve,
     .catch((err) => console.error('problem with deleting assignments for staff', reject(err)));
 });
 
-export default { removeAllAssignmentsAndShiftsByEntityId, deleteStaffAssignmentsAndShifts, completelyRemoveTask };
+export default { deleteStaffAssignmentsAndShifts, removeAllJobAssignmentsByAssetId, completelyRemoveTask };

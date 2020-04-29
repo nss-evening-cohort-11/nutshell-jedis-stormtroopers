@@ -1,0 +1,26 @@
+{
+  "equipJob1": {
+    "equipId": "equipment7",
+    "jobId": "job57"
+  },
+  "equipJob2": {
+    "equipId": "equipment1",
+    "jobId": "job1"
+  },
+  "equipJob3": {
+    "equipId": "equipment2",
+    "jobId": "job2"
+  },
+  "equipJob4": {
+    "equipId": "equipment5",
+    "jobId": "job116"
+  },
+  "equipJob5": {
+    "equipId": "equipment6",
+    "jobId": "job75"
+  },
+  "equipJob6": {
+    "equipId": "equipment3",
+    "jobId": "job131"
+  }
+}
