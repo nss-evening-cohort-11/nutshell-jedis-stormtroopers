@@ -19,4 +19,6 @@ const getAllEquipJobs = () => new Promise((resolve, reject) => {
     .catch((err) => console.error('getDinos broke', reject(err)));
 });
 
-export default { getAllEquipJobs };
+const deleteEquipJobById = (equipJobId) => axios.delete(`${baseUrl}/equipjobs/${equipJobId}.json`);
+
+export default { getAllEquipJobs, deleteEquipJobById };

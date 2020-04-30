@@ -19,15 +19,12 @@ const completelyRemoveTask = (randEquipId) => new Promise((resolve, reject) => {
             equipJobs.forEach((equipJob) => {
               if (randEquipId === equipJob.equipId) {
                 if (equipJob.jobId === assignment.jobId) {
-                  console.log('assignment', assignment);
-                  console.log('equipJob', equipJob);
+                  equipJobsData.deleteEquipJobById(equipJob.id);
+                  assignmentsData.deleteAssignmentById(assignment.id);
                 }
               }
             });
           });
-          console.log('equipJobs', equipJobs);
-          console.log('assignments', assignments);
-          console.log('randEquipId', randEquipId);
         });
       resolve();
     })
