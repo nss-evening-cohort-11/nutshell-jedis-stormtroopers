@@ -25,6 +25,8 @@ const completelyRemoveTask = (randEquipId) => new Promise((resolve, reject) => {
               }
             });
           });
+          console.log('assignments', assignments);
+          console.log('equipJobs', equipJobs);
         });
       resolve();
     })
