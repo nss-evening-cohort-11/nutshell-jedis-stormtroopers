@@ -2,7 +2,6 @@ import equipmentStorageContainer from '../equipmentStorageContainer/equipmentSto
 import ridesComponent from '../rides/rides';
 import staffComponent from '../staff/staff';
 import vendorsComponent from '../vendors/vendors';
-import overview from '../overview/overview';
 
 import chaosMonkeyData from '../../helpers/data/chaosMonkeyData';
 import equipData from '../../helpers/data/equipData';

@@ -1,5 +1,6 @@
 import axios from 'axios';
 import apiKeys from '../apiKeys.json';
+// eslint-disable-next-line import/no-cycle
 import overview from '../../components/overview/overview';
 
 const baseUrl = apiKeys.firebaseKeys.databaseURL;
