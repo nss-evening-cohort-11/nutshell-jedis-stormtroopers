@@ -26,9 +26,7 @@ const timeTableBuilder = (schedule) => {
   amShifts.forEach((shift) => {
     domString += '          <td>';
     shift.thisStaffMemberJobs.forEach((job) => {
-      console.log(job);
       domString += `            <p class="m-1">${job.name || 'Open Shift'}</p>`;
-      domString += `            <p class="m-1">Assigned To: ${job.jobDuty.name}</p>`;
     });
     domString += '          </td>';
   });
@@ -38,7 +36,6 @@ const timeTableBuilder = (schedule) => {
   pmShifts.forEach((shift) => {
     domString += '          <td>';
     shift.thisStaffMemberJobs.forEach((job) => {
-      console.error(job);
       domString += `            <p class="m-1">${job.id || 'Open Shift'}</p>`;
     });
     domString += '          </td>';
