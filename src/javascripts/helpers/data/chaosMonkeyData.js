@@ -1,5 +1,6 @@
 import axios from 'axios';
 import apiKeys from '../apiKeys.json';
+import overview from '../../components/overview/overview';
 
 const baseUrl = apiKeys.firebaseKeys.databaseURL;
 const moment = require('moment');
@@ -45,6 +46,7 @@ const addEventToChaosHistory = (eventType, entityId) => {
     };
     postChaosEvent(newEvent);
   }
+  overview.printOverviewDashboard();
 };
 
 export default { getAllChaosEvents, addEventToChaosHistory };

@@ -35,7 +35,6 @@ const randomChaosMonkeyStrike = () => {
               .then(() => {
                 chaosMonkeyData.addEventToChaosHistory('stolen', randEquipId);// add this event to history of Chaos Monkey
                 equipmentStorageContainer.printEquipmentDashboard();
-                overview.printOverviewDashboard();
               })
               .catch((err) => console.error('problem with equipment in Chaos Monkey', err));
           } else {
@@ -64,7 +63,6 @@ const randomChaosMonkeyStrike = () => {
                 chaosMonkeyData.addEventToChaosHistory('kidnap', randStaffId);// add this event to history of Chaos Monkey
                 staffComponent.printStaffDashboard(); // update the staff dashboard to current
                 vendorsComponent.checkIfVendorsAreStaffed(); // update vendor dashboard to current
-                overview.printOverviewDashboard();
               })
               .catch((err) => console.error('problem with kidnap staff in Chaos Monkey', err));
           } else {
@@ -79,8 +77,7 @@ const randomChaosMonkeyStrike = () => {
     case 3: // Break Ride
       ridesData.getRides()
         .then((allRides) => {
-          // const ridesRandNum = Math.ceil(Math.random() * allRides.length - 1);
-          const ridesRandNum = 1;
+          const ridesRandNum = Math.ceil(Math.random() * allRides.length - 1);
           const randRideId = allRides[ridesRandNum].id;
           console.error(randRideId);
           smash.removeAllJobAssignmentsByAssetId(randRideId)
@@ -96,7 +93,6 @@ const randomChaosMonkeyStrike = () => {
               .then(() => {
                 chaosMonkeyData.addEventToChaosHistory('broken', randRideId);// add this event to history of Chaos Monkey
                 ridesComponent.printRidesDashboard();
-                overview.printOverviewDashboard();
               })
               .catch((err) => console.error('problem with break ride in Chaos Monkey', err));
           } else {
@@ -127,7 +123,7 @@ const chaosMonkeyAlert = (randomStrike) => {
 };
 
 const unleashChaosMonkey = () => {
-  // setInterval(randomChaosMonkeyStrike, 300000 * 1000);
+  // setInterval(randomChaosMonkeyStrike, 15 * 1000);
   randomChaosMonkeyStrike();
 };
 
