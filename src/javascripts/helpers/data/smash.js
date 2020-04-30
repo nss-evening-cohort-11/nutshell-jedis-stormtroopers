@@ -9,6 +9,23 @@ import jobTypeData from './jobTypeData';
 
 const baseUrl = apiKeys.firebaseKeys.databaseURL;
 
+const getAssetByJobNameAndAssetId = (jobName, assetId) => new Promise((resolve, reject) => {
+  let collectionRoot;
+  if (jobName === 'Dino Attendant') {
+    collectionRoot = 'dinos';
+  } else if (jobName === 'Ride Attendant') {
+    collectionRoot = 'rides';
+  } else if (jobName === 'Vendor Attendant') {
+    collectionRoot = 'vendors';
+  }
+  axios.get(`${baseUrl}/${collectionRoot}/${assetId}.json`)
+    .then((thing) => {
+      const finalAsset = thing.data;
+      resolve(finalAsset);
+    })
+    .catch((err) => reject(err));
+});
+
 const getSingleStaffMemberWithAssignedJobs = (staffId) => new Promise((resolve, reject) => {
   staffData.getSingleStaffMemeber(staffId).then((staffResponse) => {
     const staffMember = staffResponse.data;
@@ -27,21 +44,39 @@ const getSingleStaffMemberWithAssignedJobs = (staffId) => new Promise((resolve, 
     .catch((err) => reject(err));
 });
 
+const getAllJobsWithRelatedAssets = () => new Promise((resolve, reject) => {
+  jobTypeData.getJobTypes().then((jobTypes) => {
+    const finalJobs = [];
+    jobTypes.forEach((job) => {
+      const jobName = job.name;
+      const { assetId } = job;
+      const newJob = { jobDuty: {}, ...job };
+      getAssetByJobNameAndAssetId(jobName, assetId).then((finalAsset) => {
+        const thisAsset = { ...finalAsset };
+        newJob.jobDuty = { ...thisAsset };
+      });
+      finalJobs.push(newJob);
+    });
+    resolve(finalJobs);
+  })
+    .catch((err) => reject(err));
+});
+
 const getAllWeeklyShiftsWithSingleStaffMemberJobAssignments = (staffId) => new Promise((resolve, reject) => {
   staffData.getSingleStaffMemeber(staffId).then((staffResponse) => {
     const staffMember = staffResponse.data;
     staffMember.id = staffId;
     shiftsData.getAllShifts().then((shifts) => {
       assignmentsData.getAllAssignments().then((assignments) => {
-        jobTypeData.getJobTypes().then((jobTypes) => {
+        getAllJobsWithRelatedAssets().then((finalJobs) => {
           const finalShiftsBeingWorkedByStaffMember = [];
           shifts.forEach((oneShift) => {
             const shift = { thisStaffMemberJobs: [], ...oneShift };
-            const jobAssignmentsOnThisShift = jobTypes.filter((job) => job.shiftId === oneShift.id);
+            const jobAssignmentsOnThisShift = finalJobs.filter((job) => job.shiftId === oneShift.id);
             assignments.forEach((singleAssignment) => {
               jobAssignmentsOnThisShift.forEach((job) => {
                 if (singleAssignment.jobId === job.id && singleAssignment.staffId === staffMember.id) {
-                  shift.thisStaffMemberJobs.push(singleAssignment);
+                  shift.thisStaffMemberJobs.push(job);
                 }
               });
             });
@@ -96,4 +131,5 @@ export default {
   removeAllJobAssignmentsByAssetId,
   getSingleStaffMemberWithAssignedJobs,
   getAllWeeklyShiftsWithSingleStaffMemberJobAssignments,
+  getAssetByJobNameAndAssetId,
 };
