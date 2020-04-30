@@ -6,6 +6,13 @@ import staffData from '../../helpers/data/staffData';
 import utils from '../../helpers/utils';
 import smash from '../../helpers/data/smash';
 import timeTableBuilder from '../timeTableBuilder/timeTableBuilder';
+import shiftJobRadios from '../shiftJobRadios/shiftJobRadios';
+
+const closeModalButtonEvent = (e) => {
+  e.preventDefault();
+  $('#schedule-staff-modal').modal('hide');
+  utils.printToDom('job-modal-body', '');
+};
 
 const closeFormButton = () => {
   const domString = '<button id="close-form-button" class="btn btn-outline-light"><i class="text-white fas fa-times"></i></button>';
@@ -25,8 +32,10 @@ const showSingleStaffView = () => {
 };
 
 const buildSingleStaffMember = (staffId) => {
+  showSingleStaffView();
   smash.getAllWeeklyShiftsWithSingleStaffMemberJobAssignments(staffId)
     .then((staffMember) => {
+      console.error(staffMember);
       let domString = '';
       domString += `<div data-staff-id="${staffMember.id}" class="card form-card col-12">`;
       domString += '  <div class="d-flex flex-row justify-content-between align-items-center card-header text-center">';
@@ -36,10 +45,10 @@ const buildSingleStaffMember = (staffId) => {
       domString += '<div class="text-light">';
       domString += timeTableBuilder.timeTableBuilder(staffMember.schedule);
       domString += '</div>';
+      domString += '</div>';
       utils.printToDom('single-staff-form-container', domString);
     })
     .catch((err) => console.error('This is not working!', err));
-  showSingleStaffView();
 };
 
 const newStaffForm = () => {
@@ -254,6 +263,12 @@ const singleStaffMemberEvent = (e) => {
   buildSingleStaffMember(staffId);
 };
 
+const showJobsEvent = (e) => {
+  const shiftId = e.target.closest('.shift-cell').id;
+  console.error(shiftId);
+  shiftJobRadios.buildShiftJobRadios(shiftId);
+};
+
 const staffEvents = () => {
   $('body').on('click', '.edit-staff', editStaffEvent);
   $('body').on('click', '#submit-staff-changes', modifyStaff);
@@ -262,6 +277,8 @@ const staffEvents = () => {
   $('body').on('click', '#submit-new-staff', makeNewStaff);
   $('body').on('click', '#close-form-button', closeStaffForm);
   $('body').on('click', '.staff-single-view', singleStaffMemberEvent);
+  $('body').on('click', '.shift-cell', showJobsEvent);
+  $('body').on('click', '#close-modal-button', closeModalButtonEvent);
 };
 
 export default {

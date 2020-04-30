@@ -24,9 +24,10 @@ const timeTableBuilder = (schedule) => {
   domString += '        <tr>';
   domString += '            <th scope="row">AM</th>';
   amShifts.forEach((shift) => {
-    domString += '          <td>';
+    domString += `          <td id="${shift.id}" class="shift-cell">`;
     shift.thisStaffMemberJobs.forEach((job) => {
-      domString += `            <p class="m-1">${job.name || 'Open Shift'}</p>`;
+      const thisJob = { ...job };
+      domString += `            <p id="${thisJob.id}" class="m-1 job-cell"> ${thisJob.name || 'Open Shift'}</p>`;
     });
     domString += '          </td>';
   });
@@ -34,9 +35,10 @@ const timeTableBuilder = (schedule) => {
   domString += '        <tr>';
   domString += '            <th scope="row">PM</th>';
   pmShifts.forEach((shift) => {
-    domString += '          <td>';
+    domString += `          <td id="${shift.id}" class="shift-cell">`;
     shift.thisStaffMemberJobs.forEach((job) => {
-      domString += `            <p class="m-1">${job.id || 'Open Shift'}</p>`;
+      const thisJob = { ...job };
+      domString += `            <p class="m-1">${thisJob.name || 'Open Shift'}</p>`;
     });
     domString += '          </td>';
   });

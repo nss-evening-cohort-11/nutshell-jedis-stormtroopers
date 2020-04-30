@@ -48,11 +48,12 @@ const getAllJobsWithRelatedAssets = () => new Promise((resolve, reject) => {
   jobTypeData.getJobTypes().then((jobTypes) => {
     const finalJobs = [];
     jobTypes.forEach((job) => {
-      const newJob = { jobDuty: {}, ...job };
+      const newJob = { jobDuty: [], ...job };
       const jobName = job.name;
       const thisAssetId = job.assetId;
       getAssetByJobNameAndAssetId(jobName, thisAssetId).then((finalAsset) => {
-        newJob.jobDuty = { ...finalAsset };
+        const thisAsset = finalAsset;
+        newJob.jobDuty.push(thisAsset);
       });
       finalJobs.push(newJob);
     });
