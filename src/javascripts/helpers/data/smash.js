@@ -2,15 +2,22 @@ import axios from 'axios';
 import apiKeys from '../apiKeys.json';
 
 import assignmentsData from './assignmentsData';
+import jobTypeData from './jobTypeData';
 
 const baseUrl = apiKeys.firebaseKeys.databaseURL;
 
-const removeAllJobsAndAssignmentsByEntityId = (entityId) => new Promise((resolve, reject) => {
-  assignmentsData.getRideAssignmentsByEntityId(entityId)
-    .then((assignments) => {
-      assignments.forEach((singleAssignment) => {
-        const assignmentId = singleAssignment.id;
-        assignmentsData.deleteAssignmentById(assignmentId);
+const removeAllJobAssignmentsByAssetId = (assetId) => new Promise((resolve, reject) => {
+  jobTypeData.getJobTypesByAssetId(assetId)
+    .then((jobTypes) => {
+      jobTypes.forEach((singleJobType) => {
+        const jobTypeId = singleJobType.id;
+        assignmentsData.getAssignmentsByJobTypeId(jobTypeId)
+          .then((assignments) => {
+            assignments.forEach((singleAssignment) => {
+              const assignmentId = singleAssignment.id;
+              assignmentsData.deleteAssignmentById(assignmentId);
+            });
+          });
       });
       resolve();
     })
@@ -29,4 +36,4 @@ const deleteStaffAssignments = (staffMemberId) => new Promise((resolve, reject) 
     .catch((err) => console.error('problem with deleting assignments for staff', reject(err)));
 });
 
-export default { removeAllJobsAndAssignmentsByEntityId, deleteStaffAssignments };
+export default { deleteStaffAssignments, removeAllJobAssignmentsByAssetId };
