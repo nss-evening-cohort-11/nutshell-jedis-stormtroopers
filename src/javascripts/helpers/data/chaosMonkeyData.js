@@ -27,14 +27,21 @@ const addEventToChaosHistory = (eventType, entityId) => {
     const newEvent = {
       affectedEntityId: entityId,
       eventType: 'kidnap',
-      timestamp: moment().format('MMMM Do YYYY, h:mm:ss a'),
+      timestamp: moment().format('MMMM Do YYYY, h:mm a'),
+    };
+    postChaosEvent(newEvent);
+  } else if (eventType === 'broken') {
+    const newEvent = {
+      affectedEntityId: entityId,
+      eventType: 'broken',
+      timestamp: moment().format('MMMM Do YYYY, h:mm a'),
     };
     postChaosEvent(newEvent);
   } else {
     const newEvent = {
       affectedEntityId: entityId,
-      eventType: 'broken',
-      timestamp: moment().format('MMMM Do YYYY, h:mm:ss a'),
+      eventType: 'stolen',
+      timestamp: moment().format('MMMM Do YYYY, h:mm a'),
     };
     postChaosEvent(newEvent);
   }

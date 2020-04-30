@@ -1,28 +1,41 @@
 import utils from '../../helpers/utils';
 import chaosMonkeyData from '../../helpers/data/chaosMonkeyData';
 import staffData from '../../helpers/data/staffData';
+import ridesData from '../../helpers/data/ridesData';
+import equipData from '../../helpers/data/equipData';
 
 const getChaosHistory = () => {
-  chaosMonkeyData.getAllChaosEvents()
-    .then((eventsArray) => {
-      let domString = '';
-      eventsArray.forEach((eventItem) => {
-        console.log('for each event Item');
-        if (eventItem.eventType === 'kidnap') {
-          domString += `<p>${eventItem.timestamp} - `;
-          const staffId = eventItem.affectedEntityId;
-          staffData.getSingleStaffMember(staffId)
-            .then((response) => {
-              const staffMember = response.data;
-              console.log('staff name', staffMember.name);
-              domString += `${staffMember.name} was kidnapped</p>`;
-            });
+  Promise.all([chaosMonkeyData.getAllChaosEvents(), staffData.getStaffs(), ridesData.getRides(), equipData.getEquips()])
+    .then((allPromisesArray) => {
+      // will wait to resolve array of arrays: [ chaosMonkeyEvents[], allStaffMembers[], allRides[], allEquipment[] ]
+      let domString = '<ul class="overview-list">';
+      allPromisesArray[0].forEach((chaosEvent) => {
+        if (chaosEvent.eventType === 'kidnap') {
+          domString += `<li>${chaosEvent.timestamp} - `;
+          allPromisesArray[1].forEach((staffObject) => {
+            if (chaosEvent.affectedEntityId === staffObject.id) {
+              domString += `[MISSING STAFF] ${staffObject.name}</li>`;
+            }
+          });
+        } else if (chaosEvent.eventType === 'broken') {
+          domString += `<li>${chaosEvent.timestamp} - `;
+          allPromisesArray[2].forEach((rideObject) => {
+            if (chaosEvent.affectedEntityId === rideObject.id) {
+              domString += `[BROKEN RIDE] ${rideObject.name}</li>`;
+            }
+          });
+        } else {
+          domString += `<li>${chaosEvent.timestamp} - `;
+          allPromisesArray[3].forEach((equipObject) => {
+            if (chaosEvent.affectedEntityId === equipObject.id) {
+              domString += `[STOLEN EQUIPMENT] ${equipObject.name}</li>`;
+            }
+          });
         }
-        utils.printToDom('chaos-overview-container', domString);
       });
+      domString += '</ul>';
       utils.printToDom('chaos-overview-container', domString);
-    })
-    .catch((err) => console.error('problem with getBrokenEquipList', err));
+    });
 };
 
 export default { getChaosHistory };

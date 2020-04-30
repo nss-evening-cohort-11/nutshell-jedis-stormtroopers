@@ -4,13 +4,14 @@ import ridesData from '../../helpers/data/ridesData';
 const getBrokenRidesList = () => {
   ridesData.getRides()
     .then((ridesArray) => {
-      let domString = '';
+      let domString = '<ul class="overview-list">';
       ridesArray.forEach((rideItem) => {
         if (rideItem.isBroken === true) {
-          domString += `<p>${rideItem.name}</p>`;
-          utils.printToDom('rides-overview-container', domString);
+          domString += `<li>${rideItem.name}</li>`;
         }
       });
+      domString += '</ul>';
+      utils.printToDom('rides-overview-container', domString);
     })
     .catch((err) => console.error('problem with getBrokenRidesList', err));
 };
