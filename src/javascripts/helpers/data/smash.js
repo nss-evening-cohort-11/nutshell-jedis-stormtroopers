@@ -21,6 +21,8 @@ const completelyRemoveTask = (randEquipId) => new Promise((resolve, reject) => {
                 if (equipJob.jobId === assignment.jobId) {
                   equipJobsData.deleteEquipJobById(equipJob.id);
                   assignmentsData.deleteAssignmentById(assignment.id);
+                  console.log('equipJob', equipJob);
+                  console.log('assignment', assignment);
                 }
               }
             });

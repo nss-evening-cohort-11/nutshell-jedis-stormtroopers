@@ -12,9 +12,8 @@ import utils from '../../helpers/utils';
 const moment = require('moment');
 
 const randomChaosMonkeyStrike = () => {
-  const randNum = 1; /* Math.ceil(Math.random() * 3); */
+  const randNum = 1;
   // const randNum = Math.ceil(Math.random() * 3);
-  // const randNum = 3;
   let randomStrike = '';
 
   switch (randNum) {
