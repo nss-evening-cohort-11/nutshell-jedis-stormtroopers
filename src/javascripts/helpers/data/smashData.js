@@ -1,25 +1,27 @@
-import assignmentData from './assignmentData';
+import assignmentsData from './assignmentsData';
 import vendorsData from './vendorsData';
-import staffData from './staffData';
+import jobTypeData from './jobTypeData';
 
 const getVendorsWithAssignments = () => new Promise((resolve, reject) => {
-  assignmentData.getAssignments().then((assignmentsResponse) => {
-    vendorsData.getVendors().then((vendorsResponse) => {
-      staffData.getStaffs().then((staffResponse) => {
+  jobTypeData.getJobTypes().then((jobTypesResponse) => {
+    assignmentsData.getAllAssignments().then((assignmentsResponse) => {
+      vendorsData.getVendors().then((vendorsResponse) => {
         const finalVendors = [];
         vendorsResponse.forEach((vendor) => {
-          const newVendor = { assignments: [], ...vendor };
-          const vendorAssignments = assignmentsResponse.filter((x) => x.entityId === vendor.id);
-          vendorAssignments.forEach((oneAssignment) => {
-            const newStaffMember = staffResponse.find((x) => x.id === oneAssignment.staffId && !x.isKidnapped);
-            if (newStaffMember !== undefined) {
-              newVendor.assignments.push(newStaffMember);
+          const newVendor = { jobs: [], ...vendor };
+          const vendorJobs = jobTypesResponse.filter((x) => x.assetId === vendor.id);
+          vendorJobs.forEach((job) => {
+            const newVendorJob = { assignments: [], ...job };
+            const jobAssignments = assignmentsResponse.filter((x) => x.jobId === job.id);
+            if (jobAssignments.length !== 0) {
+              newVendorJob.assignments.push(jobAssignments);
             }
+            newVendor.jobs.push(newVendorJob);
           });
           finalVendors.push(newVendor);
         });
-        resolve(finalVendors);
         console.log('final vendors', finalVendors);
+        resolve(finalVendors);
       });
     });
   })

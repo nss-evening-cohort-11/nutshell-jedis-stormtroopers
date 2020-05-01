@@ -37,14 +37,58 @@
     },
     "assignment10": {
         "staffId": "staffMember10",
-        "jobId": "job71"
+        "jobId": "job141"
     },
     "assignment11": {
         "staffId": "staffMember11",
-        "jobId": "job72"
+        "jobId": "job142"
     },
     "assignment12": {
         "staffId": "staffMember12",
-        "jobId": "job73"
-   }
+        "jobId": "job143"
+   },
+   "assignment13": {
+    "staffId": "staffMember9",
+    "jobId": "job144"
+},
+"assignment14": {
+    "staffId": "staffMember10",
+    "jobId": "job145"
+},
+"assignment15": {
+    "staffId": "staffMember11",
+    "jobId": "job146"
+},
+    "assignment16": {
+    "staffId": "staffMember12",
+    "jobId": "job147"
+},
+"assignment17": {
+    "staffId": "staffMember9",
+    "jobId": "job148"
+},
+"assignment18": {
+    "staffId": "staffMember10",
+    "jobId": "job149"
+},
+"assignment19": {
+    "staffId": "staffMember11",
+    "jobId": "job150"
+},
+"assignment20": {
+    "staffId": "staffMember12",
+    "jobId": "job151"
+},
+"assignment21": {
+    "staffId": "staffMember9",
+    "jobId": "job152"
+},
+"assignment22": {
+    "staffId": "staffMember10",
+    "jobId": "job153"
+},
+"assignment23": {
+    "staffId": "staffMember11",
+    "jobId": "job154"
+}
 }
