@@ -3,42 +3,58 @@ import axios from 'axios';
 import apiKeys from '../apiKeys.json';
 
 import staffData from './staffData';
+import dinoData from './dinoData';
+import vendorsData from './vendorsData';
+import ridesData from './ridesData';
 import assignmentsData from './assignmentsData';
 import shiftsData from './shiftsData';
 import jobTypeData from './jobTypeData';
 
 const baseUrl = apiKeys.firebaseKeys.databaseURL;
 
-const findOutWhichJobsOnShiftAreNotAssigned = (shiftId) => new Promise((resolve, reject) => {
-  jobTypeData.getJobTypesByShiftId(shiftId).then((jobTypes) => {
-    assignmentsData.getAllAssignments().then((assignments) => {
-      const shiftJobs = [];
-      jobTypes.forEach((oneJob) => {
-        const newJob = { ...oneJob };
-        const jobIsAssigned = assignments.some((x) => x.jobId === newJob.id);
-        newJob.jobIsAssigned = jobIsAssigned;
-        shiftJobs.push(newJob);
+const getAllJobsWithRelatedAssets = () => new Promise((resolve, reject) => {
+  jobTypeData.getJobTypes().then((jobTypes) => {
+    dinoData.getDinos().then((dinos) => {
+      ridesData.getRides().then((rides) => {
+        vendorsData.getVendors().then((vendors) => {
+          const finalJobs = [];
+          jobTypes.forEach((singleJob) => {
+            const job = { jobDuty: {}, ...singleJob };
+            const dinoMatch = dinos.find((dino) => dino.id === job.assetId);
+            const rideMatch = rides.find((ride) => ride.id === job.assetId);
+            const vendorMatch = vendors.find((vendor) => vendor.id === job.assetId);
+            const jobMatch = [dinoMatch, rideMatch, vendorMatch].find((x) => x !== undefined);
+            job.jobDuty = jobMatch;
+            finalJobs.push(job);
+          });
+          resolve(finalJobs);
+        });
       });
-      resolve(shiftJobs);
     });
   })
     .catch((err) => reject(err));
 });
 
-const getAssetByJobNameAndAssetId = (jobName, assetId) => new Promise((resolve, reject) => {
-  let collectionRoot;
-  if (jobName === 'Dino Attendant') {
-    collectionRoot = 'dinos';
-  } else if (jobName === 'Ride Attendant') {
-    collectionRoot = 'rides';
-  } else if (jobName === 'Vendor Attendant') {
-    collectionRoot = 'vendors';
-  }
-  axios.get(`${baseUrl}/${collectionRoot}/${assetId}.json`)
-    .then((thing) => {
-      const finalAsset = thing.data;
-      resolve(finalAsset);
-    })
+const findOutWhichJobsOnShiftAreNotAssigned = (shiftId) => new Promise((resolve, reject) => {
+  jobTypeData.getJobTypesByShiftId(shiftId).then((jobTypes) => {
+    assignmentsData.getAllAssignments().then((assignments) => {
+      getAllJobsWithRelatedAssets().then((finalJobs) => {
+        const shiftJobs = [];
+        jobTypes.forEach((oneJob) => {
+          let newJob = { ...oneJob };
+          const jobsWithAssets = finalJobs.filter((x) => x.id === newJob.id);
+          jobsWithAssets.forEach((job) => {
+            newJob = job;
+            const jobIsAssigned = assignments.some((x) => x.jobId === job.id);
+            newJob.jobIsAssigned = jobIsAssigned;
+          });
+          shiftJobs.push(newJob);
+        });
+        console.log(shiftJobs);
+        resolve(shiftJobs);
+      });
+    });
+  })
     .catch((err) => reject(err));
 });
 
@@ -52,29 +68,10 @@ const getSingleStaffMemberWithAssignedJobs = (staffId) => new Promise((resolve, 
         assignments.forEach((singleAssignment) => {
           const assignedJobs = jobTypes.filter((job) => job.id === singleAssignment.jobId);
           staffMember.assignedJobs.push(assignedJobs);
-          console.error(assignedJobs);
         });
         resolve(staffMember);
       });
     });
-  })
-    .catch((err) => reject(err));
-});
-
-const getAllJobsWithRelatedAssets = () => new Promise((resolve, reject) => {
-  jobTypeData.getJobTypes().then((jobTypes) => {
-    const finalJobs = [];
-    jobTypes.forEach((job) => {
-      const newJob = { jobDuty: [], ...job };
-      const jobName = job.name;
-      const thisAssetId = job.assetId;
-      getAssetByJobNameAndAssetId(jobName, thisAssetId).then((finalAsset) => {
-        const thisAsset = finalAsset;
-        newJob.jobDuty.push(thisAsset);
-      });
-      finalJobs.push(newJob);
-    });
-    resolve(finalJobs);
   })
     .catch((err) => reject(err));
 });
@@ -143,12 +140,26 @@ const deleteStaffAssignmentsAndShifts = (staffMemberId) => new Promise((resolve,
     .catch((err) => console.error('problem with deleting assignments for staff', reject(err)));
 });
 
+const loopThroughAllStaffMembersAndSmashInTheirSchedules = () => new Promise((resolve, reject) => {
+  staffData.getStaffs().then((staff) => {
+    const finalStaff = [];
+    staff.forEach((staffMember) => {
+      const staffId = staffMember.id;
+      getSingleStaffMemberWithAssignedJobs(staffId).then((thisStaffMember) => {
+        finalStaff.push(thisStaffMember);
+        resolve(finalStaff);
+      });
+    });
+  })
+    .catch((err) => reject(err));
+});
+
 export default {
   deleteStaffAssignmentsAndShifts,
   removeAllJobAssignmentsByAssetId,
   getSingleStaffMemberWithAssignedJobs,
   getAllWeeklyShiftsWithSingleStaffMemberJobAssignments,
-  getAssetByJobNameAndAssetId,
   getAllJobsWithRelatedAssets,
   findOutWhichJobsOnShiftAreNotAssigned,
+  loopThroughAllStaffMembersAndSmashInTheirSchedules,
 };

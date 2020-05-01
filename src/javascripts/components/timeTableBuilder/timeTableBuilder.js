@@ -1,4 +1,5 @@
 import moment from 'moment';
+import './timeTableBuilder.scss';
 
 const timeTableBuilder = (schedule) => {
   const amShifts = schedule.filter((x) => x.workHours === 'AM').sort((a, b) => moment().day(a.dayName) - moment().day(b.dayName));
@@ -28,7 +29,8 @@ const timeTableBuilder = (schedule) => {
     } else {
       shift.thisStaffMemberJobs.forEach((job) => {
         const thisJob = { ...job };
-        domString += `${thisJob.name}`;
+        domString += `<p class="m-0">${thisJob.name}:</p>`;
+        domString += `<p class="m-0">${thisJob.jobDuty.name}</p>`;
       });
     }
     domString += '</td>';
@@ -43,7 +45,8 @@ const timeTableBuilder = (schedule) => {
     } else {
       shift.thisStaffMemberJobs.forEach((job) => {
         const thisJob = { ...job };
-        domString += `${thisJob.name}`;
+        domString += `<p class="m-0">${thisJob.name}:</p>`;
+        domString += `<p class="m-0">${thisJob.jobDuty.name}</p>`;
       });
     }
     domString += '</td>';

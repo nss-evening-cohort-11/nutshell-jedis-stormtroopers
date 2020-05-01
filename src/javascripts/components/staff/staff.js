@@ -188,7 +188,6 @@ const printStaff = (staff) => {
   domString += '</div>';
   domString += '</div>';
   domString += '</div>';
-
   return domString;
 };
 
