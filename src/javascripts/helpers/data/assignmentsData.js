@@ -47,6 +47,8 @@ const getAssignmentsByStaffId = (staffId) => new Promise((resolve, reject) => {
     .catch((err) => reject(err));
 });
 
+const setAssignment = (newAssignment) => axios.post(`${baseUrl}/assignments.json`, newAssignment);
+
 const deleteAssignmentById = (assignmentId) => axios.delete(`${baseUrl}/assignments/${assignmentId}.json`);
 
 export default {
@@ -54,4 +56,5 @@ export default {
   deleteAssignmentById,
   getAllAssignments,
   getAssignmentsByStaffId,
+  setAssignment,
 };

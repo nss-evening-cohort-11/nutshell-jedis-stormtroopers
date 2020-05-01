@@ -3,6 +3,7 @@ import firebase from 'firebase/app';
 import 'firebase/auth';
 
 import staffData from '../../helpers/data/staffData';
+import assignmentsData from '../../helpers/data/assignmentsData';
 import utils from '../../helpers/utils';
 import smash from '../../helpers/data/smash';
 import timeTableBuilder from '../timeTableBuilder/timeTableBuilder';
@@ -12,6 +13,12 @@ const closeModalButtonEvent = (e) => {
   e.preventDefault();
   $('#schedule-staff-modal').modal('hide');
   utils.printToDom('job-modal-body', '');
+};
+
+const closeJobDetailModalButtonEvent = (e) => {
+  e.preventDefault();
+  $('#job-detail-modal').modal('hide');
+  utils.printToDom('job-detail-modal-body', '');
 };
 
 const closeFormButton = () => {
@@ -213,13 +220,11 @@ const makeNewStaff = (e) => {
   e.preventDefault();
   const myUid = firebase.auth().currentUser.uid;
   const isKidnappedBool = $("input[name='newStaffRadiosKidnapped']:checked").val();
-  // const isEotmBool = $("input[name='newStaffRadiosEmployee']:checked").val();
   const newStaff = {
     name: $('#new-staff-name').val(),
     photoUrl: $('#new-staff-image').val(),
     job: $('#new-staff-job').val(),
     isKidnapped: JSON.parse(isKidnappedBool),
-    // isEOTM: JSON.parse(isEotmBool),
     uid: myUid,
   };
   staffData.addStaff(newStaff).then(() => printStaffDashboard())
@@ -230,14 +235,12 @@ const modifyStaff = (e) => {
   e.preventDefault();
   const myUid = firebase.auth().currentUser.uid;
   const isKidnappedBool = $("input[name='editStaffRadiosKidnapped']:checked").val();
-  // const isEotmBool = $("input[name='editStaffRadiosEmployee']:checked").val();
   const staffId = $('.edit-staff-form').attr('id');
   const modifiedStaff = {
     name: $('#edit-staff-name').val(),
     photoUrl: $('#edit-staff-image').val(),
     job: $('#edit-staff-job').val(),
     isKidnapped: JSON.parse(isKidnappedBool),
-    // isEOTM: JSON.parse(isEotmBool),
     uid: myUid,
   };
   utils.printToDom('edit-form-container', '');
@@ -264,9 +267,33 @@ const singleStaffMemberEvent = (e) => {
 };
 
 const showJobsEvent = (e) => {
-  const shiftId = e.target.closest('.shift-cell').id;
-  console.error(shiftId);
-  shiftJobRadios.buildShiftJobRadios(shiftId);
+  const shiftId = e.target.id;
+  const isOpenShift = $(`#${shiftId}`).html() === '';
+  const { staffId } = e.target.closest('.form-card').dataset;
+  if (isOpenShift) {
+    shiftJobRadios.buildShiftJobRadios(shiftId, staffId);
+  }
+};
+
+const makeNewAssignment = (e) => {
+  e.preventDefault();
+  const jobId = $("input[name='jobRadio']:checked").val();
+  const { staffId } = e.target.dataset;
+  const newAssignment = {
+    jobId,
+    staffId,
+  };
+  assignmentsData.setAssignment(newAssignment)
+    .then(() => {
+      utils.printToDom('job-modal-body', '');
+      $('#schedule-staff-modal').modal('hide');
+      buildSingleStaffMember(staffId);
+    })
+    .catch((err) => console.error('There is a problem with assigning this staff member:', err));
+};
+
+const deleteAssignment = (e) => {
+  console.error(e.target);
 };
 
 const staffEvents = () => {
@@ -279,6 +306,9 @@ const staffEvents = () => {
   $('body').on('click', '.staff-single-view', singleStaffMemberEvent);
   $('body').on('click', '.shift-cell', showJobsEvent);
   $('body').on('click', '#close-modal-button', closeModalButtonEvent);
+  $('body').on('click', '#close-job-modal-button', closeJobDetailModalButtonEvent);
+  $('body').on('click', '#submit-staff-job', makeNewAssignment);
+  $('body').on('click', '.delete-assignment', deleteAssignment);
 };
 
 export default {

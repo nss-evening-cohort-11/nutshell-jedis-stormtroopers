@@ -2,9 +2,7 @@ import moment from 'moment';
 
 const timeTableBuilder = (schedule) => {
   const amShifts = schedule.filter((x) => x.workHours === 'AM').sort((a, b) => moment().day(a.dayName) - moment().day(b.dayName));
-  console.error(amShifts);
   const pmShifts = schedule.filter((x) => x.workHours === 'PM').sort((a, b) => moment().day(a.dayName) - moment().day(b.dayName));
-  console.error(pmShifts);
   schedule.sort((a, b) => a.dayName - b.dayName);
   let domString = '';
   domString += '<table class="col-12 table table-bordered table-hover table-sm">';
@@ -24,26 +22,34 @@ const timeTableBuilder = (schedule) => {
   domString += '        <tr>';
   domString += '            <th scope="row">AM</th>';
   amShifts.forEach((shift) => {
-    domString += `          <td id="${shift.id}" class="shift-cell">`;
-    shift.thisStaffMemberJobs.forEach((job) => {
-      const thisJob = { ...job };
-      domString += `            <p id="${thisJob.id}" class="m-1 job-cell"> ${thisJob.name || 'Open Shift'}</p>`;
-    });
-    domString += '          </td>';
+    domString += `<td id="${shift.id}" class="shift-cell">`;
+    if (shift.thisStaffMemberJobs.length === 0) {
+      domString += '';
+    } else {
+      shift.thisStaffMemberJobs.forEach((job) => {
+        const thisJob = { ...job };
+        domString += `${thisJob.name}`;
+      });
+    }
+    domString += '</td>';
   });
   domString += '        </tr>';
   domString += '        <tr>';
   domString += '            <th scope="row">PM</th>';
   pmShifts.forEach((shift) => {
     domString += `          <td id="${shift.id}" class="shift-cell">`;
-    shift.thisStaffMemberJobs.forEach((job) => {
-      const thisJob = { ...job };
-      domString += `            <p class="m-1">${thisJob.name || 'Open Shift'}</p>`;
-    });
-    domString += '          </td>';
+    if (shift.thisStaffMemberJobs.length === 0) {
+      domString += '';
+    } else {
+      shift.thisStaffMemberJobs.forEach((job) => {
+        const thisJob = { ...job };
+        domString += `${thisJob.name}`;
+      });
+    }
+    domString += '</td>';
   });
-  domString += '        </tr>';
-  domString += '    </tbody>';
+  domString += '</tr>';
+  domString += '</tbody>';
   domString += '</table>';
   return domString;
 };

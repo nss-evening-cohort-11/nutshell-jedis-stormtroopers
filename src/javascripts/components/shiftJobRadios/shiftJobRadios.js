@@ -1,27 +1,29 @@
 import utils from '../../helpers/utils';
-import jobTypeData from '../../helpers/data/jobTypeData';
+import smash from '../../helpers/data/smash';
 
-const buildShiftJobRadios = (shiftId) => {
-  jobTypeData.getJobTypesByShiftId(shiftId)
-    .then((jobTypes) => {
-      console.error(jobTypes);
+const buildShiftJobRadios = (shiftId, staffId) => {
+  smash.findOutWhichJobsOnShiftAreNotAssigned(shiftId)
+    .then((shiftJobs) => {
+      console.error('Assigned jobs coming into radio function:', shiftJobs);
       let domString = '';
       domString += '<div>';
-      domString += '<div class="d-flex flex-row justify-content-between align-items-center card-header text-center">';
-      domString += '<h2>Schedule Staff Member</h2>';
+      domString += '  <div class="d-flex flex-row justify-content-between align-items-center card-header text-center">';
+      domString += '  <h2>Schedule Staff Member</h2>';
       domString += '</div>';
       domString += '<div class="card-body">';
-      domString += `<form class="pick-job-form" data-staff-id=${shiftId}>`;
-      jobTypes.forEach((job, i) => {
-        domString += '<div class="custom-control custom-radio">';
-        domString += `  <input type="radio" id="jobRadio-${i + 1}" name="jobRadio" class="custom-control-input" value="${job.id}">`;
-        domString += `  <label class="custom-control-label" for="jobRadio-${i + 1}">${job.name}</label>`;
-        domString += '</div>';
+      domString += `  <form class="m-2 pick-job-form" data-shift-id=${shiftId}>`;
+      shiftJobs.forEach((job, i) => {
+        if (job.jobIsAssigned === false) {
+          domString += '  <div class="custom-control custom-radio">';
+          domString += `    <input type="radio" id="jobRadio-${i + 1}" name="jobRadio" class="custom-control-input" value="${job.id}">`;
+          domString += `    <label class="custom-control-label" for="jobRadio-${i + 1}">${job.name}</label>`;
+          domString += '  </div>';
+        }
       });
-      domString += '<div class="card-footer text-center">';
-      domString += '<button type="button" class="btn btn-outline-success" id="submit-staff-job">Schedule Job</button>';
+      domString += '  </form>';
       domString += '</div>';
-      domString += '</form>';
+      domString += '<div class="m-2 card-footer text-center">';
+      domString += `  <button data-staff-id="${staffId}" type="button" class="btn btn-outline-success" id="submit-staff-job">Schedule Job</button>`;
       domString += '</div>';
       utils.printToDom('job-modal-body', domString);
       $('#schedule-staff-modal').modal('show');

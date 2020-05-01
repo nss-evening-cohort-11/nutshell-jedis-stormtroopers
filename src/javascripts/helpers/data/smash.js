@@ -9,6 +9,22 @@ import jobTypeData from './jobTypeData';
 
 const baseUrl = apiKeys.firebaseKeys.databaseURL;
 
+const findOutWhichJobsOnShiftAreNotAssigned = (shiftId) => new Promise((resolve, reject) => {
+  jobTypeData.getJobTypesByShiftId(shiftId).then((jobTypes) => {
+    assignmentsData.getAllAssignments().then((assignments) => {
+      const shiftJobs = [];
+      jobTypes.forEach((oneJob) => {
+        const newJob = { ...oneJob };
+        const jobIsAssigned = assignments.some((x) => x.jobId === newJob.id);
+        newJob.jobIsAssigned = jobIsAssigned;
+        shiftJobs.push(newJob);
+      });
+      resolve(shiftJobs);
+    });
+  })
+    .catch((err) => reject(err));
+});
+
 const getAssetByJobNameAndAssetId = (jobName, assetId) => new Promise((resolve, reject) => {
   let collectionRoot;
   if (jobName === 'Dino Attendant') {
@@ -36,6 +52,7 @@ const getSingleStaffMemberWithAssignedJobs = (staffId) => new Promise((resolve, 
         assignments.forEach((singleAssignment) => {
           const assignedJobs = jobTypes.filter((job) => job.id === singleAssignment.jobId);
           staffMember.assignedJobs.push(assignedJobs);
+          console.error(assignedJobs);
         });
         resolve(staffMember);
       });
@@ -132,4 +149,6 @@ export default {
   getSingleStaffMemberWithAssignedJobs,
   getAllWeeklyShiftsWithSingleStaffMemberJobAssignments,
   getAssetByJobNameAndAssetId,
+  getAllJobsWithRelatedAssets,
+  findOutWhichJobsOnShiftAreNotAssigned,
 };
