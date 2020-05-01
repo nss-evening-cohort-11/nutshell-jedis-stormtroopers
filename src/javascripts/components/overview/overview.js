@@ -3,6 +3,7 @@ import staffOverview from './staffOverview';
 import vendorsOverview from './vendorsOverview';
 import ridesOverview from './ridesOverview';
 import equipOverview from './equipOverview';
+// eslint-disable-next-line import/no-cycle
 import chaosHistoryOverview from './chaosHistoryOverview';
 
 const printOverviewDashboard = () => {

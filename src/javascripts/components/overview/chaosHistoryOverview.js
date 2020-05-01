@@ -7,8 +7,8 @@ import equipData from '../../helpers/data/equipData';
 
 const getChaosHistory = () => {
   Promise.all([chaosMonkeyData.getAllChaosEvents(), staffData.getStaffs(), ridesData.getRides(), equipData.getEquips()])
+  // will wait to resolve array of arrays: [ chaosMonkeyEvents[], allStaffMembers[], allRides[], allEquipment[] ]
     .then((allPromisesArray) => {
-      // will wait to resolve array of arrays: [ chaosMonkeyEvents[], allStaffMembers[], allRides[], allEquipment[] ]
       let domString = '<ul class="overview-list">';
       allPromisesArray[0].forEach((chaosEvent) => {
         if (chaosEvent.eventType === 'kidnap') {

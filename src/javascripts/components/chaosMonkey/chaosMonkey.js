@@ -78,7 +78,6 @@ const randomChaosMonkeyStrike = () => {
         .then((allRides) => {
           const ridesRandNum = Math.ceil(Math.random() * allRides.length - 1);
           const randRideId = allRides[ridesRandNum].id;
-          console.error(randRideId);
           smash.removeAllJobAssignmentsByAssetId(randRideId)
             .then(() => {
             })
