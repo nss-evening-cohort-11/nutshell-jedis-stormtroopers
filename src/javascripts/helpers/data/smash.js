@@ -9,8 +9,37 @@ import ridesData from './ridesData';
 import assignmentsData from './assignmentsData';
 import jobTypeData from './jobTypeData';
 import shiftsData from './shiftsData';
+import equipJobsData from './equipJobsData';
+
 
 const baseUrl = apiKeys.firebaseKeys.databaseURL;
+
+const completelyRemoveTask = (randEquipId) => new Promise((resolve, reject) => {
+  assignmentsData.getAllAssignments()
+    .then((assignResponse) => {
+      equipJobsData.getAllEquipJobs()
+        .then((equipJobsResponse) => {
+          const assignments = assignResponse;
+          const equipJobs = equipJobsResponse;
+          assignments.forEach((assignment) => {
+            equipJobs.forEach((equipJob) => {
+              if (randEquipId === equipJob.equipId) {
+                if (equipJob.jobId === assignment.jobId) {
+                  equipJobsData.deleteEquipJobById(equipJob.id);
+                  assignmentsData.deleteAssignmentById(assignment.id);
+                  console.log('equipJob', equipJob);
+                  console.log('assignment', assignment);
+                }
+              }
+            });
+          });
+          console.log('assignments', assignments);
+          console.log('equipJobs', equipJobs);
+        });
+      resolve();
+    })
+    .catch((err) => reject(err));
+});
 
 const getAllJobsWithRelatedAssets = () => new Promise((resolve, reject) => {
   jobTypeData.getJobTypes().then((jobTypes) => {
@@ -157,4 +186,5 @@ export default {
   getAllJobsWithRelatedAssets,
   findOutWhichJobsOnShiftAreNotAssigned,
   loopThroughAllStaffMembersAndSmashInTheirSchedules,
+  completelyRemoveTask,
 };
