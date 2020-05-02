@@ -12,10 +12,19 @@ const buildShiftJobRadios = (shiftId, staffId) => {
     domString += `  <form class="m-2 pick-job-form" data-shift-id=${shiftId}>`;
     shiftJobs.forEach((job, i) => {
       if (job.jobIsAssigned === false) {
-        domString += '  <div class="custom-control custom-radio">';
-        domString += `    <input type="radio" id="jobRadio-${i + 1}" name="jobRadio" class="custom-control-input" value="${job.id}">`;
-        domString += `    <label class="custom-control-label" for="jobRadio-${i + 1}">${job.name}: ${job.jobDuty.name}</label>`;
-        domString += '  </div>';
+        if (Object.prototype.hasOwnProperty.call(job, 'isWorkable')) {
+          if (job.isWorkable === true) {
+            domString += '  <div class="custom-control custom-radio">';
+            domString += `    <input type="radio" id="jobRadio-${i + 1}" name="jobRadio" class="custom-control-input" value="${job.id}">`;
+            domString += `    <label class="custom-control-label" for="jobRadio-${i + 1}">${job.name}: ${job.jobDuty.name}</label>`;
+            domString += '  </div>';
+          }
+        } else {
+          domString += '  <div class="custom-control custom-radio">';
+          domString += `    <input type="radio" id="jobRadio-${i + 1}" name="jobRadio" class="custom-control-input" value="${job.id}">`;
+          domString += `    <label class="custom-control-label" for="jobRadio-${i + 1}">${job.name}: ${job.jobDuty.name}</label>`;
+          domString += '  </div>';
+        }
       }
     });
     domString += '  </form>';
