@@ -95,12 +95,12 @@ const getSingleStaffMemberWithAssignedJobs = (staffId) => new Promise((resolve, 
   staffData.getSingleStaffMemeber(staffId).then((staffResponse) => {
     const staffMember = staffResponse.data;
     staffMember.id = staffId;
-    staffMember.assignedJobs = [];
+    staffMember.jobs = [];
     assignmentsData.getAssignmentsByStaffId(staffId).then((assignments) => {
       jobTypeData.getJobTypes().then((jobTypes) => {
         assignments.forEach((singleAssignment) => {
           const assignedJobs = jobTypes.filter((job) => job.id === singleAssignment.jobId);
-          staffMember.assignedJobs.push(assignedJobs);
+          staffMember.jobs.push(assignedJobs);
         });
         resolve(staffMember);
       });
