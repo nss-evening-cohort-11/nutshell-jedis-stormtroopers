@@ -189,6 +189,31 @@ const getAllStaffWithJobs = () => new Promise((resolve, reject) => {
     .catch((err) => reject(err));
 });
 
+const getVendorsWithAssignments = () => new Promise((resolve, reject) => {
+  jobTypeData.getJobTypes().then((jobTypesResponse) => {
+    assignmentsData.getAllAssignments().then((assignmentsResponse) => {
+      vendorsData.getVendors().then((vendorsResponse) => {
+        const finalVendors = [];
+        vendorsResponse.forEach((vendor) => {
+          const newVendor = { jobs: [], ...vendor };
+          const vendorJobs = jobTypesResponse.filter((x) => x.assetId === vendor.id);
+          vendorJobs.forEach((job) => {
+            const newVendorJob = { assignments: [], ...job };
+            const jobAssignments = assignmentsResponse.filter((x) => x.jobId === job.id);
+            if (jobAssignments.length !== 0) {
+              newVendorJob.assignments.push(jobAssignments);
+            }
+            newVendor.jobs.push(newVendorJob);
+          });
+          finalVendors.push(newVendor);
+        });
+        resolve(finalVendors);
+      });
+    });
+  })
+    .catch((err) => reject(err));
+});
+
 export default {
   deleteStaffAssignments,
   removeAllJobAssignmentsByAssetId,
@@ -198,4 +223,5 @@ export default {
   findOutWhichJobsOnShiftAreNotAssigned,
   getAllStaffWithJobs,
   completelyRemoveTask,
+  getVendorsWithAssignments,
 };

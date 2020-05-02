@@ -61,6 +61,7 @@ const randomChaosMonkeyStrike = () => {
                 smash.deleteStaffAssignments(randStaffId); // delete existing assignments for the kidnapped staff member
                 chaosMonkeyData.addEventToChaosHistory('kidnap', randStaffId);// add this event to history of Chaos Monkey
                 staffComponent.printStaffDashboard(); // update the staff dashboard to current
+                vendorsComponent.checkIfVendorsAreStaffed();
               })
               .catch((err) => console.error('problem with kidnap staff in Chaos Monkey', err));
           } else {
