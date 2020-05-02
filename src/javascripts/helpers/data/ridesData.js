@@ -19,8 +19,6 @@ const getRides = () => new Promise((resolve, reject) => {
     .catch((err) => reject(err));
 });
 
-const addJobsToNewRide = () => {};
-
 const deleteRide = (rideId) => axios.delete(`${baseUrl}/rides/${rideId}.json`);
 
 const addRide = (newRide) => axios.post(`${baseUrl}/rides.json`, newRide);

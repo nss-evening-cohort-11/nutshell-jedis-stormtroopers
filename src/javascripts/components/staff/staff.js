@@ -165,7 +165,6 @@ const editStaffEvent = (e) => {
 };
 
 const printStaff = (staff) => {
-  console.log('Single staff member coming from printStaff:', staff);
   let domString = '';
   domString += '<div class="col-lg-4 col-md-6">';
   domString += `<div id="${staff.id}" class="card text-center my-2 ${staff.isKidnapped ? 'bg-danger' : 'bg-info'}">`;
