@@ -1,6 +1,8 @@
 import axios from 'axios';
 import apiKeys from '../apiKeys.json';
 
+import ridesData from './ridesData';
+
 const baseUrl = apiKeys.firebaseKeys.databaseURL;
 
 const getJobTypes = () => new Promise((resolve, reject) => {
@@ -45,13 +47,19 @@ const getJobTypesByShiftId = (shiftId) => new Promise((resolve, reject) => {
     .catch((err) => reject(err));
 });
 
-// const addSingleJob = (jobObect) => axios.post(`${baseUrl}/jobTypes.json`, jobObect);
+const addSingleJob = (jobObect) => axios.post(`${baseUrl}/jobTypes.json`, jobObect);
 
-const addJobsForNewEntity = (numOfJobs, entityName) => {
-  console.error('add this many jobs:', numOfJobs);
-  console.error('to this entity:', entityName);
+const addJobsForNewRide = (numOfJobs, rideName) => {
   for (let i = 0; i < numOfJobs; i += 1) {
-    console.log('add job, value of i:', i);
+    ridesData.getRideIdByName(rideName)
+      .then((response) => {
+        const newJob = {
+          assetId: response,
+          shiftId: `shift${i + 1}`,
+          name: 'Ride Attendant',
+        };
+        addSingleJob(newJob);
+      });
   }
 };
 
@@ -59,5 +67,5 @@ export default {
   getJobTypes,
   getJobTypesByAssetId,
   getJobTypesByShiftId,
-  addJobsForNewEntity,
+  addJobsForNewRide,
 };

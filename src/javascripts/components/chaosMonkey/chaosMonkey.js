@@ -120,7 +120,7 @@ const chaosMonkeyAlert = (randomStrike) => {
 };
 
 const unleashChaosMonkey = () => {
-  setInterval(randomChaosMonkeyStrike, 15 * 1000);
+  // setInterval(randomChaosMonkeyStrike, 60 * 1000);
   randomChaosMonkeyStrike();
 };
 
