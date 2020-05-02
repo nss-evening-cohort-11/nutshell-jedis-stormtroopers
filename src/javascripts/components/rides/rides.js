@@ -8,6 +8,14 @@ const showNewRideForm = () => {
   $('#update-ride-form-container').addClass('hide');
 };
 
+const closeRideCreatorForm = () => {
+  $('#new-ride-form-container').addClass('hide');
+};
+
+const closeRideModifierForm = () => {
+  $('#update-ride-form-container').addClass('hide');
+};
+
 const newRideEvent = (e) => {
   e.preventDefault();
   const newRide = {
@@ -77,6 +85,8 @@ const rideEvents = () => {
   $('body').on('click', '.delete-ride-btn', deleteRideEvent);
   $('body').on('click', '.update-ride-btn', editRideEvent);
   $('body').on('click', '#ride-modifier-btn', submitModifiedRideEvent);
+  $('body').on('click', '#ride-creator-close', closeRideCreatorForm);
+  $('body').on('click', '#ride-modifier-close', closeRideModifierForm);
 };
 
 const newRideFormBuilder = () => {
@@ -98,8 +108,8 @@ const newRideFormBuilder = () => {
   domString += '</div>';
   domString += '</div>';
   domString += '<div class="card-footer text-center">';
-  domString += '<button type="submit" id="ride-creator-btn" class="btn btn-outline-success">Add</button>';
-  domString += '<button type="submit" id="ride-creator-btn" class="btn btn-outline-success">Add</button>';
+  domString += '<button type="submit" id="ride-creator-btn" class="btn btn-outline-success mr-1">Add</button>';
+  domString += '<button type="submit" id="ride-creator-close" class="btn btn-outline-danger ml-1">Close</button>';
   domString += '</div>';
   domString += '</form>';
   domString += '</div>';
@@ -129,7 +139,8 @@ const updateRideFormBuilder = (rideId, selectedRideId) => {
   domString += '</div>';
   domString += '</div>';
   domString += '<div class="card-footer text-center">';
-  domString += '<button type="submit" id="ride-modifier-btn" class="btn btn-outline-success">Update</button>';
+  domString += '<button type="submit" id="ride-modifier-btn" class="btn btn-outline-success mr-1">Update</button>';
+  domString += '<button type="submit" id="ride-modifier-close" class="btn btn-outline-danger ml-1">Close</button>';
   domString += '</div>';
   domString += '</form>';
   domString += '</div>';
