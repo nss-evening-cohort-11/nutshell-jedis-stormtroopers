@@ -1,20 +1,23 @@
 import firebase from 'firebase/app';
 import 'firebase/auth';
-
 import utils from '../../helpers/utils';
 import vendorsData from '../../helpers/data/vendorsData';
-import smashData from '../../helpers/data/smashData';
 import jobTypeData from '../../helpers/data/jobTypeData';
+import smash from '../../helpers/data/smash';
 
 const checkIfVendorsAreStaffed = () => {
-  smashData.getVendorsWithAssignments().then((assignedVendors) => {
+  smash.getVendorsWithAssignments().then((assignedVendors) => {
     assignedVendors.forEach((vendorAssignment) => {
       const vendorId = vendorAssignment.id;
-      if (vendorAssignment.assignments.length < 1) {
-        vendorsData.updateStaffedVendors(vendorId);
-      }
+      vendorAssignment.jobs.forEach((vendorJob) => {
+        // open staffed vendors
+        if (vendorJob.assignments[0] !== undefined) {
+          vendorsData.openStaffedVendors(vendorId);
+        } else if (vendorJob.assignments[0] === undefined) {
+          vendorsData.closeUnstaffedVendors(vendorId);
+        }
+      });
     });
-    // }
   })
     .catch((err) => console.error('could not get vendors with assignments', err));
   // eslint-disable-next-line no-use-before-define
@@ -89,6 +92,12 @@ const newVendorFormEvent = () => {
   newVendorForm();
 };
 
+const closeFormEvent = () => {
+  $('#new-vendor-form-containter').addClass('hide');
+  $('#update-vendor-form-containter').addClass('hide');
+};
+
+
 const updateVendorFormEvent = (e) => {
   $('#new-vendor-form-containter').addClass('hide');
   $('#update-vendor-form-containter').removeClass('hide');
@@ -107,6 +116,7 @@ const newVendorForm = () => {
   domString += '<div class="card form-card col-6 offset-3 new-vendor-form-tag">';
   domString += '  <div class="card-header text-center">';
   domString += '  <h3>Add a Vendor</h3>';
+  domString += '  <button style="float: right;" id="close-form-btn"><i class="fas fa-times"></i></button>';
   domString += '  </div>';
   domString += '  <div class="card-body">';
   domString += '  <form>';
@@ -134,6 +144,7 @@ const updateVendorForm = (vendorId) => {
       domString += `<fo class="card form-card col-6 offset-3 update-vendor-form-tag" id=${vendorId}>`;
       domString += '  <div class="card-header text-center">';
       domString += '  <h3>Edit a Vendor</h3>';
+      domString += '  <button style="float: right;" id="close-form-btn"><i class="fas fa-times"></i></button>';
       domString += '  </div>';
       domString += '  <div class="card-body">';
       domString += '  <form>';
@@ -196,6 +207,7 @@ const printVendorsDashboard = () => {
 
       domString += '</div>';
 
+      checkIfVendorsAreStaffed();
       utils.printToDom('vendors-dashboard', domString);
     })
     .catch((err) => console.error('problem with get vendors in print vendors', err));
@@ -207,6 +219,7 @@ const vendorsEvents = () => {
   $('body').on('click', '#vendor-modifier-btn', updateVendorEvent);
   $('body').on('click', '.update-vendor-btn', updateVendorFormEvent);
   $('body').on('click', '#new-vendor-btn', newVendorFormEvent);
+  $('body').on('click', '#close-form-btn', closeFormEvent);
 };
 
 export default { printVendorsDashboard, vendorsEvents, checkIfVendorsAreStaffed };

@@ -53,7 +53,12 @@ const getAllJobsWithRelatedAssets = () => new Promise((resolve, reject) => {
             const rideMatch = rides.find((ride) => ride.id === job.assetId);
             const vendorMatch = vendors.find((vendor) => vendor.id === job.assetId);
             const jobMatch = [dinoMatch, rideMatch, vendorMatch].find((x) => x !== undefined);
-            job.jobDuty = jobMatch;
+            if (Object.prototype.hasOwnProperty.call(jobMatch, 'isBroken')) {
+              job.isWorkable = jobMatch.isBroken === false;
+              job.jobDuty = jobMatch;
+            } else {
+              job.jobDuty = jobMatch;
+            }
             finalJobs.push(job);
           });
           resolve(finalJobs);
@@ -79,7 +84,6 @@ const findOutWhichJobsOnShiftAreNotAssigned = (shiftId) => new Promise((resolve,
           });
           shiftJobs.push(newJob);
         });
-        console.log(shiftJobs);
         resolve(shiftJobs);
       });
     });
@@ -189,6 +193,31 @@ const getAllStaffWithJobs = () => new Promise((resolve, reject) => {
     .catch((err) => reject(err));
 });
 
+const getVendorsWithAssignments = () => new Promise((resolve, reject) => {
+  jobTypeData.getJobTypes().then((jobTypesResponse) => {
+    assignmentsData.getAllAssignments().then((assignmentsResponse) => {
+      vendorsData.getVendors().then((vendorsResponse) => {
+        const finalVendors = [];
+        vendorsResponse.forEach((vendor) => {
+          const newVendor = { jobs: [], ...vendor };
+          const vendorJobs = jobTypesResponse.filter((x) => x.assetId === vendor.id);
+          vendorJobs.forEach((job) => {
+            const newVendorJob = { assignments: [], ...job };
+            const jobAssignments = assignmentsResponse.filter((x) => x.jobId === job.id);
+            if (jobAssignments.length !== 0) {
+              newVendorJob.assignments.push(jobAssignments);
+            }
+            newVendor.jobs.push(newVendorJob);
+          });
+          finalVendors.push(newVendor);
+        });
+        resolve(finalVendors);
+      });
+    });
+  })
+    .catch((err) => reject(err));
+});
+
 export default {
   deleteStaffAssignments,
   removeAllJobAssignmentsByAssetId,
@@ -198,4 +227,5 @@ export default {
   findOutWhichJobsOnShiftAreNotAssigned,
   getAllStaffWithJobs,
   completelyRemoveTask,
+  getVendorsWithAssignments,
 };

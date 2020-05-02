@@ -43,7 +43,6 @@ const buildSingleStaffMember = (staffId) => {
   showSingleStaffView();
   smash.getAllWeeklyShiftsWithSingleStaffMemberJobAssignments(staffId)
     .then((staffMember) => {
-      console.error(staffMember);
       let domString = '';
       domString += `<div data-staff-id="${staffMember.id}" class="card form-card col-12">`;
       domString += '  <div class="d-flex flex-row justify-content-between align-items-center card-header text-center">';
