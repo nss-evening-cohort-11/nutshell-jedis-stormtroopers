@@ -99,6 +99,7 @@ const newRideFormBuilder = () => {
   domString += '</div>';
   domString += '<div class="card-footer text-center">';
   domString += '<button type="submit" id="ride-creator-btn" class="btn btn-outline-success">Add</button>';
+  domString += '<button type="submit" id="ride-creator-btn" class="btn btn-outline-success">Add</button>';
   domString += '</div>';
   domString += '</form>';
   domString += '</div>';
