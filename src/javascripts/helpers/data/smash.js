@@ -194,19 +194,27 @@ const getAllStaffWithJobs = () => new Promise((resolve, reject) => {
 });
 
 const getAllWeeklyShiftsForRidesByRideId = (rideId) => new Promise((resolve, reject) => {
-  ridesData.getSingleRide(rideId).then((rideResponse) => {
-    const ride = rideResponse.data;
-    ride.id = rideId;
-    getAllJobsWithRelatedAssets().then((response) => {
-      const allJobs = response;
-      const jobs = [];
-      allJobs.forEach((job) => {
-        if (job.assetId === ride.id) {
-          jobs.push(job);
-        }
+  jobTypeData.getJobTypesByAssetId(rideId).then((jobTypesResponse) => {
+    const jobType = jobTypesResponse;
+    shiftsData.getAllShifts().then((shiftResponse) => {
+      assignmentsData.getAllAssignments().then((assignmentsResponse) => {
+        const assignments = assignmentsResponse;
+        console.log('shifts', shiftResponse);
+        console.log('jobTypes', jobType);
+        console.log('assignments', assignments);
+        // const jobs = [];
+        jobType.forEach((job) => {
+          assignments.forEach((oneAssignment) => {
+            if (oneAssignment.jobId === job.id) {
+              console.log('one assignment that matches');
+            } else {
+              console.log('no match');
+            }
+          });
+        });
       });
-      console.log(jobs);
     });
+    resolve();
   })
     .catch((err) => reject(err));
 });
