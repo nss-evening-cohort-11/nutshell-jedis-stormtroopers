@@ -31,4 +31,18 @@ const getJobTypesByAssetId = (assetId) => new Promise((resolve, reject) => {
     .catch((err) => reject(err));
 });
 
-export default { getJobTypes, getJobTypesByAssetId };
+const getJobTypesByShiftId = (shiftId) => new Promise((resolve, reject) => {
+  axios.get(`${baseUrl}/jobTypes.json?orderBy="shiftId"&equalTo="${shiftId}"`)
+    .then((response) => {
+      const theseJobTypes = response.data;
+      const jobTypes = [];
+      Object.keys(theseJobTypes).forEach((jobTypeId) => {
+        theseJobTypes[jobTypeId].id = jobTypeId;
+        jobTypes.push(theseJobTypes[jobTypeId]);
+      });
+      resolve(jobTypes);
+    })
+    .catch((err) => reject(err));
+});
+
+export default { getJobTypes, getJobTypesByAssetId, getJobTypesByShiftId };
