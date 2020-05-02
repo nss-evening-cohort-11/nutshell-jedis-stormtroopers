@@ -1,94 +1,50 @@
 {
     "assignment1": {
-        "staffId": "staffMember1",
-        "jobId": "job74"
+        "staffId": "staffMember20",
+        "jobId": "job1"
     },
     "assignment2": {
-        "staffId": "staffMember2",
-        "jobId": "job75"
+        "staffId": "staffMember13",
+        "jobId": "job2"
     },
     "assignment3": {
         "staffId": "staffMember3",
-        "jobId": "job76"
+        "jobId": "job57"
     },
     "assignment4": {
         "staffId": "staffMember4",
-        "jobId": "job77"
+        "jobId": "job71"
     },
     "assignment5": {
-        "staffId": "staffMember5",
-        "jobId": "job78"
+        "staffId": "staffMember10",
+        "jobId": "job85"
     },
     "assignment6": {
         "staffId": "staffMember6",
-        "jobId": "job79"
+        "jobId": "job99"
     },
     "assignment7": {
         "staffId": "staffMember7",
-        "jobId": "job80"
+        "jobId": "job113"
     },
     "assignment8": {
         "staffId": "staffMember8",
-        "jobId": "job81"
+        "jobId": "job127"
     },
     "assignment9": {
-        "staffId": "staffMember9",
-        "jobId": "job101"
+        "staffId": "staffMember29",
+        "jobId": "job141"
     },
     "assignment10": {
-        "staffId": "staffMember10",
-        "jobId": "job141"
+        "staffId": "staffMember15",
+        "jobId": "job155"
     },
     "assignment11": {
         "staffId": "staffMember11",
         "jobId": "job142"
     },
     "assignment12": {
-        "staffId": "staffMember12",
-        "jobId": "job143"
-   },
-   "assignment13": {
-    "staffId": "staffMember9",
-    "jobId": "job144"
-},
-"assignment14": {
-    "staffId": "staffMember10",
-    "jobId": "job145"
-},
-"assignment15": {
-    "staffId": "staffMember11",
-    "jobId": "job146"
-},
-    "assignment16": {
-    "staffId": "staffMember12",
-    "jobId": "job147"
-},
-"assignment17": {
-    "staffId": "staffMember9",
-    "jobId": "job148"
-},
-"assignment18": {
-    "staffId": "staffMember10",
-    "jobId": "job149"
-},
-"assignment19": {
-    "staffId": "staffMember11",
-    "jobId": "job150"
-},
-"assignment20": {
-    "staffId": "staffMember12",
-    "jobId": "job151"
-},
-"assignment21": {
-    "staffId": "staffMember9",
-    "jobId": "job152"
-},
-"assignment22": {
-    "staffId": "staffMember10",
-    "jobId": "job153"
-},
-"assignment23": {
-    "staffId": "staffMember11",
-    "jobId": "job154"
-}
+        "staffId": "staffMember30",
+        "jobId": "job73"
+   }
 }

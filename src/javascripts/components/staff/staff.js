@@ -1,18 +1,69 @@
+/* eslint-disable no-console */
 import firebase from 'firebase/app';
 import 'firebase/auth';
+
 import staffData from '../../helpers/data/staffData';
+import assignmentsData from '../../helpers/data/assignmentsData';
 import utils from '../../helpers/utils';
+import smash from '../../helpers/data/smash';
+import timeTableBuilder from '../timeTableBuilder/timeTableBuilder';
+import shiftJobRadios from '../shiftJobRadios/shiftJobRadios';
+
+const closeModalButtonEvent = (e) => {
+  e.preventDefault();
+  $('#schedule-staff-modal').modal('hide');
+  utils.printToDom('job-modal-body', '');
+};
+
+const closeJobDetailModalButtonEvent = (e) => {
+  e.preventDefault();
+  $('#job-detail-modal').modal('hide');
+  utils.printToDom('job-detail-modal-body', '');
+};
+
+const closeFormButton = () => {
+  const domString = '<button id="close-form-button" class="btn btn-outline-light"><i class="text-white fas fa-times"></i></button>';
+  return domString;
+};
 
 const showEditForm = () => {
-  $('div#edit-staff-form-container').removeClass('hide');
-  $('div#new-staff-form-container').addClass('hide');
+  $('#edit-staff-form-container').removeClass('hide');
+  $('#new-staff-form-container').addClass('hide');
+  $('#schedule-staff-form-container').addClass('hide');
+};
+
+const showSingleStaffView = () => {
+  $('#edit-staff-form-container').addClass('hide');
+  $('#new-staff-form-container').addClass('hide');
+  $('#single-staff-form-container').removeClass('hide');
+};
+
+const buildSingleStaffMember = (staffId) => {
+  showSingleStaffView();
+  smash.getAllWeeklyShiftsWithSingleStaffMemberJobAssignments(staffId)
+    .then((staffMember) => {
+      console.error(staffMember);
+      let domString = '';
+      domString += `<div data-staff-id="${staffMember.id}" class="card form-card col-12">`;
+      domString += '  <div class="d-flex flex-row justify-content-between align-items-center card-header text-center">';
+      domString += `    <h2>Staff Member Schedule: ${staffMember.name}</h2>`;
+      domString += closeFormButton();
+      domString += '  </div>';
+      domString += '<div class="text-light">';
+      domString += timeTableBuilder.timeTableBuilder(staffMember.schedule);
+      domString += '</div>';
+      domString += '</div>';
+      utils.printToDom('single-staff-form-container', domString);
+    })
+    .catch((err) => console.error('This is not working!', err));
 };
 
 const newStaffForm = () => {
   let domString = '';
   domString += '<div class="card form-card col-6 offset-3">';
-  domString += '<div class="card-header text-center">';
+  domString += '<div class="d-flex justify-content-between align-items-center card-header text-center">';
   domString += '<h2>New Staff Member</h2>';
+  domString += closeFormButton();
   domString += '</div>';
   domString += '<div class="card-body">';
   domString += '<form class="new-staff-form">';
@@ -53,6 +104,7 @@ const newStaffForm = () => {
 const showStaffForm = () => {
   $('#new-staff-form-container').removeClass('hide');
   $('#edit-staff-form-container').addClass('hide');
+  $('#single-staff-form-container').addClass('hide');
 
   newStaffForm();
 };
@@ -64,8 +116,9 @@ const editStaffForm = (staffId) => {
       const staff = response.data;
       let domString = '';
       domString += '<div class="card form-card col-6 offset-3">';
-      domString += '<div class="card-header text-center">';
+      domString += '<div class="d-flex flex-row justify-content-between align-items-center card-header text-center">';
       domString += '<h2>Edit staff</h2>';
+      domString += closeFormButton();
       domString += '</div>';
       domString += '<div class="card-body">';
       domString += `<form class="edit-staff-form" id=${staffId}>`;
@@ -130,13 +183,11 @@ const printStaff = (staff) => {
   domString += '</div>';
   domString += '<div class="card-footer">';
   domString += '<button class="btn card-btn mx-1 btn-outline-danger delete-staff"><i class="fas fa-trash card-icon"></i></button>';
-  domString += '<button class="btn card-btn mx-1 btn-outline-success edit-staff">';
-  domString += '<i class="fas fa-pencil-alt card-icon"></i>';
-  domString += '</button>';
+  domString += `${staff.isKidnapped ? '' : '<button class="btn card-btn mx-1 btn-outline-success edit-staff"><i class="fas fa-pencil-alt card-icon"></i></button>'}`;
+  domString += `${staff.isKidnapped ? '' : '<button class="btn card-btn mx-1 btn-outline-info staff-single-view"><i class="mt-1 far fa-calendar-alt"></i></button>'}`;
   domString += '</div>';
   domString += '</div>';
   domString += '</div>';
-
   return domString;
 };
 
@@ -148,9 +199,11 @@ const printStaffDashboard = () => {
       domString += '<div class="col-12 text-center"><h1 class="my-3">[ Staff ]</h1></div>';
       domString += '<div class="col-12 text-center"><button id="new-staff-btn" class="btn dashboard-btn mb-2">';
       domString += '<i class="fas fa-plus dashboard-icon"></i></button></div>';
-      domString += '<div id="edit-staff-form-container" class="col-12 my-3 hide">';
+      domString += '<div id="edit-staff-form-container" class="form-container col-12 my-3 hide">';
       domString += '</div>';
-      domString += '<div id="new-staff-form-container" class="col-12 my-3 hide">';
+      domString += '<div id="new-staff-form-container" class="form-container col-12 my-3 hide">';
+      domString += '</div>';
+      domString += '<div id="single-staff-form-container" class="form-container container-fluid my-3 hide">';
       domString += '</div>';
       staffs.forEach((staff) => {
         if (staff) domString += printStaff(staff);
@@ -166,13 +219,11 @@ const makeNewStaff = (e) => {
   e.preventDefault();
   const myUid = firebase.auth().currentUser.uid;
   const isKidnappedBool = $("input[name='newStaffRadiosKidnapped']:checked").val();
-  // const isEotmBool = $("input[name='newStaffRadiosEmployee']:checked").val();
   const newStaff = {
     name: $('#new-staff-name').val(),
     photoUrl: $('#new-staff-image').val(),
     job: $('#new-staff-job').val(),
     isKidnapped: JSON.parse(isKidnappedBool),
-    // isEOTM: JSON.parse(isEotmBool),
     uid: myUid,
   };
   staffData.addStaff(newStaff).then(() => printStaffDashboard())
@@ -183,14 +234,12 @@ const modifyStaff = (e) => {
   e.preventDefault();
   const myUid = firebase.auth().currentUser.uid;
   const isKidnappedBool = $("input[name='editStaffRadiosKidnapped']:checked").val();
-  // const isEotmBool = $("input[name='editStaffRadiosEmployee']:checked").val();
   const staffId = $('.edit-staff-form').attr('id');
   const modifiedStaff = {
     name: $('#edit-staff-name').val(),
     photoUrl: $('#edit-staff-image').val(),
     job: $('#edit-staff-job').val(),
     isKidnapped: JSON.parse(isKidnappedBool),
-    // isEOTM: JSON.parse(isEotmBool),
     uid: myUid,
   };
   utils.printToDom('edit-form-container', '');
@@ -199,10 +248,51 @@ const modifyStaff = (e) => {
     .catch((err) => console.error('Modify Pin Broke', err));
 };
 
+const closeStaffForm = (e) => {
+  const containerId = e.target.closest('.form-container').id;
+  $(`#${containerId}`).addClass('hide');
+  utils.printToDom(`${containerId}`, '');
+};
+
 const removeStaff = (e) => {
   const staffId = e.target.closest('.card').id;
   staffData.deleteStaff(staffId).then(() => printStaffDashboard())
     .catch((err) => console.error('could not delete staff', err));
+};
+
+const singleStaffMemberEvent = (e) => {
+  const staffId = e.target.closest('.card').id;
+  buildSingleStaffMember(staffId);
+};
+
+const showJobsEvent = (e) => {
+  const shiftId = e.target.id;
+  const isOpenShift = $(`#${shiftId}`).html() === '';
+  const { staffId } = e.target.closest('.form-card').dataset;
+  if (isOpenShift) {
+    shiftJobRadios.buildShiftJobRadios(shiftId, staffId);
+  }
+};
+
+const makeNewAssignment = (e) => {
+  e.preventDefault();
+  const jobId = $("input[name='jobRadio']:checked").val();
+  const { staffId } = e.target.dataset;
+  const newAssignment = {
+    jobId,
+    staffId,
+  };
+  assignmentsData.setAssignment(newAssignment)
+    .then(() => {
+      utils.printToDom('job-modal-body', '');
+      $('#schedule-staff-modal').modal('hide');
+      buildSingleStaffMember(staffId);
+    })
+    .catch((err) => console.error('There is a problem with assigning this staff member:', err));
+};
+
+const deleteAssignment = (e) => {
+  console.error(e.target);
 };
 
 const staffEvents = () => {
@@ -211,6 +301,13 @@ const staffEvents = () => {
   $('body').on('click', '.delete-staff', removeStaff);
   $('body').on('click', '#new-staff-btn', showStaffForm);
   $('body').on('click', '#submit-new-staff', makeNewStaff);
+  $('body').on('click', '#close-form-button', closeStaffForm);
+  $('body').on('click', '.staff-single-view', singleStaffMemberEvent);
+  $('body').on('click', '.shift-cell', showJobsEvent);
+  $('body').on('click', '#close-modal-button', closeModalButtonEvent);
+  $('body').on('click', '#close-job-modal-button', closeJobDetailModalButtonEvent);
+  $('body').on('click', '#submit-staff-job', makeNewAssignment);
+  $('body').on('click', '.delete-assignment', deleteAssignment);
 };
 
 export default {

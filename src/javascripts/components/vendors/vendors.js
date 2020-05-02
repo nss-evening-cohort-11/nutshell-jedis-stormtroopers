@@ -1,6 +1,5 @@
 import firebase from 'firebase/app';
 import 'firebase/auth';
-
 import utils from '../../helpers/utils';
 import vendorsData from '../../helpers/data/vendorsData';
 import smashData from '../../helpers/data/smashData';
@@ -13,12 +12,9 @@ const checkIfVendorsAreStaffed = () => {
         // open staffed vendors
         if (vendorJob.assignments[0] !== undefined) {
           vendorsData.openStaffedVendors(vendorId);
-          console.log('staffed vendor assignments', vendorJob.assetId);
+        } else if (vendorJob.assignments[0] === undefined) {
+          vendorsData.closeUnstaffedVendors(vendorId);
         }
-        // else if (vendorJob.assignments[0] === undefined) {
-        //   vendorsData.closeUnstaffedVendors(vendorId);
-        //   console.log('unstaffed vendor assignments', vendorId);
-        // }
       });
     });
   })
@@ -208,6 +204,7 @@ const printVendorsDashboard = () => {
 
       domString += '</div>';
 
+      checkIfVendorsAreStaffed();
       utils.printToDom('vendors-dashboard', domString);
     })
     .catch((err) => console.error('problem with get vendors in print vendors', err));

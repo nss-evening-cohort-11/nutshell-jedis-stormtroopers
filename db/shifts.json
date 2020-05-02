@@ -27,31 +27,31 @@
         "dayName" : "Thursday",
         "workHours" : "AM"
     },
-    "shift9" : {
+    "shift8" : {
         "dayName" : "Thursday",
         "workHours" : "PM"
     },
-    "shift10" : {
+    "shift9" : {
         "dayName" : "Friday",
         "workHours" : "AM"
     },
-    "shift11" : {
+    "shift10" : {
         "dayName" : "Friday",
         "workHours" : "PM"
+    },
+    "shift11" : {
+        "dayName" : "Saturday",
+        "workHours" : "AM"
     },
     "shift12" : {
         "dayName" : "Saturday",
-        "workHours" : "AM"
-    },
-    "shift13" : {
-        "dayName" : "Saturday",
         "workHours" : "PM"
     },
-    "shift14" : {
+    "shift13" : {
         "dayName" : "Sunday",
         "workHours" : "AM"
     },
-    "shift15" : {
+    "shift14" : {
         "dayName" : "Sunday",
         "workHours" : "PM"
     }
