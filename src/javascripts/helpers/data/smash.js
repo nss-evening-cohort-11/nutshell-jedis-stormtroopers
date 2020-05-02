@@ -221,9 +221,14 @@ const getDinosWithJobAssignments = () => new Promise((resolve, reject) => {
         dinos.forEach((dino) => {
           const oneDino = { jobs: [], ...dino };
           const dinoWithJobs = jobTypes.filter((x) => x.assetId === dino.id);
-        })
-      })
-    })
+          dinoWithJobs.forEach((dinoJob) => {
+            const dinoJobs = { assignments: [], ...dinoJob };
+            const jobAssignments = assignments.filter((x) => x.jobId)
+          })
+        });
+        resolve(allDinosWithJobAssignments);
+      });
+    });
   })
     .catch((err) => reject(err));
 })
