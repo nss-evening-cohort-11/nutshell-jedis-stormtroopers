@@ -27,7 +27,7 @@ const buildSingleRide = (rideId) => {
   showSingleRideView();
   smash.getAllWeeklyShiftsForRidesByRideId(rideId)
     .then((ride) => {
-      console.log('build rides calendar', ride);
+      console.error('build rides calendar', ride);
     })
     .catch((err) => console.error('Could not build the rides schedule.', err));
 };
