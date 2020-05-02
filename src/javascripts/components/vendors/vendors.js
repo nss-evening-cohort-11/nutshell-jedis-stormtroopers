@@ -2,10 +2,10 @@ import firebase from 'firebase/app';
 import 'firebase/auth';
 import utils from '../../helpers/utils';
 import vendorsData from '../../helpers/data/vendorsData';
-import smashData from '../../helpers/data/smashData';
+import smash from '../../helpers/data/smash';
 
 const checkIfVendorsAreStaffed = () => {
-  smashData.getVendorsWithAssignments().then((assignedVendors) => {
+  smash.getVendorsWithAssignments().then((assignedVendors) => {
     assignedVendors.forEach((vendorAssignment) => {
       const vendorId = vendorAssignment.id;
       vendorAssignment.jobs.forEach((vendorJob) => {
