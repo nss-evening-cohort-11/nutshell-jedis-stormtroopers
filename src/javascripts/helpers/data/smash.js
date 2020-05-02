@@ -189,6 +189,24 @@ const getAllStaffWithJobs = () => new Promise((resolve, reject) => {
     .catch((err) => reject(err));
 });
 
+const getAllWeeklyShiftsForRidesByRideId = (rideId) => new Promise((resolve, reject) => {
+  ridesData.getSingleRide(rideId).then((rideResponse) => {
+    const ride = rideResponse.data;
+    ride.id = rideId;
+    getAllJobsWithRelatedAssets().then((response) => {
+      const allJobs = response;
+      const jobs = [];
+      allJobs.forEach((job) => {
+        if (job.assetId === ride.id) {
+          jobs.push(job);
+        }
+      });
+      console.log(jobs);
+    });
+  })
+    .catch((err) => reject(err));
+});
+
 export default {
   deleteStaffAssignments,
   removeAllJobAssignmentsByAssetId,
@@ -198,4 +216,5 @@ export default {
   findOutWhichJobsOnShiftAreNotAssigned,
   getAllStaffWithJobs,
   completelyRemoveTask,
+  getAllWeeklyShiftsForRidesByRideId,
 };

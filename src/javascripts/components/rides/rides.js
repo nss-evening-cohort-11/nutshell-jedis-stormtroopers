@@ -2,6 +2,7 @@ import firebase from 'firebase/app';
 import 'firebase/auth';
 import utils from '../../helpers/utils';
 import ridesData from '../../helpers/data/ridesData';
+import smash from '../../helpers/data/smash';
 
 const showNewRideForm = () => {
   $('#new-ride-form-container').removeClass('hide');
@@ -14,6 +15,21 @@ const closeRideCreatorForm = () => {
 
 const closeRideModifierForm = () => {
   $('#update-ride-form-container').addClass('hide');
+};
+
+const showSingleRideView = () => {
+  $('#update-ride-form-container').addClass('hide');
+  $('#new-ride-form-container').addClass('hide');
+  $('#single-ride-form-container').removeClass('hide');
+};
+
+const buildSingleRide = (rideId) => {
+  showSingleRideView();
+  smash.getAllWeeklyShiftsForRidesByRideId(rideId)
+    .then((ride) => {
+      console.log('build rides calendar', ride);
+    })
+    .catch((err) => console.error('Could not build the rides schedule.', err));
 };
 
 const newRideEvent = (e) => {
@@ -79,16 +95,20 @@ const deleteRideEvent = (e) => {
     .catch((err) => console.error('could not delete ride', err));
 };
 
+const singleRideCalendarView = (e) => {
+  const rideId = e.target.closest('.card').id;
+  buildSingleRide(rideId);
+};
+
 const rideEvents = () => {
   $('body').on('click', '#new-ride-btn', showNewRideForm);
   $('body').on('click', '#ride-creator-btn', newRideEvent);
   $('body').on('click', '.delete-ride-btn', deleteRideEvent);
   $('body').on('click', '.update-ride-btn', editRideEvent);
   $('body').on('click', '#ride-modifier-btn', submitModifiedRideEvent);
-  // One's I've added
   $('body').on('click', '#ride-creator-close', closeRideCreatorForm);
   $('body').on('click', '#ride-modifier-close', closeRideModifierForm);
-  $('body').on('click', '.calendar-ride-btn', console.log('test')); // showRidesSchedule);
+  $('body').on('click', '.calendar-ride-btn', singleRideCalendarView);
 };
 
 const newRideFormBuilder = () => {
@@ -178,6 +198,7 @@ const printRidesDashboard = () => {
       domString += '<div class="col-12 text-center"><h1 class="my-3">[ Rides ]</h1></div>';
       domString += '<div class="col-12 text-center"><button id="new-ride-btn" class="btn dashboard-btn mb-2"><i class="fas fa-plus dashboard-icon"></i></button></div>';
       domString += newRideFormBuilder();
+      domString += '<div id="single-ride-form-container" class="form-container container-fluid my-3"></div>';
       domString += '<div id="update-ride-form-container" class="col-12 my-3 hide"></div>';
       rides.forEach((ride) => {
         domString += rideCardBuilder(ride);
