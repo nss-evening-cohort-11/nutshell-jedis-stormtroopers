@@ -161,7 +161,7 @@ const makeNewDino = (e) => {
   };
   dinoData.addDino(newDino).then(() => {
     const dinoName = newDino.name;
-    jobTypeData.addJobsForNewDino(6, dinoName);
+    jobTypeData.addJobsForNewDino(14, dinoName);
     printDinosDashboard();
   })
     .catch((err) => console.error('makeNewDino broke', err));
