@@ -1,26 +1,27 @@
 import utils from '../../helpers/utils';
-import staffData from '../../helpers/data/staffData';
+import smash from '../../helpers/data/smash';
 
-const getMissingStaff = () => {
-  staffData.getStaffs()
-    .then((resp) => {
-      const missing = resp.filter((x) => x.isKidnapped);
+const getUnassignedStaff = () => {
+  smash.getAllStaffWithJobs()
+    .then((finalStaffMembersWithJobs) => {
+      const noJobs = finalStaffMembersWithJobs.filter((x) => x.jobs.length === 0);
       let domString = '';
-      domString += '<p>Missing Staff Count:</p>';
-      domString += `<div id="missing-staff-count" class="text-center mt-5">${missing.length}</div>`;
-      utils.printToDom('missing-staff', domString);
+      noJobs.forEach((x) => {
+        if (x.isKidnapped === false) {
+          domString += `<li>${x.name}</li>`;
+        }
+      });
+      utils.printToDom('print-unassigned-staff-list', domString);
     })
     .catch((err) => console.error('could not get missing staff', err));
 };
 
-const buildStaffOverview = () => {
-  let domString = '';
-  domString += '<div id="EOTM" class="text-center">';
-  domString += '</div>';
-  domString += '<div id="missing-staff">';
-  domString += getMissingStaff();
-  domString += '</div>';
-  return domString;
-};
+// const buildStaffOverview = () => {
+//   let domString = '';
+//   domString += '<div id="unassigned-staff">';
+//   domString += getUnassignedStaff();
+//   domString += '</div>';
+//   return domString;
+// };
 
-export default { buildStaffOverview };
+export default { getUnassignedStaff };

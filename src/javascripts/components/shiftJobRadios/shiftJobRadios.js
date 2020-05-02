@@ -3,7 +3,6 @@ import smash from '../../helpers/data/smash';
 
 const buildShiftJobRadios = (shiftId, staffId) => {
   smash.findOutWhichJobsOnShiftAreNotAssigned(shiftId).then((shiftJobs) => {
-    console.log('RADIOS:', shiftJobs);
     let domString = '';
     domString += '<div>';
     domString += '  <div class="d-flex flex-row justify-content-between align-items-center card-header text-center">';

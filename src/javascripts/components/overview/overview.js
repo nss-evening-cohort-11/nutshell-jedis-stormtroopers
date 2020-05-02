@@ -10,9 +10,12 @@ const printOverviewDashboard = () => {
     domString += '    <div class="col-md-8 my-2">';
     domString += '      <div class="card bg-info">';
     domString += '        <div class="card-header"><h2>Staff Overview</h2></div>';
-    domString += '        <div class="card-body dash-card"><div class="d-flex flex-row justify-content-around">';
-    domString += staffOverview.buildStaffOverview();
-    domString += '        </div></div>';
+    domString += '        <div id="print-unassigned-staff-list-container" class="card-body">';
+    domString += '          <h2>Unassigned Staff Members:</h2>';
+    domString += '          <ul id="print-unassigned-staff-list">';
+    domString += staffOverview.getUnassignedStaff();
+    domString += '          </ul>';
+    domString += '        </div>';
     domString += '      </div>';
     domString += '    </div>';
     domString += '    <div class="col-md-4 my-2">';

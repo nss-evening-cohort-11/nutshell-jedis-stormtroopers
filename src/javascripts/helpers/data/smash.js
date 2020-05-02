@@ -140,14 +140,25 @@ const deleteStaffAssignmentsAndShifts = (staffMemberId) => new Promise((resolve,
     .catch((err) => console.error('problem with deleting assignments for staff', reject(err)));
 });
 
-const loopThroughAllStaffMembersAndSmashInTheirSchedules = () => new Promise((resolve, reject) => {
+const getAllStaffWithJobs = () => new Promise((resolve, reject) => {
   staffData.getStaffs().then((staff) => {
-    const finalStaff = [];
-    staff.forEach((staffMember) => {
-      const staffId = staffMember.id;
-      getSingleStaffMemberWithAssignedJobs(staffId).then((thisStaffMember) => {
-        finalStaff.push(thisStaffMember);
-        resolve(finalStaff);
+    assignmentsData.getAllAssignments().then((assignments) => {
+      jobTypeData.getJobTypes().then((jobTypes) => {
+        const finalStaffMembersWithJobs = [];
+        staff.forEach((staffMember) => {
+          const thisStaffMember = { jobs: [], ...staffMember };
+          const thisStaffMemberAssignments = assignments.filter((x) => x.staffId === thisStaffMember.id);
+          jobTypes.forEach((oneJob) => {
+            const thisJob = { ...oneJob };
+            const thisJobAssignment = thisStaffMemberAssignments.find((x) => x.jobId === thisJob.id);
+            thisJob.isAssigned = thisJobAssignment !== undefined;
+            if (thisJob.isAssigned) {
+              thisStaffMember.jobs.push(thisJob);
+            }
+          });
+          finalStaffMembersWithJobs.push(thisStaffMember);
+        });
+        resolve(finalStaffMembersWithJobs);
       });
     });
   })
@@ -161,5 +172,5 @@ export default {
   getAllWeeklyShiftsWithSingleStaffMemberJobAssignments,
   getAllJobsWithRelatedAssets,
   findOutWhichJobsOnShiftAreNotAssigned,
-  loopThroughAllStaffMembersAndSmashInTheirSchedules,
+  getAllStaffWithJobs,
 };
