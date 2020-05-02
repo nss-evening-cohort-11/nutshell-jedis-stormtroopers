@@ -164,14 +164,50 @@ const deleteStaffAssignments = (staffMemberId) => new Promise((resolve, reject) 
     .catch((err) => console.error('problem with deleting assignments for staff', reject(err)));
 });
 
-const loopThroughAllStaffMembersAndSmashInTheirSchedules = () => new Promise((resolve, reject) => {
+const getAllStaffWithJobs = () => new Promise((resolve, reject) => {
   staffData.getStaffs().then((staff) => {
-    const finalStaff = [];
-    staff.forEach((staffMember) => {
-      const staffId = staffMember.id;
-      getSingleStaffMemberWithAssignedJobs(staffId).then((thisStaffMember) => {
-        finalStaff.push(thisStaffMember);
-        resolve(finalStaff);
+    assignmentsData.getAllAssignments().then((assignments) => {
+      jobTypeData.getJobTypes().then((jobTypes) => {
+        const finalStaffMembersWithJobs = [];
+        staff.forEach((staffMember) => {
+          const thisStaffMember = { jobs: [], ...staffMember };
+          const thisStaffMemberAssignments = assignments.filter((x) => x.staffId === thisStaffMember.id);
+          jobTypes.forEach((oneJob) => {
+            const thisJob = { ...oneJob };
+            const thisJobAssignment = thisStaffMemberAssignments.find((x) => x.jobId === thisJob.id);
+            thisJob.isAssigned = thisJobAssignment !== undefined;
+            if (thisJob.isAssigned) {
+              thisStaffMember.jobs.push(thisJob);
+            }
+          });
+          finalStaffMembersWithJobs.push(thisStaffMember);
+        });
+        resolve(finalStaffMembersWithJobs);
+      });
+    });
+  })
+    .catch((err) => reject(err));
+});
+
+const getVendorsWithAssignments = () => new Promise((resolve, reject) => {
+  jobTypeData.getJobTypes().then((jobTypesResponse) => {
+    assignmentsData.getAllAssignments().then((assignmentsResponse) => {
+      vendorsData.getVendors().then((vendorsResponse) => {
+        const finalVendors = [];
+        vendorsResponse.forEach((vendor) => {
+          const newVendor = { jobs: [], ...vendor };
+          const vendorJobs = jobTypesResponse.filter((x) => x.assetId === vendor.id);
+          vendorJobs.forEach((job) => {
+            const newVendorJob = { assignments: [], ...job };
+            const jobAssignments = assignmentsResponse.filter((x) => x.jobId === job.id);
+            if (jobAssignments.length !== 0) {
+              newVendorJob.assignments.push(jobAssignments);
+            }
+            newVendor.jobs.push(newVendorJob);
+          });
+          finalVendors.push(newVendor);
+        });
+        resolve(finalVendors);
       });
     });
   })
@@ -185,6 +221,7 @@ export default {
   getAllWeeklyShiftsWithSingleStaffMemberJobAssignments,
   getAllJobsWithRelatedAssets,
   findOutWhichJobsOnShiftAreNotAssigned,
-  loopThroughAllStaffMembersAndSmashInTheirSchedules,
+  getAllStaffWithJobs,
   completelyRemoveTask,
+  getVendorsWithAssignments,
 };
