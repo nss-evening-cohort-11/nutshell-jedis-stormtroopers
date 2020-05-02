@@ -4,6 +4,7 @@ import 'firebase/auth';
 import utils from '../../helpers/utils';
 import vendorsData from '../../helpers/data/vendorsData';
 import smashData from '../../helpers/data/smashData';
+import jobTypeData from '../../helpers/data/jobTypeData';
 
 const checkIfVendorsAreStaffed = () => {
   smashData.getVendorsWithAssignments().then((assignedVendors) => {
@@ -49,6 +50,8 @@ const newVendorEvent = (e) => {
 
   vendorsData.addVendor(newVendor)
     .then(() => {
+      const vendorName = newVendor.name;
+      jobTypeData.addJobsForNewVendor(3, vendorName);
       // eslint-disable-next-line no-use-before-define
       printVendorsDashboard();
     })

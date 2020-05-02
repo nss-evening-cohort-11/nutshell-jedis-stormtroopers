@@ -2,6 +2,7 @@ import axios from 'axios';
 import apiKeys from '../apiKeys.json';
 
 import ridesData from './ridesData';
+import vendorsData from './vendorsData';
 
 const baseUrl = apiKeys.firebaseKeys.databaseURL;
 
@@ -63,9 +64,24 @@ const addJobsForNewRide = (numOfJobs, rideName) => {
   }
 };
 
+const addJobsForNewVendor = (numOfJobs, vendorName) => {
+  for (let i = 0; i < numOfJobs; i += 1) {
+    vendorsData.getVendorIdByName(vendorName)
+      .then((response) => {
+        const newJob = {
+          assetId: response,
+          shiftId: `shift${i + 1}`,
+          name: 'Vendor Attendant',
+        };
+        addSingleJob(newJob);
+      });
+  }
+};
+
 export default {
   getJobTypes,
   getJobTypesByAssetId,
   getJobTypesByShiftId,
   addJobsForNewRide,
+  addJobsForNewVendor,
 };
