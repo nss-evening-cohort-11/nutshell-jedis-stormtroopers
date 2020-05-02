@@ -213,6 +213,21 @@ const getVendorsWithAssignments = () => new Promise((resolve, reject) => {
     .catch((err) => reject(err));
 });
 
+const getDinosWithJobAssignments = () => new Promise((resolve, reject) => {
+  dinoData.getDinos().then((dinos) => {
+    jobTypeData.getJobTypes().then((jobTypes) => {
+      assignmentsData.getAllAssignments().then((assignments) => {
+        const allDinosWithJobAssignments = [];
+        dinos.forEach((dino) => {
+          const oneDino = { jobs: [], ...dino };
+          const dinoWithJobs = jobTypes.filter((x) => x.assetId === dino.id);
+        })
+      })
+    })
+  })
+    .catch((err) => reject(err));
+})
+
 export default {
   deleteStaffAssignments,
   removeAllJobAssignmentsByAssetId,

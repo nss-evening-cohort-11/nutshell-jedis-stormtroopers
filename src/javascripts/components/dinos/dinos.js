@@ -8,11 +8,17 @@ const showEditForm = () => {
   $('div#new-dino-form-container').addClass('hide');
 };
 
+const closeFormEvent = () => {
+  $('#new-dino-form-container').addClass('hide');
+  $('#edit-dino-form-container').addClass('hide');
+};
+
 const newDinoForm = () => {
   let domString = '';
-  domString += '<div class="card form-card col-6 offset-3">';
+  domString += '<div class="card form-card col-6 offset-3"  id="new-dino-form-container">';
   domString += '<div class="card-header text-center">';
   domString += '<h3>Add a Dino</h3>';
+  domString += '<button style="float: right;" id="close-form-btn"><i class="fas fa-times"></i></button>';
   domString += '</div>';
   domString += '<div class="card-body">';
   domString += '<form class="new-dino-form">';
@@ -58,9 +64,10 @@ const editDinoForm = (dinoId) => {
     .then((response) => {
       const dino = response.data;
       let domString = '';
-      domString += '<div class="card form-card col-6 offset-3">';
+      domString += '<div class="card form-card col-6 offset-3" id="edit-dino-form-container">';
       domString += '<div class="card-header text-center">';
       domString += '<h2>Edit Dino</h2>';
+      domString += '<button style="float: right;" id="close-form-btn"><i class="fas fa-times"></i></button>';
       domString += '</div>';
       domString += '<div class="card-body">';
       domString += `<form class="edit-dino-form" id=${dinoId}>`;
@@ -111,13 +118,14 @@ const printDinos = (dino) => {
   domString += '<div>';
   domString += `<img class="card-img-top cards-image" src="${dino.photoUrl}" alt="Card image cap">`;
   domString += '</div>';
-  domString += `<p class="card-text mt-3">${dino.isHungry ? `${dino.name} is hungry!` : `${dino.name} is fine.`}</p>`;
+  domString += `<p class="card-text mt-3">${dino.isEnclosed ? `${dino.name} is trapped!` : `${dino.name} is loose. Run for your life!`}</p>`;
   domString += '</div>';
   domString += '<div class="card-footer">';
   domString += '<button class="btn card-btn mx-1 btn-outline-danger delete-dino"><i class="fas fa-trash card-icon"></i></button>';
   domString += '<button class="btn card-btn mx-1 btn-outline-success edit-dino">';
   domString += '<i class="fas fa-pencil-alt card-icon"></i>';
   domString += '</button>';
+  domString += '<button class="btn card-btn mx-1 btn-outline-info staff-single-view"><i class="mt-1 far fa-calendar-alt"></i></button>';
   domString += '</div>';
   domString += '</div>';
   domString += '</div>';
@@ -192,6 +200,7 @@ const dinoEvents = () => {
   $('body').on('click', '.delete-dino', removeDino);
   $('body').on('click', '#new-dino-btn', showDinoForm);
   $('body').on('click', '#submit-new-dino', makeNewDino);
+  $('body').on('click', '#close-form-btn', closeFormEvent);
 };
 
 export default {
