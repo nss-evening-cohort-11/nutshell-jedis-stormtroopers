@@ -85,8 +85,10 @@ const rideEvents = () => {
   $('body').on('click', '.delete-ride-btn', deleteRideEvent);
   $('body').on('click', '.update-ride-btn', editRideEvent);
   $('body').on('click', '#ride-modifier-btn', submitModifiedRideEvent);
+  // One's I've added
   $('body').on('click', '#ride-creator-close', closeRideCreatorForm);
   $('body').on('click', '#ride-modifier-close', closeRideModifierForm);
+  $('body').on('click', '.calendar-ride-btn', console.log('test')); // showRidesSchedule);
 };
 
 const newRideFormBuilder = () => {
@@ -160,7 +162,8 @@ const rideCardBuilder = (ride) => {
   domString += '       </div>';
   domString += '       <div class="card-footer">';
   domString += '         <button class="btn card-btn delete-ride-btn mx-1 btn-outline-danger"><i class="fas fa-trash card-icon"></i></button>';
-  domString += '        <button class="btn card-btn update-ride-btn mx-1 btn-outline-success"><i class="fas fa-pencil-alt card-icon"></i></button>';
+  domString += '         <button class="btn card-btn update-ride-btn mx-1 btn-outline-success"><i class="fas fa-pencil-alt card-icon"></i></button>';
+  domString += '         <button class="btn card-btn calendar-ride-btn mx-1 btn-outline-info"><i class="fas fa-calendar-alt"></i></button>';
   domString += '       </div>';
   domString += '     </div>';
   domString += '   </div>';
