@@ -16,12 +16,4 @@ const getUnassignedStaff = () => {
     .catch((err) => console.error('could not get missing staff', err));
 };
 
-// const buildStaffOverview = () => {
-//   let domString = '';
-//   domString += '<div id="unassigned-staff">';
-//   domString += getUnassignedStaff();
-//   domString += '</div>';
-//   return domString;
-// };
-
 export default { getUnassignedStaff };
