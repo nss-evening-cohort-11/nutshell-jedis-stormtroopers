@@ -4,6 +4,7 @@ import 'firebase/auth';
 
 import staffData from '../../helpers/data/staffData';
 import assignmentsData from '../../helpers/data/assignmentsData';
+import overview from '../overview/overview';
 import utils from '../../helpers/utils';
 import smash from '../../helpers/data/smash';
 import timeTableBuilder from '../timeTableBuilder/timeTableBuilder';
@@ -164,6 +165,7 @@ const editStaffEvent = (e) => {
 };
 
 const printStaff = (staff) => {
+  console.log('Single staff member coming from printStaff:', staff);
   let domString = '';
   domString += '<div class="col-lg-4 col-md-6">';
   domString += `<div id="${staff.id}" class="card text-center my-2 ${staff.isKidnapped ? 'bg-danger' : 'bg-info'}">`;
@@ -178,7 +180,7 @@ const printStaff = (staff) => {
   domString += staff.isKidnapped ? `${staff.name} is missing!` : `${staff.name} is accounted for.`;
   domString += '</p>';
   domString += '<p class="card-text mt-3">';
-  domString += staff.isEOTM ? `Congrats ${staff.name} for being our Employee of the Month!` : '';
+  domString += staff.jobs.length === 0 ? `${staff.name} has no assigned shifts!` : '';
   domString += '</p>';
   domString += '</div>';
   domString += '<div class="card-footer">';
@@ -192,8 +194,8 @@ const printStaff = (staff) => {
 };
 
 const printStaffDashboard = () => {
-  staffData.getStaffs()
-    .then((staffs) => {
+  smash.getAllStaffWithJobs()
+    .then((finalStaffMembersWithJobs) => {
       let domString = '';
       domString += '<div class="d-flex flex-wrap">';
       domString += '<div class="col-12 text-center"><h1 class="my-3">[ Staff ]</h1></div>';
@@ -205,8 +207,10 @@ const printStaffDashboard = () => {
       domString += '</div>';
       domString += '<div id="single-staff-form-container" class="form-container container-fluid my-3 hide">';
       domString += '</div>';
-      staffs.forEach((staff) => {
-        if (staff) domString += printStaff(staff);
+      domString += '<div id="unassigned-staff-member" class="form-container container-fluid my-3 hide">';
+      domString += '</div>';
+      finalStaffMembersWithJobs.forEach((staffMember) => {
+        if (staffMember) domString += printStaff(staffMember);
       });
       domString += '</div>';
       utils.printToDom('staff-dashboard', domString);
@@ -287,6 +291,8 @@ const makeNewAssignment = (e) => {
       utils.printToDom('job-modal-body', '');
       $('#schedule-staff-modal').modal('hide');
       buildSingleStaffMember(staffId);
+      overview.printOverviewDashboard();
+      printStaffDashboard();
     })
     .catch((err) => console.error('There is a problem with assigning this staff member:', err));
 };
