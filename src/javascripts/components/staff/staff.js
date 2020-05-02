@@ -292,6 +292,7 @@ const makeNewAssignment = (e) => {
       $('#schedule-staff-modal').modal('hide');
       buildSingleStaffMember(staffId);
       overview.printOverviewDashboard();
+      printStaffDashboard();
     })
     .catch((err) => console.error('There is a problem with assigning this staff member:', err));
 };
