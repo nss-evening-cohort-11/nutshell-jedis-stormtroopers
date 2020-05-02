@@ -53,7 +53,12 @@ const getAllJobsWithRelatedAssets = () => new Promise((resolve, reject) => {
             const rideMatch = rides.find((ride) => ride.id === job.assetId);
             const vendorMatch = vendors.find((vendor) => vendor.id === job.assetId);
             const jobMatch = [dinoMatch, rideMatch, vendorMatch].find((x) => x !== undefined);
-            job.jobDuty = jobMatch;
+            if (Object.prototype.hasOwnProperty.call(jobMatch, 'isBroken')) {
+              job.isWorkable = jobMatch.isBroken === false;
+              job.jobDuty = jobMatch;
+            } else {
+              job.jobDuty = jobMatch;
+            }
             finalJobs.push(job);
           });
           resolve(finalJobs);
@@ -79,7 +84,6 @@ const findOutWhichJobsOnShiftAreNotAssigned = (shiftId) => new Promise((resolve,
           });
           shiftJobs.push(newJob);
         });
-        console.log(shiftJobs);
         resolve(shiftJobs);
       });
     });

@@ -43,7 +43,6 @@ const buildSingleStaffMember = (staffId) => {
   showSingleStaffView();
   smash.getAllWeeklyShiftsWithSingleStaffMemberJobAssignments(staffId)
     .then((staffMember) => {
-      console.error(staffMember);
       let domString = '';
       domString += `<div data-staff-id="${staffMember.id}" class="card form-card col-12">`;
       domString += '  <div class="d-flex flex-row justify-content-between align-items-center card-header text-center">';
@@ -165,7 +164,6 @@ const editStaffEvent = (e) => {
 };
 
 const printStaff = (staff) => {
-  console.log('Single staff member coming from printStaff:', staff);
   let domString = '';
   domString += '<div class="col-lg-4 col-md-6">';
   domString += `<div id="${staff.id}" class="card text-center my-2 ${staff.isKidnapped ? 'bg-danger' : 'bg-info'}">`;
