@@ -11,7 +11,6 @@ import jobTypeData from './jobTypeData';
 import shiftsData from './shiftsData';
 import equipJobsData from './equipJobsData';
 
-
 const baseUrl = apiKeys.firebaseKeys.databaseURL;
 
 const completelyRemoveTask = (randEquipId) => new Promise((resolve, reject) => {
