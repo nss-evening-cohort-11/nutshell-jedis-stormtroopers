@@ -3,6 +3,8 @@ import 'firebase/auth';
 import dinoData from '../../helpers/data/dinoData';
 import utils from '../../helpers/utils';
 
+import jobTypeData from '../../helpers/data/jobTypeData';
+
 const showEditForm = () => {
   $('div#edit-dino-form-container').removeClass('hide');
   $('div#new-dino-form-container').addClass('hide');
@@ -157,7 +159,11 @@ const makeNewDino = (e) => {
     isHungry: JSON.parse(isHungryBool),
     uid: myUid,
   };
-  dinoData.addDino(newDino).then(() => printDinosDashboard())
+  dinoData.addDino(newDino).then(() => {
+    const dinoName = newDino.name;
+    jobTypeData.addJobsForNewDino(6, dinoName);
+    printDinosDashboard();
+  })
     .catch((err) => console.error('makeNewDino broke', err));
 };
 

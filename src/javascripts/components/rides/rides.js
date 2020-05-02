@@ -20,7 +20,7 @@ const newRideEvent = (e) => {
   ridesData.addRide(newRide)
     .then(() => {
       const rideName = newRide.name;
-      jobTypeData.addJobsForNewRide(3, rideName);
+      jobTypeData.addJobsForNewRide(14, rideName);
       // eslint-disable-next-line no-use-before-define
       printRidesDashboard();
       $('#new-ride-form').trigger('reset');

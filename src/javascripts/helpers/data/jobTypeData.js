@@ -3,6 +3,7 @@ import apiKeys from '../apiKeys.json';
 
 import ridesData from './ridesData';
 import vendorsData from './vendorsData';
+import dinoData from './dinoData';
 
 const baseUrl = apiKeys.firebaseKeys.databaseURL;
 
@@ -78,10 +79,30 @@ const addJobsForNewVendor = (numOfJobs, vendorName) => {
   }
 };
 
+const addJobsForNewDino = (numOfJobs, dinoName) => {
+  for (let i = 0; i < numOfJobs; i += 1) {
+    dinoData.getDinoIdByName(dinoName)
+      .then((response) => {
+        let counter = i;
+        if (i > 4) {
+          counter -= 4;
+          console.error('counter over 4:', counter);
+        }
+        const newJob = {
+          assetId: response,
+          shiftId: counter,
+          name: 'Dino Attendant',
+        };
+        addSingleJob(newJob);
+      });
+  }
+};
+
 export default {
   getJobTypes,
   getJobTypesByAssetId,
   getJobTypesByShiftId,
   addJobsForNewRide,
   addJobsForNewVendor,
+  addJobsForNewDino,
 };

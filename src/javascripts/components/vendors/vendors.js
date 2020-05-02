@@ -54,7 +54,7 @@ const newVendorEvent = (e) => {
   vendorsData.addVendor(newVendor)
     .then(() => {
       const vendorName = newVendor.name;
-      jobTypeData.addJobsForNewVendor(3, vendorName);
+      jobTypeData.addJobsForNewVendor(14, vendorName);
       // eslint-disable-next-line no-use-before-define
       printVendorsDashboard();
     })
