@@ -9,10 +9,11 @@ const checkIfVendorsAreStaffed = () => {
     assignedVendors.forEach((vendorAssignment) => {
       const vendorId = vendorAssignment.id;
       vendorAssignment.jobs.forEach((vendorJob) => {
+        console.log(vendorJob);
         // open staffed vendors
-        if (vendorJob.assignments[0] !== undefined) {
+        if (vendorJob.assignments.length > 0) {
           vendorsData.openStaffedVendors(vendorId);
-        } else if (vendorJob.assignments[0] === undefined) {
+        } else if (vendorJob.assignments.length === 0) {
           vendorsData.closeUnstaffedVendors(vendorId);
         }
       });
@@ -204,7 +205,7 @@ const printVendorsDashboard = () => {
 
       domString += '</div>';
 
-      checkIfVendorsAreStaffed();
+      // checkIfVendorsAreStaffed();
       utils.printToDom('vendors-dashboard', domString);
     })
     .catch((err) => console.error('problem with get vendors in print vendors', err));

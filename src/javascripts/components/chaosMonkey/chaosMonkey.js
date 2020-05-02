@@ -59,6 +59,7 @@ const randomChaosMonkeyStrike = () => {
 
             staffData.kidnapStaff(randStaffId) // change staff's boolean isKidnapped to 'true'
               .then(() => {
+                console.log('Someone was kidnapped');
                 smash.deleteStaffAssignments(randStaffId); // delete existing assignments for the kidnapped staff member
                 chaosMonkeyData.addEventToChaosHistory('kidnap', randStaffId);// add this event to history of Chaos Monkey
                 staffComponent.printStaffDashboard(); // update the staff dashboard to current
@@ -122,8 +123,7 @@ const chaosMonkeyAlert = (randomStrike) => {
 };
 
 const unleashChaosMonkey = () => {
-  // setInterval(randomChaosMonkeyStrike, 15 * 1000);
-  randomChaosMonkeyStrike();
+  setInterval(randomChaosMonkeyStrike, 15 * 1000);
 };
 
 export default { unleashChaosMonkey };
