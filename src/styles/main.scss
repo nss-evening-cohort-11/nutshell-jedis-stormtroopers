@@ -57,7 +57,7 @@ body {
 // OVERVIEW PAGE STYLES
 
 .dash-card {
-  height: 300px;
+  min-height: 300px;
 }
 
 #overview-dashboard p {
@@ -72,6 +72,16 @@ body {
 #missing-staff-count {
   font-size: 5rem;
   color: $red;
+}
+
+h2 {
+  color: red;
+}
+
+.overview-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
 }
 
 // DASHBOARD CONTROL BUTTON STYLES
