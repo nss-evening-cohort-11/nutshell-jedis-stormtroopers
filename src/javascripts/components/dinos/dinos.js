@@ -2,6 +2,7 @@ import firebase from 'firebase/app';
 import 'firebase/auth';
 import dinoData from '../../helpers/data/dinoData';
 import utils from '../../helpers/utils';
+import smash from '../../helpers/data/smash';
 
 const showEditForm = () => {
   $('div#edit-dino-form-container').removeClass('hide');
@@ -101,6 +102,11 @@ const editDinoForm = (dinoId) => {
     });
 };
 
+const dinoCalendarEvent = (e) => {
+  const dinoId = e.target.closest('.card').id;
+  smash.getSingleDinosWithJobAssignments(dinoId);
+};
+
 const editDinoEvent = (e) => {
   e.preventDefault();
   const dinoId = e.target.closest('.card').id;
@@ -125,7 +131,7 @@ const printDinos = (dino) => {
   domString += '<button class="btn card-btn mx-1 btn-outline-success edit-dino">';
   domString += '<i class="fas fa-pencil-alt card-icon"></i>';
   domString += '</button>';
-  domString += '<button class="btn card-btn mx-1 btn-outline-info staff-single-view"><i class="mt-1 far fa-calendar-alt"></i></button>';
+  domString += '<button class="btn card-btn mx-1 btn-outline-info dino-single-view"><i class="mt-1 far fa-calendar-alt"></i></button>';
   domString += '</div>';
   domString += '</div>';
   domString += '</div>';
@@ -201,6 +207,7 @@ const dinoEvents = () => {
   $('body').on('click', '#new-dino-btn', showDinoForm);
   $('body').on('click', '#submit-new-dino', makeNewDino);
   $('body').on('click', '#close-form-btn', closeFormEvent);
+  $('body').on('click', '.dino-single-view', dinoCalendarEvent);
 };
 
 export default {

@@ -213,25 +213,26 @@ const getVendorsWithAssignments = () => new Promise((resolve, reject) => {
     .catch((err) => reject(err));
 });
 
-const getDinosWithJobAssignments = () => new Promise((resolve, reject) => {
-  dinoData.getDinos().then((dinos) => {
-    jobTypeData.getJobTypes().then((jobTypes) => {
-      assignmentsData.getAllAssignments().then((assignments) => {
-        const allDinosWithJobAssignments = [];
-        dinos.forEach((dino) => {
-          const oneDino = { jobs: [], ...dino };
-          const dinoWithJobs = jobTypes.filter((x) => x.assetId === dino.id);
-          dinoWithJobs.forEach((dinoJob) => {
-            const dinoJobs = { assignments: [], ...dinoJob };
-            const jobAssignments = assignments.filter((x) => x.jobId)
-          })
+const getSingleDinosWithJobAssignments = (dinoId) => new Promise((resolve, reject) => {
+  dinoData.getSingleDino(dinoId).then((singleDinoResponse) => {
+    jobTypeData.getJobTypesByAssetId(dinoId).then((jobTypes) => {
+      const singleDino = singleDinoResponse.data;
+      singleDino.id = dinoId;
+      singleDino.jobsAssigned = [];
+      jobTypes.forEach((singleDinoJob) => {
+        const jobTypeId = singleDinoJob.id;
+        assignmentsData.getAssignmentsByJobTypeId(jobTypeId).then((assignments) => {
+          assignments.forEach((assignment) => {
+            const assignedDinoJobs = jobTypes.filter((x) => x.id === assignment.jobId);
+            singleDino.jobsAssigned.push(assignedDinoJobs);
+          });
         });
-        resolve(allDinosWithJobAssignments);
       });
+      resolve(singleDino);
     });
   })
     .catch((err) => reject(err));
-})
+});
 
 export default {
   deleteStaffAssignments,
@@ -243,4 +244,5 @@ export default {
   getAllStaffWithJobs,
   completelyRemoveTask,
   getVendorsWithAssignments,
+  getSingleDinosWithJobAssignments,
 };
