@@ -215,20 +215,31 @@ const getVendorsWithAssignments = () => new Promise((resolve, reject) => {
 
 const getSingleDinosWithJobAssignments = (dinoId) => new Promise((resolve, reject) => {
   dinoData.getSingleDino(dinoId).then((singleDinoResponse) => {
-    jobTypeData.getJobTypesByAssetId(dinoId).then((jobTypes) => {
-      const singleDino = singleDinoResponse.data;
-      singleDino.id = dinoId;
-      singleDino.jobsAssigned = [];
-      jobTypes.forEach((singleDinoJob) => {
-        const jobTypeId = singleDinoJob.id;
-        assignmentsData.getAssignmentsByJobTypeId(jobTypeId).then((assignments) => {
-          assignments.forEach((assignment) => {
-            const assignedDinoJobs = jobTypes.filter((x) => x.id === assignment.jobId);
-            singleDino.jobsAssigned.push(assignedDinoJobs);
+    staffData.getStaffs().then((staffsResponse) => {
+      jobTypeData.getJobTypesByAssetId(dinoId).then((jobTypes) => {
+        const singleDino = singleDinoResponse.data;
+        singleDino.id = dinoId;
+        singleDino.fullDinoSchedule = [];
+        jobTypes.forEach((singleDinoJob) => {
+          const thisDino = { assignedStaff: [], ...singleDinoJob };
+          const jobTypeId = singleDinoJob.id;
+          assignmentsData.getAssignmentsByJobTypeId(jobTypeId).then((assignments) => {
+            assignments.forEach((assignment) => {
+              const staffAssignedToDinos = staffsResponse.filter((x) => x.id === assignment.staffId);
+              // const assignedDinoJobs = jobTypes.filter((x) => x.id === assignment.jobId);
+              staffAssignedToDinos.forEach((singleStaffMember) => {
+                if (singleStaffMember !== undefined) {
+                // thisDino.jobs.push(assignedDinoJobs);
+                  thisDino.assignedStaff.push(singleStaffMember);
+                }
+              });
+            });
           });
+          singleDino.fullDinoSchedule.push(thisDino);
         });
+        resolve(singleDino);
+        console.log('singleDino schedule', singleDino);
       });
-      resolve(singleDino);
     });
   })
     .catch((err) => reject(err));
