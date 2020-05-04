@@ -19,6 +19,15 @@ const getRides = () => new Promise((resolve, reject) => {
     .catch((err) => reject(err));
 });
 
+const getRideIdByName = (rideName) => new Promise((resolve, reject) => {
+  getRides()
+    .then((response) => {
+      const rideByName = response.find((x) => x.name === rideName);
+      resolve(rideByName.id);
+    })
+    .catch((err) => reject(err));
+});
+
 const deleteRide = (rideId) => axios.delete(`${baseUrl}/rides/${rideId}.json`);
 
 const addRide = (newRide) => axios.post(`${baseUrl}/rides.json`, newRide);
@@ -31,6 +40,7 @@ const breakRide = (rideId) => axios.patch(`${baseUrl}/rides/${rideId}.json`, { i
 
 export default {
   getRides,
+  getRideIdByName,
   deleteRide,
   addRide,
   updateRide,
