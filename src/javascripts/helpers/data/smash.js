@@ -217,28 +217,26 @@ const getSingleDinosWithJobAssignments = (dinoId) => new Promise((resolve, rejec
   dinoData.getSingleDino(dinoId).then((singleDinoResponse) => {
     staffData.getStaffs().then((staffsResponse) => {
       jobTypeData.getJobTypesByAssetId(dinoId).then((jobTypes) => {
-        const singleDino = singleDinoResponse.data;
-        singleDino.id = dinoId;
-        singleDino.fullDinoSchedule = [];
-        jobTypes.forEach((singleDinoJob) => {
-          const thisDino = { assignedStaff: [], ...singleDinoJob };
-          const jobTypeId = singleDinoJob.id;
-          assignmentsData.getAssignmentsByJobTypeId(jobTypeId).then((assignments) => {
-            assignments.forEach((assignment) => {
-              const staffAssignedToDinos = staffsResponse.filter((x) => x.id === assignment.staffId);
-              // const assignedDinoJobs = jobTypes.filter((x) => x.id === assignment.jobId);
-              staffAssignedToDinos.forEach((singleStaffMember) => {
-                if (singleStaffMember !== undefined) {
-                // thisDino.jobs.push(assignedDinoJobs);
-                  thisDino.assignedStaff.push(singleStaffMember);
-                }
+        shiftsData.getAllShifts().then((shifts) => {
+          const singleDino = singleDinoResponse.data;
+          singleDino.id = dinoId;
+          singleDino.fullDinoSchedule = [];
+          jobTypes.forEach((singleDinoJob) => {
+            const thisDino = { assignedStaff: {}, jobShift: {}, ...singleDinoJob };
+            const jobTypeId = singleDinoJob.id;
+            const dinoJobShifts = shifts.find((x) => x.id === singleDinoJob.shiftId);
+            thisDino.jobShift = dinoJobShifts;
+            assignmentsData.getAssignmentsByJobTypeId(jobTypeId).then((assignments) => {
+              assignments.forEach((assignment) => {
+                const staffAssignedToDinos = staffsResponse.find((x) => x.id === assignment.staffId);
+                thisDino.assignedStaff = staffAssignedToDinos;
               });
             });
+            singleDino.fullDinoSchedule.push(thisDino);
           });
-          singleDino.fullDinoSchedule.push(thisDino);
+          resolve(singleDino);
+          console.log('singleDino schedule', singleDino);
         });
-        resolve(singleDino);
-        console.log('singleDino schedule', singleDino);
       });
     });
   })

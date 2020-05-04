@@ -3,6 +3,7 @@ import 'firebase/auth';
 import dinoData from '../../helpers/data/dinoData';
 import utils from '../../helpers/utils';
 import smash from '../../helpers/data/smash';
+// import timeTableBuilder from '../timeTableBuilder/timeTableBuilder';
 
 const showEditForm = () => {
   $('div#edit-dino-form-container').removeClass('hide');
@@ -12,6 +13,7 @@ const showEditForm = () => {
 const closeFormEvent = () => {
   $('#new-dino-form-container').addClass('hide');
   $('#edit-dino-form-container').addClass('hide');
+  $('#').addClass('hide');
 };
 
 const newDinoForm = () => {
@@ -102,9 +104,30 @@ const editDinoForm = (dinoId) => {
     });
 };
 
+const showDinoCalendar = () => {
+  $('#new-dino-form-container').addClass('hide');
+  $('#edit-dino-form-container').addClass('hide');
+  $('#dino-schedule-form-container').removeClass('hide');
+};
+
 const dinoCalendarEvent = (e) => {
+  showDinoCalendar();
   const dinoId = e.target.closest('.card').id;
-  smash.getSingleDinosWithJobAssignments(dinoId);
+  smash.getSingleDinosWithJobAssignments(dinoId).then((singleDino) => {
+    console.log('dino calendar', singleDino);
+    let domString = '';
+    domString += `<div data-staff-id="${singleDino.id}" class="card form-card col-12">`;
+    domString += '  <div class="d-flex flex-row justify-content-between align-items-center card-header text-center">';
+    domString += `    <h2>Dino Schedule: ${singleDino.name}</h2>`;
+    // // domString += closeFormEvent();
+    domString += '  </div>';
+    // domString += '<div class="text-light">';
+    // domString += timeTableBuilder.timeTableBuilder(singleDino.finalSchedule);
+    domString += '</div>';
+    domString += '</div>';
+    utils.printToDom('dino-schedule-form-container', domString);
+  })
+    .catch((err) => console.error('problem getting single dinos schedule smash', err));
 };
 
 const editDinoEvent = (e) => {
@@ -151,6 +174,8 @@ const printDinosDashboard = () => {
       domString += '</div>';
       domString += '<div id="new-dino-form-container" class="col-12 my-3 hide">';
       domString += '</div>';
+      domString += '<div id="dino-schedule-form-container" class="col-12 my-3 hide">';
+      domString += '</div>';
       dinos.forEach((dino) => {
         if (dino) domString += printDinos(dino);
       });
@@ -163,12 +188,10 @@ const printDinosDashboard = () => {
 const makeNewDino = (e) => {
   e.preventDefault();
   const myUid = firebase.auth().currentUser.uid;
-  const isHungryBool = $("input[name='newDinoRadios']:checked").val();
   const newDino = {
     name: $('#new-dino-name').val(),
     photoUrl: $('#new-dino-image').val(),
     type: $('#new-dino-type').val(),
-    isHungry: JSON.parse(isHungryBool),
     uid: myUid,
   };
   dinoData.addDino(newDino).then(() => printDinosDashboard())
@@ -178,13 +201,11 @@ const makeNewDino = (e) => {
 const modifyDino = (e) => {
   e.preventDefault();
   const myUid = firebase.auth().currentUser.uid;
-  const isHungryBool = $("input[name='editDinoRadios']:checked").val();
   const dinoId = $('.edit-dino-form').attr('id');
   const modifiedDino = {
     name: $('#edit-dino-name').val(),
     photoUrl: $('#edit-dino-image').val(),
     type: $('#edit-dino-type').val(),
-    isHungry: JSON.parse(isHungryBool),
     uid: myUid,
   };
   utils.printToDom('edit-form-container', '');
