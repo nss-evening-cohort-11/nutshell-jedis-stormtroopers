@@ -82,20 +82,14 @@ const addJobsForNewVendor = (numOfJobs, vendorName) => {
 const addJobsForNewDino = (numOfJobs, dinoName) => {
   for (let i = 0; i < numOfJobs; i += 1) {
     dinoData.getDinoIdByName(dinoName)
-      .then(() => {
-        let counter = 0;
-        if (i < 6) {
-          counter = i + 1;
-        } else {
-          counter = i - i + 1;
-        }
+      .then((response) => {
         const newJob = {
-          // assetId: response,
-          shiftId: counter,
-          // name: 'Dino Attendant',
+          assetId: response,
+          shiftId: `shift${i + 1}`,
+          name: 'Dino Attendant',
         };
-        console.log('new job:', newJob);
-        // addSingleJob(newJob);
+        addSingleJob(newJob);
+        addSingleJob(newJob);
       });
   }
 };
