@@ -93,6 +93,7 @@ const addJobsForNewDino = (numOfJobs, dinoName) => {
       });
   }
 };
+const deleteJobType = (jobTypeId) => axios.delete(`${baseUrl}/jobTypes/${jobTypeId}.json`);
 
 export default {
   getJobTypes,
@@ -101,4 +102,5 @@ export default {
   addJobsForNewRide,
   addJobsForNewVendor,
   addJobsForNewDino,
+  deleteJobType,
 };

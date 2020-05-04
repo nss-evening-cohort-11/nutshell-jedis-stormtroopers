@@ -1,7 +1,9 @@
 import firebase from 'firebase/app';
 import 'firebase/auth';
+
 import dinoData from '../../helpers/data/dinoData';
 import utils from '../../helpers/utils';
+import smash from '../../helpers/data/smash';
 
 import jobTypeData from '../../helpers/data/jobTypeData';
 
@@ -188,7 +190,13 @@ const modifyDino = (e) => {
 
 const removeDino = (e) => {
   const dinoId = e.target.closest('.card').id;
-  dinoData.deleteDino(dinoId).then(() => printDinosDashboard())
+  dinoData.deleteDino(dinoId)
+    .then(() => {
+      smash.removeAllJobTypesByDeletedAssetId(dinoId)
+        .then(() => {
+          printDinosDashboard();
+        });
+    })
     .catch((err) => console.error('could not delete pin', err));
 };
 
