@@ -2,6 +2,7 @@ import firebase from 'firebase/app';
 import 'firebase/auth';
 import utils from '../../helpers/utils';
 import vendorsData from '../../helpers/data/vendorsData';
+import jobTypeData from '../../helpers/data/jobTypeData';
 import smash from '../../helpers/data/smash';
 
 const checkIfVendorsAreStaffed = () => {
@@ -55,6 +56,8 @@ const newVendorEvent = (e) => {
 
   vendorsData.addVendor(newVendor)
     .then(() => {
+      const vendorName = newVendor.name;
+      jobTypeData.addJobsForNewVendor(14, vendorName);
       // eslint-disable-next-line no-use-before-define
       printVendorsDashboard();
     })
