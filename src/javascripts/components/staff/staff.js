@@ -3,6 +3,7 @@ import firebase from 'firebase/app';
 import 'firebase/auth';
 
 import staffData from '../../helpers/data/staffData';
+import vendors from '../vendors/vendors';
 import assignmentsData from '../../helpers/data/assignmentsData';
 import overview from '../overview/overview';
 import utils from '../../helpers/utils';
@@ -299,6 +300,7 @@ const makeNewAssignment = (e) => {
       $('#schedule-staff-modal').modal('hide');
       buildSingleStaffMember(staffId);
       overview.printOverviewDashboard();
+      vendors.printVendorsDashboard();
       reprintSingleCard(staffId);
     })
     .catch((err) => console.error('There is a problem with assigning this staff member:', err));
