@@ -194,28 +194,55 @@ const getAllStaffWithJobs = () => new Promise((resolve, reject) => {
 });
 
 const getAllWeeklyShiftsForRidesByRideId = (rideId) => new Promise((resolve, reject) => {
-  jobTypeData.getJobTypesByAssetId(rideId).then((jobTypesResponse) => {
-    const jobType = jobTypesResponse;
-    shiftsData.getAllShifts().then((shiftResponse) => {
-      assignmentsData.getAllAssignments().then((assignmentsResponse) => {
-        const assignments = assignmentsResponse;
-        console.log('shifts', shiftResponse);
-        console.log('jobTypes', jobType);
-        console.log('assignments', assignments);
-        // const jobs = [];
-        jobType.forEach((job) => {
-          assignments.forEach((oneAssignment) => {
-            if (oneAssignment.jobId === job.id) {
-              console.log('one assignment that matches');
-            } else {
-              console.log('no match');
-            }
+  ridesData.getSingleRide(rideId).then((rideResponse) => {
+    const ride = rideResponse.data;
+    ride.id = rideId;
+    shiftsData.getAllShifts().then((shifts) => {
+      assignmentsData.getAllAssignments().then((assignments) => {
+        getAllJobsWithRelatedAssets().then((finalJobs) => {
+          const finalShiftsBeingWorkedByStaffMember = [];
+          shifts.forEach((oneShift) => {
+            const shift = { thisEntitiesJobs: [], ...oneShift };
+            const jobAssignmentsOnThisShift = finalJobs.filter((job) => job.shiftId === oneShift.id);
+            assignments.forEach((singleAssignment) => {
+              jobAssignmentsOnThisShift.forEach((job) => {
+                if (ride.id === job.assetId && singleAssignment.jobId === job.id) {
+                  shift.thisEntitiesJobs.push(job);
+                }
+                console.log('assignement', singleAssignment);
+                console.log('job', job);
+              });
+            });
+            finalShiftsBeingWorkedByStaffMember.push(shift);
           });
+          ride.schedule = finalShiftsBeingWorkedByStaffMember;
+          resolve(console.log('ride object', ride));
         });
       });
     });
-    resolve();
   })
+  // jobTypeData.getJobTypesByAssetId(rideId).then((jobTypesResponse) => {
+  //   const jobType = jobTypesResponse;
+  //   shiftsData.getAllShifts().then((shiftResponse) => {
+  //     assignmentsData.getAllAssignments().then((assignmentsResponse) => {
+  //       const assignments = assignmentsResponse;
+  //       console.log('shifts', shiftResponse);
+  //       console.log('jobTypes', jobType);
+  //       console.log('assignments', assignments);
+  //       // const jobs = [];
+  //       jobType.forEach((job) => {
+  //         assignments.forEach((oneAssignment) => {
+  //           if (oneAssignment.jobId === job.id) {
+  //             console.log('one assignment that matches', job);
+  //           } else {
+  //             console.log('no match');
+  //           }
+  //         });
+  //       });
+  //     });
+  //   });
+  //   resolve();
+  // })
     .catch((err) => reject(err));
 });
 
