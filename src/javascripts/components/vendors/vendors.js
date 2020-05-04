@@ -9,7 +9,6 @@ const checkIfVendorsAreStaffed = () => {
     assignedVendors.forEach((vendorAssignment) => {
       const vendorId = vendorAssignment.id;
       vendorAssignment.jobs.forEach((vendorJob) => {
-        console.log(vendorJob);
         // open staffed vendors
         if (vendorJob.assignments.length > 0) {
           vendorsData.openStaffedVendors(vendorId);
@@ -31,8 +30,11 @@ const deleteVendorEvent = (e) => {
 
   vendorsData.deleteVendor(vendorId)
     .then(() => {
-      // eslint-disable-next-line no-use-before-define
-      printVendorsDashboard();
+      smash.removeAllJobTypesByDeletedAssetId(vendorId)
+        .then(() => {
+          // eslint-disable-next-line no-use-before-define
+          printVendorsDashboard();
+        });
     })
     .catch((err) => console.error('problem with delete vendor event', err));
 };
@@ -204,8 +206,6 @@ const printVendorsDashboard = () => {
       });
 
       domString += '</div>';
-
-      // checkIfVendorsAreStaffed();
       utils.printToDom('vendors-dashboard', domString);
     })
     .catch((err) => console.error('problem with get vendors in print vendors', err));

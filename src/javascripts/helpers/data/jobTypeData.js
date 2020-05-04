@@ -45,4 +45,11 @@ const getJobTypesByShiftId = (shiftId) => new Promise((resolve, reject) => {
     .catch((err) => reject(err));
 });
 
-export default { getJobTypes, getJobTypesByAssetId, getJobTypesByShiftId };
+const deleteJobType = (jobTypeId) => axios.delete(`${baseUrl}/jobTypes/${jobTypeId}.json`);
+
+export default {
+  getJobTypes,
+  getJobTypesByAssetId,
+  getJobTypesByShiftId,
+  deleteJobType,
+};
