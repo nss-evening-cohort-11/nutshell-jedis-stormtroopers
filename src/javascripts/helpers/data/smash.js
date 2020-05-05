@@ -41,6 +41,40 @@ const completelyRemoveTask = (randEquipId) => new Promise((resolve, reject) => {
     .catch((err) => reject(err));
 });
 
+const getSingleVendorSchedule = (vendorId) => new Promise((resolve, reject) => {
+  vendorsData.getSingleVendorByVendorId(vendorId).then((vendor) => {
+    const thisVendor = vendor;
+    thisVendor.id = vendorId;
+    shiftsData.getAllShifts().then((shifts) => {
+      jobTypeData.getJobTypesByAssetId(vendorId).then((jobTypes) => {
+        assignmentsData.getAllAssignments().then((assignments) => {
+          staffData.getStaffs().then((staffMembers) => {
+            const finalVendorShiftsWithAssignments = [];
+            shifts.forEach((oneShift) => {
+              const shift = { thisAssetJobs: [], ...oneShift };
+              const jobsOnThisShift = jobTypes.filter((x) => x.shiftId === oneShift.id);
+              jobsOnThisShift.forEach((job) => {
+                const thisJob = { assignment: {}, ...job };
+                thisJob.assignment = assignments.find((x) => x.jobId === job.id);
+                staffMembers.forEach((oneStaffMember) => {
+                  if (thisJob.assignment && thisJob.assignment.staffId === oneStaffMember.id) {
+                    thisJob.assignment.staffMember = oneStaffMember;
+                  }
+                });
+                shift.thisAssetJobs.push(thisJob);
+              });
+              finalVendorShiftsWithAssignments.push(shift);
+            });
+            thisVendor.schedule = finalVendorShiftsWithAssignments;
+            resolve(thisVendor);
+          });
+        });
+      });
+    });
+  })
+    .catch((err) => reject(err));
+});
+
 const getAllJobsWithRelatedAssets = () => new Promise((resolve, reject) => {
   jobTypeData.getJobTypes().then((jobTypes) => {
     dinoData.getDinos().then((dinos) => {
@@ -248,4 +282,5 @@ export default {
   completelyRemoveTask,
   getVendorsWithAssignments,
   removeAllJobTypesByDeletedAssetId,
+  getSingleVendorSchedule,
 };
