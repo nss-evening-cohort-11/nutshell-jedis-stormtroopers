@@ -1,9 +1,78 @@
 import firebase from 'firebase/app';
 import 'firebase/auth';
 import utils from '../../helpers/utils';
+import overview from '../overview/overview';
 import vendorsData from '../../helpers/data/vendorsData';
 import jobTypeData from '../../helpers/data/jobTypeData';
+import assignmentsData from '../../helpers/data/assignmentsData';
 import smash from '../../helpers/data/smash';
+import assetTimeTableBuilder from '../assetTimeTableBuilder/assetTimeTableBuilder';
+import staffRadios from '../staffRadios/staffRadios';
+
+const closeFormButton = () => {
+  const domString = '<button id="close-form-button" class="btn btn-outline-light"><i class="text-white fas fa-times"></i></button>';
+  return domString;
+};
+
+const closeFormEvent = (e) => {
+  const containerId = e.target.closest('.form-container').id;
+  $(`#${containerId}`).addClass('hide');
+  utils.printToDom(`${containerId}`, '');
+};
+
+const showSingleVendorView = () => {
+  $('#vendor-single-view-container').removeClass('hide');
+  $('#new-vendor-form-containter').addClass('hide');
+  $('#update-vendor-form-containter').addClass('hide');
+};
+
+const makeNewAssignment = (e) => {
+  e.preventDefault();
+  const staffId = $("input[name='staffRadio']:checked").val();
+  const { assetId } = e.target.dataset;
+  const { shiftId } = e.target.dataset;
+  jobTypeData.getJobTypesByShiftId(shiftId).then((jobTypes) => {
+    const thisJob = jobTypes.find((x) => x.assetId === assetId);
+    const newAssignment = {
+      jobId: thisJob.id,
+      staffId,
+    };
+    assignmentsData.setAssignment(newAssignment)
+      .then(() => {
+        utils.printToDom('asset-modal-body', '');
+        $('#schedule-asset-modal').modal('hide');
+        // eslint-disable-next-line no-use-before-define
+        buildSingleVendor(assetId);
+        overview.printOverviewDashboard();
+      });
+  })
+    .catch((err) => console.error('There is a problem with assigning this staff member:', err));
+};
+
+const buildSingleVendor = (vendorId) => {
+  showSingleVendorView();
+  smash.getSingleVendorSchedule(vendorId)
+    .then((thisVendor) => {
+      console.error(thisVendor);
+      let domString = '';
+      domString += `<div data-vendor-id="${thisVendor.id}" class="card form-card col-12">`;
+      domString += '  <div class="d-flex flex-row justify-content-between align-items-center card-header text-center">';
+      domString += `    <h2>Staff Member Schedule: ${thisVendor.name}</h2>`;
+      domString += closeFormButton();
+      domString += '  </div>';
+      domString += '<div class="text-light">';
+      domString += assetTimeTableBuilder.timeTableBuilder(thisVendor.schedule);
+      domString += '</div>';
+      domString += '</div>';
+      utils.printToDom('vendor-single-view-container', domString);
+    })
+    .catch((err) => console.error('This is not working!', err));
+};
+
+const singleVendorViewEvent = (e) => {
+  const vendorId = e.target.closest('.card').id;
+  buildSingleVendor(vendorId);
+};
 
 const checkIfVendorsAreStaffed = () => {
   smash.getVendorsWithAssignments().then((assignedVendors) => {
@@ -90,20 +159,16 @@ const updateVendorEvent = (e) => {
 const newVendorFormEvent = () => {
   $('#new-vendor-form-containter').removeClass('hide');
   $('#update-vendor-form-containter').addClass('hide');
+  $('#vendor-single-view-container').addClass('hide');
 
   // eslint-disable-next-line no-use-before-define
   newVendorForm();
 };
 
-const closeFormEvent = () => {
-  $('#new-vendor-form-containter').addClass('hide');
-  $('#update-vendor-form-containter').addClass('hide');
-};
-
-
 const updateVendorFormEvent = (e) => {
   $('#new-vendor-form-containter').addClass('hide');
   $('#update-vendor-form-containter').removeClass('hide');
+  $('#vendor-single-view-container').addClass('hide');
 
   const vendorId = e.target.closest('.card').id;
 
@@ -117,12 +182,12 @@ const newVendorForm = () => {
   let domString = '';
 
   domString += '<div class="card form-card col-6 offset-3 new-vendor-form-tag">';
-  domString += '  <div class="card-header text-center">';
-  domString += '  <h3>Add a Vendor</h3>';
-  domString += '  <button style="float: right;" id="close-form-btn"><i class="fas fa-times"></i></button>';
+  domString += '  <div class="d-flex justify-content-between align-items-center card-header text-center">';
+  domString += '  <h2>Add a Vendor</h2>';
+  domString += closeFormButton();
   domString += '  </div>';
   domString += '  <div class="card-body">';
-  domString += '  <form>';
+  domString += '  <form class="new-vendor-form">';
   domString += '  <div class="form-group">';
   domString += '    <label for="new-vendor-name">Vendor Name</label>';
   domString += '    <input type="text" class="form-control mb-3" id="new-vendor-name" placeholder="Enter your vendor name">';
@@ -145,9 +210,9 @@ const updateVendorForm = (vendorId) => {
       let domString = '';
 
       domString += `<fo class="card form-card col-6 offset-3 update-vendor-form-tag" id=${vendorId}>`;
-      domString += '  <div class="card-header text-center">';
-      domString += '  <h3>Edit a Vendor</h3>';
-      domString += '  <button style="float: right;" id="close-form-btn"><i class="fas fa-times"></i></button>';
+      domString += '  <div class="d-flex flex-row justify-content-between align-items-center card-header text-center">';
+      domString += '  <h2>Edit a Vendor</h2>';
+      domString += closeFormButton();
       domString += '  </div>';
       domString += '  <div class="card-body">';
       domString += '  <form>';
@@ -182,9 +247,10 @@ const printVendorsDashboard = () => {
       domString += '<div class="d-flex justify-content-center mb-3" id="add-pin-container">';
       domString += '<button class="btn dashboard-btn" id="new-vendor-btn" type="button"><i class="fas fa-plus dashboard-icon"></i></button>';
       domString += '</div>';
-      domString += '<div id="new-vendor-form-containter" class="my-3"></div>';
-      domString += '<div id="update-vendor-form-containter" class="my-3"></div>';
-      domString += '<div id="edit-form-container"></div>';
+      domString += '<div id="new-vendor-form-containter" class="form-container my-3"></div>';
+      domString += '<div id="update-vendor-form-containter" class="form-container my-3"></div>';
+      domString += '<div id="edit-form-container" class="form-container my-3"></div>';
+      domString += '<div id="vendor-single-view-container" class="form-container my-3"></div>';
       domString += '<div class="d-flex flex-wrap">';
 
       vendors.forEach((vendor) => {
@@ -203,6 +269,7 @@ const printVendorsDashboard = () => {
         domString += '    <button class="btn card-btn mx-1 btn-outline-danger delete-vendor-btn"><i class="fas fa-trash card-icon"></i></button>';
         // eslint-disable-next-line max-len
         domString += '    <button class="btn card-btn mx-1 btn-outline-success update-vendor-btn" type="button" data-toggle="collapse" data-target="#update-vendor-form" aria-expanded="false" aria-controls="updateVendorForm"><i class="fas fa-pencil-alt card-icon"></i></button>';
+        domString += '    <button class="btn card-btn mx-1 btn-outline-info vendor-single-view"><i class="far fa-calendar-alt"></i></button>';
         domString += '  </div>';
         domString += '</div>';
         domString += '</div>';
@@ -214,13 +281,32 @@ const printVendorsDashboard = () => {
     .catch((err) => console.error('problem with get vendors in print vendors', err));
 };
 
+const closeModalButtonEvent = (e) => {
+  e.preventDefault();
+  $('#schedule-asset-modal').modal('hide');
+  utils.printToDom('asset-modal-body', '');
+};
+
+const showAvailableStaffEvent = (e) => {
+  const shiftId = e.target.id;
+  const isOpenShift = $(`#${shiftId}`).html() === '';
+  const { vendorId } = e.target.closest('.form-card').dataset;
+  if (isOpenShift) {
+    staffRadios.buildStaffRadios(shiftId, vendorId);
+  }
+};
+
 const vendorsEvents = () => {
   $('body').on('click', '.delete-vendor-btn', deleteVendorEvent);
   $('body').on('click', '#vendor-creator-btn', newVendorEvent);
   $('body').on('click', '#vendor-modifier-btn', updateVendorEvent);
   $('body').on('click', '.update-vendor-btn', updateVendorFormEvent);
   $('body').on('click', '#new-vendor-btn', newVendorFormEvent);
-  $('body').on('click', '#close-form-btn', closeFormEvent);
+  $('body').on('click', '#close-form-button', closeFormEvent);
+  $('body').on('click', '.vendor-single-view', singleVendorViewEvent);
+  $('body').on('click', '#close-modal-button-2', closeModalButtonEvent);
+  $('body').on('click', '.vendor-shift-cell', showAvailableStaffEvent);
+  $('body').on('click', '#submit-asset-job', makeNewAssignment);
 };
 
 export default { printVendorsDashboard, vendorsEvents, checkIfVendorsAreStaffed };
