@@ -95,12 +95,12 @@ const getSingleStaffMemberWithAssignedJobs = (staffId) => new Promise((resolve, 
   staffData.getSingleStaffMemeber(staffId).then((staffResponse) => {
     const staffMember = staffResponse.data;
     staffMember.id = staffId;
-    staffMember.assignedJobs = [];
+    staffMember.jobs = [];
     assignmentsData.getAssignmentsByStaffId(staffId).then((assignments) => {
       jobTypeData.getJobTypes().then((jobTypes) => {
         assignments.forEach((singleAssignment) => {
           const assignedJobs = jobTypes.filter((job) => job.id === singleAssignment.jobId);
-          staffMember.assignedJobs.push(assignedJobs);
+          staffMember.jobs.push(assignedJobs);
         });
         resolve(staffMember);
       });
@@ -149,9 +149,28 @@ const removeAllJobAssignmentsByAssetId = (assetId) => new Promise((resolve, reje
               const assignmentId = singleAssignment.id;
               assignmentsData.deleteAssignmentById(assignmentId);
             });
+            resolve();
           });
       });
-      resolve();
+    })
+    .catch((err) => reject(err));
+});
+
+const removeAllJobTypesByDeletedAssetId = (assetId) => new Promise((resolve, reject) => {
+  jobTypeData.getJobTypesByAssetId(assetId)
+    .then((jobTypes) => {
+      jobTypes.forEach((singleJob) => {
+        const jobTypeId = singleJob.id;
+        assignmentsData.getAssignmentsByJobTypeId(jobTypeId)
+          .then((assignments) => {
+            assignments.forEach((singleAssignment) => {
+              const assignmentId = singleAssignment.id;
+              assignmentsData.deleteAssignmentById(assignmentId);
+            });
+            resolve();
+          });
+        jobTypeData.deleteJobType(jobTypeId);
+      });
     })
     .catch((err) => reject(err));
 });
@@ -282,4 +301,5 @@ export default {
   completelyRemoveTask,
   getAllWeeklyShiftsForRidesByRideId,
   getVendorsWithAssignments,
+  removeAllJobTypesByDeletedAssetId,
 };

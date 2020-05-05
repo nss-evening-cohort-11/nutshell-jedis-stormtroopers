@@ -2,6 +2,7 @@ import firebase from 'firebase/app';
 import 'firebase/auth';
 import utils from '../../helpers/utils';
 import ridesData from '../../helpers/data/ridesData';
+import jobTypeData from '../../helpers/data/jobTypeData';
 import smash from '../../helpers/data/smash';
 
 const showNewRideForm = () => {
@@ -42,6 +43,8 @@ const newRideEvent = (e) => {
   };
   ridesData.addRide(newRide)
     .then(() => {
+      const rideName = newRide.name;
+      jobTypeData.addJobsForNewRide(14, rideName);
       // eslint-disable-next-line no-use-before-define
       printRidesDashboard();
       $('#new-ride-form').trigger('reset');
@@ -89,8 +92,11 @@ const deleteRideEvent = (e) => {
   const rideId = e.target.closest('.card').id;
   ridesData.deleteRide(rideId)
     .then(() => {
-      // eslint-disable-next-line no-use-before-define
-      printRidesDashboard();
+      smash.removeAllJobTypesByDeletedAssetId(rideId)
+        .then(() => {
+          // eslint-disable-next-line no-use-before-define
+          printRidesDashboard();
+        });
     })
     .catch((err) => console.error('could not delete ride', err));
 };

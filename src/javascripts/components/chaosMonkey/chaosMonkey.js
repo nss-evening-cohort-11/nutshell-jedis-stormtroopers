@@ -81,6 +81,7 @@ const randomChaosMonkeyStrike = () => {
           const randRideId = allRides[ridesRandNum].id;
           smash.removeAllJobAssignmentsByAssetId(randRideId)
             .then(() => {
+              staffComponent.printStaffDashboard();
             })
             .catch((err) => console.error('There is a problem with your smash function:', err));
           if (allRides[ridesRandNum].isBroken === false) {
@@ -122,7 +123,7 @@ const chaosMonkeyAlert = (randomStrike) => {
 };
 
 const unleashChaosMonkey = () => {
-  // setInterval(randomChaosMonkeyStrike, 15 * 1000);
+  // setInterval(randomChaosMonkeyStrike, 60 * 1000);
   randomChaosMonkeyStrike();
 };
 

@@ -3,6 +3,7 @@ import firebase from 'firebase/app';
 import 'firebase/auth';
 
 import staffData from '../../helpers/data/staffData';
+import vendors from '../vendors/vendors';
 import assignmentsData from '../../helpers/data/assignmentsData';
 import overview from '../overview/overview';
 import utils from '../../helpers/utils';
@@ -165,7 +166,6 @@ const editStaffEvent = (e) => {
 
 const printStaff = (staff) => {
   let domString = '';
-  domString += '<div class="col-lg-4 col-md-6">';
   domString += `<div id="${staff.id}" class="card text-center my-2 ${staff.isKidnapped ? 'bg-danger' : 'bg-info'}">`;
   domString += '<div class="card-header">';
   domString += `<h3 class="card-title">${staff.name}</h3>`;
@@ -187,8 +187,16 @@ const printStaff = (staff) => {
   domString += `${staff.isKidnapped ? '' : '<button class="btn card-btn mx-1 btn-outline-info staff-single-view"><i class="mt-1 far fa-calendar-alt"></i></button>'}`;
   domString += '</div>';
   domString += '</div>';
-  domString += '</div>';
   return domString;
+};
+
+const reprintSingleCard = (staffId) => {
+  smash.getSingleStaffMemberWithAssignedJobs(staffId)
+    .then((staffMember) => {
+      const domString = printStaff(staffMember);
+      $(`#${staffId}`).replaceWith(domString);
+    })
+    .catch((err) => console.error('This does not work:', err));
 };
 
 const printStaffDashboard = () => {
@@ -208,7 +216,9 @@ const printStaffDashboard = () => {
       domString += '<div id="unassigned-staff-member" class="form-container container-fluid my-3 hide">';
       domString += '</div>';
       finalStaffMembersWithJobs.forEach((staffMember) => {
+        domString += '<div class="col-lg-4 col-md-6">';
         if (staffMember) domString += printStaff(staffMember);
+        domString += '</div>';
       });
       domString += '</div>';
       utils.printToDom('staff-dashboard', domString);
@@ -290,7 +300,8 @@ const makeNewAssignment = (e) => {
       $('#schedule-staff-modal').modal('hide');
       buildSingleStaffMember(staffId);
       overview.printOverviewDashboard();
-      printStaffDashboard();
+      vendors.printVendorsDashboard();
+      reprintSingleCard(staffId);
     })
     .catch((err) => console.error('There is a problem with assigning this staff member:', err));
 };
