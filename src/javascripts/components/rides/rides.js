@@ -30,9 +30,9 @@ const buildSingleRide = (rideId) => {
   smash.getAllWeeklyShiftsForRidesByRideId(rideId)
     .then((ride) => {
       let domString = '';
-      domString += `<div data-staff-id="${ride.id}" class="card form-card col-12">`;
+      domString += `<div data-ride-id="${ride.id}" class="card form-card col-12">`;
       domString += '  <div class="d-flex flex-row justify-content-between align-items-center card-header text-center">';
-      domString += `    <h2>Staff Member Schedule: ${ride.name}</h2>`;
+      domString += `    <h2>Ride Schedule: ${ride.name}</h2>`;
       domString += '    <button id="close-form-button" class="btn btn-outline-light"><i class="text-white fas fa-times"></i></button>';
       domString += '  </div>';
       domString += '<div class="text-light">';
