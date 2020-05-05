@@ -52,12 +52,7 @@ const getAllJobsWithRelatedAssets = () => new Promise((resolve, reject) => {
             const rideMatch = rides.find((ride) => ride.id === job.assetId);
             const vendorMatch = vendors.find((vendor) => vendor.id === job.assetId);
             const jobMatch = [dinoMatch, rideMatch, vendorMatch].find((x) => x !== undefined);
-            if (Object.prototype.hasOwnProperty.call(jobMatch, 'isBroken')) {
-              job.isWorkable = jobMatch.isBroken === false;
-              job.jobDuty = jobMatch;
-            } else {
-              job.jobDuty = jobMatch;
-            }
+            job.jobDuty = jobMatch;
             finalJobs.push(job);
           });
           resolve(finalJobs);
@@ -83,6 +78,7 @@ const findOutWhichJobsOnShiftAreNotAssigned = (shiftId) => new Promise((resolve,
           });
           shiftJobs.push(newJob);
         });
+        console.log(shiftJobs);
         resolve(shiftJobs);
       });
     });
@@ -94,12 +90,12 @@ const getSingleStaffMemberWithAssignedJobs = (staffId) => new Promise((resolve, 
   staffData.getSingleStaffMemeber(staffId).then((staffResponse) => {
     const staffMember = staffResponse.data;
     staffMember.id = staffId;
-    staffMember.jobs = [];
+    staffMember.assignedJobs = [];
     assignmentsData.getAssignmentsByStaffId(staffId).then((assignments) => {
       jobTypeData.getJobTypes().then((jobTypes) => {
         assignments.forEach((singleAssignment) => {
           const assignedJobs = jobTypes.filter((job) => job.id === singleAssignment.jobId);
-          staffMember.jobs.push(assignedJobs);
+          staffMember.assignedJobs.push(assignedJobs);
         });
         resolve(staffMember);
       });
@@ -148,28 +144,9 @@ const removeAllJobAssignmentsByAssetId = (assetId) => new Promise((resolve, reje
               const assignmentId = singleAssignment.id;
               assignmentsData.deleteAssignmentById(assignmentId);
             });
-            resolve();
           });
       });
-    })
-    .catch((err) => reject(err));
-});
-
-const removeAllJobTypesByDeletedAssetId = (assetId) => new Promise((resolve, reject) => {
-  jobTypeData.getJobTypesByAssetId(assetId)
-    .then((jobTypes) => {
-      jobTypes.forEach((singleJob) => {
-        const jobTypeId = singleJob.id;
-        assignmentsData.getAssignmentsByJobTypeId(jobTypeId)
-          .then((assignments) => {
-            assignments.forEach((singleAssignment) => {
-              const assignmentId = singleAssignment.id;
-              assignmentsData.deleteAssignmentById(assignmentId);
-            });
-            resolve();
-          });
-        jobTypeData.deleteJobType(jobTypeId);
-      });
+      resolve();
     })
     .catch((err) => reject(err));
 });
@@ -243,19 +220,19 @@ const getSingleDinosWithJobAssignments = (dinoId) => new Promise((resolve, rejec
         shiftsData.getAllShifts().then((shifts) => {
           const singleDino = singleDinoResponse.data;
           singleDino.id = dinoId;
-          singleDino.fullDinoSchedule = [];
+          singleDino.finalSchedule = [];
           jobTypes.forEach((singleDinoJob) => {
-            const thisDino = { assignedStaff: {}, jobShift: {}, ...singleDinoJob };
+            const thisDino = { assignedStaff: [], jobShift: [], ...singleDinoJob };
             const jobTypeId = singleDinoJob.id;
-            const dinoJobShifts = shifts.find((x) => x.id === singleDinoJob.shiftId);
-            thisDino.jobShift = dinoJobShifts;
+            const dinoJobShifts = shifts.filter((x) => x.id === singleDinoJob.shiftId);
+            thisDino.jobShift.push(dinoJobShifts);
             assignmentsData.getAssignmentsByJobTypeId(jobTypeId).then((assignments) => {
               assignments.forEach((assignment) => {
                 const staffAssignedToDinos = staffsResponse.find((x) => x.id === assignment.staffId);
-                thisDino.assignedStaff = staffAssignedToDinos;
+                thisDino.assignedStaff.push(staffAssignedToDinos);
               });
             });
-            singleDino.fullDinoSchedule.push(thisDino);
+            singleDino.finalSchedule.push(thisDino);
           });
           resolve(singleDino);
           console.log('singleDino schedule', singleDino);
@@ -277,5 +254,4 @@ export default {
   completelyRemoveTask,
   getVendorsWithAssignments,
   getSingleDinosWithJobAssignments,
-  removeAllJobTypesByDeletedAssetId,
 };

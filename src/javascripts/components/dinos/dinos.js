@@ -4,9 +4,8 @@ import 'firebase/auth';
 import dinoData from '../../helpers/data/dinoData';
 import utils from '../../helpers/utils';
 import smash from '../../helpers/data/smash';
-// import timeTableBuilder from '../timeTableBuilder/timeTableBuilder';
-
 import jobTypeData from '../../helpers/data/jobTypeData';
+import assetTimeTable from '../assetTimeTable/assetTimeTable';
 
 const showEditForm = () => {
   $('div#edit-dino-form-container').removeClass('hide');
@@ -124,8 +123,8 @@ const dinoCalendarEvent = (e) => {
     domString += `    <h2>Dino Schedule: ${singleDino.name}</h2>`;
     // // domString += closeFormEvent();
     domString += '  </div>';
-    // domString += '<div class="text-light">';
-    // domString += timeTableBuilder.timeTableBuilder(singleDino.finalSchedule);
+    domString += '<div class="text-light">';
+    domString += assetTimeTable.assetTimeTableBuilder(singleDino.finalSchedule);
     domString += '</div>';
     domString += '</div>';
     utils.printToDom('dino-schedule-form-container', domString);
