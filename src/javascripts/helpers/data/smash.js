@@ -215,32 +215,37 @@ const getVendorsWithAssignments = () => new Promise((resolve, reject) => {
 
 const getSingleDinosWithJobAssignments = (dinoId) => new Promise((resolve, reject) => {
   dinoData.getSingleDino(dinoId).then((singleDinoResponse) => {
-    staffData.getStaffs().then((staffsResponse) => {
+    const singleDino = singleDinoResponse.data;
+    singleDino.id = dinoId;
+    staffData.getStaffs().then((staffMembers) => {
       jobTypeData.getJobTypesByAssetId(dinoId).then((jobTypes) => {
         shiftsData.getAllShifts().then((shifts) => {
-          const singleDino = singleDinoResponse.data;
-          singleDino.id = dinoId;
-          singleDino.finalSchedule = [];
-          jobTypes.forEach((singleDinoJob) => {
-            const thisDino = { assignedStaff: [], jobShift: [], ...singleDinoJob };
-            const jobTypeId = singleDinoJob.id;
-            const dinoJobShifts = shifts.filter((x) => x.id === singleDinoJob.shiftId);
-            thisDino.jobShift.push(dinoJobShifts);
-            assignmentsData.getAssignmentsByJobTypeId(jobTypeId).then((assignments) => {
-              assignments.forEach((assignment) => {
-                const staffAssignedToDinos = staffsResponse.find((x) => x.id === assignment.staffId);
-                thisDino.assignedStaff.push(staffAssignedToDinos);
+          assignmentsData.getAllAssignments().then((assignments) => {
+            const finalDinosWithAssignments = [];
+            shifts.forEach((oneShift) => {
+              const shift = { thisAssetJobs: [], ...oneShift };
+              const jobsOnThisShift = jobTypes.filter((x) => x.shiftId === oneShift.id);
+              jobsOnThisShift.forEach((job) => {
+                const thisJob = { assignment: {}, ...job };
+                thisJob.assignment = assignments.find((x) => x.jobId === job.id);
+                staffMembers.forEach((oneStaffMember) => {
+                  if (thisJob.assignment && thisJob.assignment.staffId === oneStaffMember.id) {
+                    thisJob.assignment.staffMember = oneStaffMember;
+                  }
+                });
+                shift.thisAssetJobs.push(thisJob);
               });
+              finalDinosWithAssignments.push(shift);
             });
-            singleDino.finalSchedule.push(thisDino);
+            singleDino.schedule = finalDinosWithAssignments;
+            resolve(singleDino);
+            console.log(singleDino);
           });
-          resolve(singleDino);
-          console.log('singleDino schedule', singleDino);
         });
       });
-    });
-  })
-    .catch((err) => reject(err));
+    })
+      .catch((err) => reject(err));
+  });
 });
 
 export default {
