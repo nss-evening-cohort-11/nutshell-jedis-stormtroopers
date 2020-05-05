@@ -221,47 +221,23 @@ const getAllWeeklyShiftsForRidesByRideId = (rideId) => new Promise((resolve, rej
         getAllJobsWithRelatedAssets().then((finalJobs) => {
           const finalShiftsBeingWorkedByStaffMember = [];
           shifts.forEach((oneShift) => {
-            const shift = { thisEntitiesJobs: [], ...oneShift };
+            const shift = { thisStaffMemberJobs: [], ...oneShift };
             const jobAssignmentsOnThisShift = finalJobs.filter((job) => job.shiftId === oneShift.id);
             assignments.forEach((singleAssignment) => {
               jobAssignmentsOnThisShift.forEach((job) => {
-                if (ride.id === job.assetId && singleAssignment.jobId === job.id) {
-                  shift.thisEntitiesJobs.push(job);
+                if (singleAssignment.jobId === job.id && job.assetId === ride.id) {
+                  shift.thisStaffMemberJobs.push(job);
                 }
-                console.log('assignement', singleAssignment);
-                console.log('job', job);
               });
             });
             finalShiftsBeingWorkedByStaffMember.push(shift);
           });
           ride.schedule = finalShiftsBeingWorkedByStaffMember;
-          resolve(console.log('ride object', ride));
+          resolve(ride);
         });
       });
     });
   })
-  // jobTypeData.getJobTypesByAssetId(rideId).then((jobTypesResponse) => {
-  //   const jobType = jobTypesResponse;
-  //   shiftsData.getAllShifts().then((shiftResponse) => {
-  //     assignmentsData.getAllAssignments().then((assignmentsResponse) => {
-  //       const assignments = assignmentsResponse;
-  //       console.log('shifts', shiftResponse);
-  //       console.log('jobTypes', jobType);
-  //       console.log('assignments', assignments);
-  //       // const jobs = [];
-  //       jobType.forEach((job) => {
-  //         assignments.forEach((oneAssignment) => {
-  //           if (oneAssignment.jobId === job.id) {
-  //             console.log('one assignment that matches', job);
-  //           } else {
-  //             console.log('no match');
-  //           }
-  //         });
-  //       });
-  //     });
-  //   });
-  //   resolve();
-  // })
     .catch((err) => reject(err));
 });
 

@@ -3,6 +3,7 @@ import 'firebase/auth';
 import utils from '../../helpers/utils';
 import ridesData from '../../helpers/data/ridesData';
 import jobTypeData from '../../helpers/data/jobTypeData';
+import timeTableBuilder from '../timeTableBuilder/timeTableBuilder';
 import smash from '../../helpers/data/smash';
 
 const showNewRideForm = () => {
@@ -28,7 +29,17 @@ const buildSingleRide = (rideId) => {
   showSingleRideView();
   smash.getAllWeeklyShiftsForRidesByRideId(rideId)
     .then((ride) => {
-      console.error('build rides calendar', ride);
+      let domString = '';
+      domString += `<div data-staff-id="${ride.id}" class="card form-card col-12">`;
+      domString += '  <div class="d-flex flex-row justify-content-between align-items-center card-header text-center">';
+      domString += `    <h2>Staff Member Schedule: ${ride.name}</h2>`;
+      domString += '    <button id="close-form-button" class="btn btn-outline-light"><i class="text-white fas fa-times"></i></button>';
+      domString += '  </div>';
+      domString += '<div class="text-light">';
+      domString += timeTableBuilder.timeTableBuilder(ride.schedule);
+      domString += '</div>';
+      domString += '</div>';
+      utils.printToDom('single-ride-form-container', domString);
     })
     .catch((err) => console.error('Could not build the rides schedule.', err));
 };
