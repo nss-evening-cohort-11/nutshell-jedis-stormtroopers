@@ -19,6 +19,15 @@ const getDinos = () => new Promise((resolve, reject) => {
     .catch((err) => console.error('getDinos broke', reject(err)));
 });
 
+const getDinoIdByName = (dinoName) => new Promise((resolve, reject) => {
+  getDinos()
+    .then((response) => {
+      const dinoByName = response.find((x) => x.name === dinoName);
+      resolve(dinoByName.id);
+    })
+    .catch((err) => reject(err));
+});
+
 const deleteDino = (dinoId) => axios.delete(`${baseUrl}/dinos/${dinoId}.json`);
 
 const addDino = (newDino) => axios.post(`${baseUrl}/dinos.json`, newDino);
@@ -33,4 +42,5 @@ export default {
   updateDino,
   getSingleDino,
   getDinos,
+  getDinoIdByName,
 };

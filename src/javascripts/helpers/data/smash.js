@@ -52,7 +52,12 @@ const getAllJobsWithRelatedAssets = () => new Promise((resolve, reject) => {
             const rideMatch = rides.find((ride) => ride.id === job.assetId);
             const vendorMatch = vendors.find((vendor) => vendor.id === job.assetId);
             const jobMatch = [dinoMatch, rideMatch, vendorMatch].find((x) => x !== undefined);
-            job.jobDuty = jobMatch;
+            if (Object.prototype.hasOwnProperty.call(jobMatch, 'isBroken')) {
+              job.isWorkable = jobMatch.isBroken === false;
+              job.jobDuty = jobMatch;
+            } else {
+              job.jobDuty = jobMatch;
+            }
             finalJobs.push(job);
           });
           resolve(finalJobs);
@@ -78,7 +83,6 @@ const findOutWhichJobsOnShiftAreNotAssigned = (shiftId) => new Promise((resolve,
           });
           shiftJobs.push(newJob);
         });
-        console.log(shiftJobs);
         resolve(shiftJobs);
       });
     });
@@ -90,12 +94,12 @@ const getSingleStaffMemberWithAssignedJobs = (staffId) => new Promise((resolve, 
   staffData.getSingleStaffMemeber(staffId).then((staffResponse) => {
     const staffMember = staffResponse.data;
     staffMember.id = staffId;
-    staffMember.assignedJobs = [];
+    staffMember.jobs = [];
     assignmentsData.getAssignmentsByStaffId(staffId).then((assignments) => {
       jobTypeData.getJobTypes().then((jobTypes) => {
         assignments.forEach((singleAssignment) => {
           const assignedJobs = jobTypes.filter((job) => job.id === singleAssignment.jobId);
-          staffMember.assignedJobs.push(assignedJobs);
+          staffMember.jobs.push(assignedJobs);
         });
         resolve(staffMember);
       });
@@ -144,9 +148,28 @@ const removeAllJobAssignmentsByAssetId = (assetId) => new Promise((resolve, reje
               const assignmentId = singleAssignment.id;
               assignmentsData.deleteAssignmentById(assignmentId);
             });
+            resolve();
           });
       });
-      resolve();
+    })
+    .catch((err) => reject(err));
+});
+
+const removeAllJobTypesByDeletedAssetId = (assetId) => new Promise((resolve, reject) => {
+  jobTypeData.getJobTypesByAssetId(assetId)
+    .then((jobTypes) => {
+      jobTypes.forEach((singleJob) => {
+        const jobTypeId = singleJob.id;
+        assignmentsData.getAssignmentsByJobTypeId(jobTypeId)
+          .then((assignments) => {
+            assignments.forEach((singleAssignment) => {
+              const assignmentId = singleAssignment.id;
+              assignmentsData.deleteAssignmentById(assignmentId);
+            });
+            resolve();
+          });
+        jobTypeData.deleteJobType(jobTypeId);
+      });
     })
     .catch((err) => reject(err));
 });
@@ -254,4 +277,5 @@ export default {
   completelyRemoveTask,
   getVendorsWithAssignments,
   getSingleDinosWithJobAssignments,
+  removeAllJobTypesByDeletedAssetId,
 };

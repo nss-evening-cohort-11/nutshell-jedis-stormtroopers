@@ -1,9 +1,12 @@
 import firebase from 'firebase/app';
 import 'firebase/auth';
+
 import dinoData from '../../helpers/data/dinoData';
 import utils from '../../helpers/utils';
 import smash from '../../helpers/data/smash';
 // import timeTableBuilder from '../timeTableBuilder/timeTableBuilder';
+
+import jobTypeData from '../../helpers/data/jobTypeData';
 
 const showEditForm = () => {
   $('div#edit-dino-form-container').removeClass('hide');
@@ -194,7 +197,11 @@ const makeNewDino = (e) => {
     type: $('#new-dino-type').val(),
     uid: myUid,
   };
-  dinoData.addDino(newDino).then(() => printDinosDashboard())
+  dinoData.addDino(newDino).then(() => {
+    const dinoName = newDino.name;
+    jobTypeData.addJobsForNewDino(14, dinoName);
+    printDinosDashboard();
+  })
     .catch((err) => console.error('makeNewDino broke', err));
 };
 
@@ -217,7 +224,13 @@ const modifyDino = (e) => {
 
 const removeDino = (e) => {
   const dinoId = e.target.closest('.card').id;
-  dinoData.deleteDino(dinoId).then(() => printDinosDashboard())
+  dinoData.deleteDino(dinoId)
+    .then(() => {
+      smash.removeAllJobTypesByDeletedAssetId(dinoId)
+        .then(() => {
+          printDinosDashboard();
+        });
+    })
     .catch((err) => console.error('could not delete pin', err));
 };
 

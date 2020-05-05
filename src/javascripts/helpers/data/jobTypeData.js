@@ -1,6 +1,10 @@
 import axios from 'axios';
 import apiKeys from '../apiKeys.json';
 
+import ridesData from './ridesData';
+import vendorsData from './vendorsData';
+import dinoData from './dinoData';
+
 const baseUrl = apiKeys.firebaseKeys.databaseURL;
 
 const getJobTypes = () => new Promise((resolve, reject) => {
@@ -45,4 +49,58 @@ const getJobTypesByShiftId = (shiftId) => new Promise((resolve, reject) => {
     .catch((err) => reject(err));
 });
 
-export default { getJobTypes, getJobTypesByAssetId, getJobTypesByShiftId };
+const addSingleJob = (jobObect) => axios.post(`${baseUrl}/jobTypes.json`, jobObect);
+
+const addJobsForNewRide = (numOfJobs, rideName) => {
+  for (let i = 0; i < numOfJobs; i += 1) {
+    ridesData.getRideIdByName(rideName)
+      .then((response) => {
+        const newJob = {
+          assetId: response,
+          shiftId: `shift${i + 1}`,
+          name: 'Ride Attendant',
+        };
+        addSingleJob(newJob);
+      });
+  }
+};
+
+const addJobsForNewVendor = (numOfJobs, vendorName) => {
+  for (let i = 0; i < numOfJobs; i += 1) {
+    vendorsData.getVendorIdByName(vendorName)
+      .then((response) => {
+        const newJob = {
+          assetId: response,
+          shiftId: `shift${i + 1}`,
+          name: 'Vendor Attendant',
+        };
+        addSingleJob(newJob);
+      });
+  }
+};
+
+const addJobsForNewDino = (numOfJobs, dinoName) => {
+  for (let i = 0; i < numOfJobs; i += 1) {
+    dinoData.getDinoIdByName(dinoName)
+      .then((response) => {
+        const newJob = {
+          assetId: response,
+          shiftId: `shift${i + 1}`,
+          name: 'Dino Attendant',
+        };
+        addSingleJob(newJob);
+        addSingleJob(newJob);
+      });
+  }
+};
+const deleteJobType = (jobTypeId) => axios.delete(`${baseUrl}/jobTypes/${jobTypeId}.json`);
+
+export default {
+  getJobTypes,
+  getJobTypesByAssetId,
+  getJobTypesByShiftId,
+  addJobsForNewRide,
+  addJobsForNewVendor,
+  addJobsForNewDino,
+  deleteJobType,
+};
