@@ -147,6 +147,7 @@ const builDinoCalendar = (dinoId) => {
     domString += `<div data-dino-id="${singleDino.id}" class="card form-card col-12">`;
     domString += '  <div class="d-flex flex-row justify-content-between align-items-center card-header text-center">';
     domString += `    <h2>Dino Schedule: ${singleDino.name}</h2>`;
+    domString += '    <button id="close-form-btn" class="btn btn-outline-light"><i class="text-white fas fa-times"></i></button>';
     domString += '  </div>';
     domString += '<div class="text-light">';
     domString += assetTimeTableBuilder.timeTableBuilder(singleDino.schedule);
