@@ -246,6 +246,42 @@ const getAllStaffWithJobs = () => new Promise((resolve, reject) => {
     .catch((err) => reject(err));
 });
 
+const getAllWeeklyShiftsForRidesByRideId = (rideId) => new Promise((resolve, reject) => {
+  ridesData.getSingleRide(rideId).then((rideResponse) => {
+    const ride = rideResponse.data;
+    ride.id = rideId;
+    shiftsData.getAllShifts().then((shifts) => {
+      staffData.getStaffs().then((staffResponse) => {
+        const staffMembers = staffResponse;
+        assignmentsData.getAllAssignments().then((assignments) => {
+          getAllJobsWithRelatedAssets().then((finalJobs) => {
+            const finalShiftsBeingWorkedByStaffMember = [];
+            shifts.forEach((oneShift) => {
+              const shift = { thisAssetJobs: [], ...oneShift };
+              const jobAssignmentsOnThisShift = finalJobs.filter((job) => job.shiftId === oneShift.id);
+              assignments.forEach((singleAssignment) => {
+                jobAssignmentsOnThisShift.forEach((job) => {
+                  staffMembers.forEach((staffMember) => {
+                    if (singleAssignment.jobId === job.id && job.assetId === ride.id && singleAssignment.staffId === staffMember.id) {
+                      const thisJob = job;
+                      thisJob.name = staffMember.name;
+                      shift.thisAssetJobs.push(job);
+                    }
+                  });
+                });
+              });
+              finalShiftsBeingWorkedByStaffMember.push(shift);
+            });
+            ride.schedule = finalShiftsBeingWorkedByStaffMember;
+            resolve(ride);
+          });
+        });
+      });
+    });
+  })
+    .catch((err) => reject(err));
+});
+
 const getVendorsWithAssignments = () => new Promise((resolve, reject) => {
   jobTypeData.getJobTypes().then((jobTypesResponse) => {
     assignmentsData.getAllAssignments().then((assignmentsResponse) => {
@@ -280,6 +316,7 @@ export default {
   findOutWhichJobsOnShiftAreNotAssigned,
   getAllStaffWithJobs,
   completelyRemoveTask,
+  getAllWeeklyShiftsForRidesByRideId,
   getVendorsWithAssignments,
   removeAllJobTypesByDeletedAssetId,
   getSingleVendorSchedule,

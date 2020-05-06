@@ -1,13 +1,73 @@
 import firebase from 'firebase/app';
 import 'firebase/auth';
 import utils from '../../helpers/utils';
+import overview from '../overview/overview';
+import assignmentsData from '../../helpers/data/assignmentsData';
 import ridesData from '../../helpers/data/ridesData';
 import jobTypeData from '../../helpers/data/jobTypeData';
+import timeTableBuilder from '../timeTableBuilder/timeTableBuilder';
 import smash from '../../helpers/data/smash';
+import staffRadios from '../staffRadios/staffRadios';
 
 const showNewRideForm = () => {
   $('#new-ride-form-container').removeClass('hide');
   $('#update-ride-form-container').addClass('hide');
+};
+
+const closeRideCreatorForm = () => {
+  $('#new-ride-form-container').addClass('hide');
+};
+
+const closeRideModifierForm = () => {
+  $('#update-ride-form-container').addClass('hide');
+};
+
+const showSingleRideView = () => {
+  $('#update-ride-form-container').addClass('hide');
+  $('#new-ride-form-container').addClass('hide');
+  $('#single-ride-form-container').removeClass('hide');
+};
+
+const makeNewRideAssignment = (e) => {
+  e.preventDefault();
+  const staffId = $("input[name='staffRadio']:checked").val();
+  const { assetId } = e.target.dataset;
+  const { shiftId } = e.target.dataset;
+  jobTypeData.getJobTypesByShiftId(shiftId).then((jobTypes) => {
+    const thisJob = jobTypes.find((x) => x.assetId === assetId);
+    const newAssignment = {
+      jobId: thisJob.id,
+      staffId,
+    };
+    assignmentsData.setAssignment(newAssignment)
+      .then(() => {
+        utils.printToDom('asset-modal-body', '');
+        $('#schedule-asset-modal').modal('hide');
+        // eslint-disable-next-line no-use-before-define
+        buildSingleRide(assetId);
+        overview.printOverviewDashboard();
+      });
+  })
+    .catch((err) => console.error('There is a problem with assigning this staff member:', err));
+};
+
+const buildSingleRide = (rideId) => {
+  showSingleRideView();
+  smash.getAllWeeklyShiftsForRidesByRideId(rideId)
+    .then((ride) => {
+      let domString = '';
+      domString += `<div data-ride-id="${ride.id}" class="card form-card col-12">`;
+      domString += '  <div class="d-flex flex-row justify-content-between align-items-center card-header text-center">';
+      domString += `    <h2>Ride Schedule: ${ride.name}</h2>`;
+      domString += '    <button id="close-form-button" class="btn btn-outline-light"><i class="text-white fas fa-times"></i></button>';
+      domString += '  </div>';
+      domString += '<div class="text-light">';
+      domString += timeTableBuilder.rideTimeTableBuilder(ride.schedule);
+      domString += '</div>';
+      domString += '</div>';
+      utils.printToDom('single-ride-form-container', domString);
+    })
+    .catch((err) => console.error('Could not build the rides schedule.', err));
 };
 
 const newRideEvent = (e) => {
@@ -78,12 +138,31 @@ const deleteRideEvent = (e) => {
     .catch((err) => console.error('could not delete ride', err));
 };
 
+const singleRideCalendarView = (e) => {
+  const rideId = e.target.closest('.card').id;
+  buildSingleRide(rideId);
+};
+
+const showRidesJobsEvent = (e) => {
+  const shiftId = e.target.id;
+  const isOpenShift = $(`#${shiftId}`).html() === '';
+  const { rideId } = e.target.closest('.form-card').dataset;
+  if (isOpenShift) {
+    staffRadios.buildRideStaffRadios(shiftId, rideId);
+  }
+};
+
 const rideEvents = () => {
   $('body').on('click', '#new-ride-btn', showNewRideForm);
   $('body').on('click', '#ride-creator-btn', newRideEvent);
   $('body').on('click', '.delete-ride-btn', deleteRideEvent);
   $('body').on('click', '.update-ride-btn', editRideEvent);
   $('body').on('click', '#ride-modifier-btn', submitModifiedRideEvent);
+  $('body').on('click', '#ride-creator-close', closeRideCreatorForm);
+  $('body').on('click', '#ride-modifier-close', closeRideModifierForm);
+  $('body').on('click', '.calendar-ride-btn', singleRideCalendarView);
+  $('body').on('click', '.ride-shift-cell', showRidesJobsEvent);
+  $('body').on('click', '#submit-ride-asset-job', makeNewRideAssignment);
 };
 
 const newRideFormBuilder = () => {
@@ -105,7 +184,8 @@ const newRideFormBuilder = () => {
   domString += '</div>';
   domString += '</div>';
   domString += '<div class="card-footer text-center">';
-  domString += '<button type="submit" id="ride-creator-btn" class="btn btn-outline-success">Add</button>';
+  domString += '<button type="submit" id="ride-creator-btn" class="btn btn-outline-success mr-1">Add</button>';
+  domString += '<button type="submit" id="ride-creator-close" class="btn btn-outline-danger ml-1">Close</button>';
   domString += '</div>';
   domString += '</form>';
   domString += '</div>';
@@ -135,7 +215,8 @@ const updateRideFormBuilder = (rideId, selectedRideId) => {
   domString += '</div>';
   domString += '</div>';
   domString += '<div class="card-footer text-center">';
-  domString += '<button type="submit" id="ride-modifier-btn" class="btn btn-outline-success">Update</button>';
+  domString += '<button type="submit" id="ride-modifier-btn" class="btn btn-outline-success mr-1">Update</button>';
+  domString += '<button type="submit" id="ride-modifier-close" class="btn btn-outline-danger ml-1">Close</button>';
   domString += '</div>';
   domString += '</form>';
   domString += '</div>';
@@ -155,7 +236,8 @@ const rideCardBuilder = (ride) => {
   domString += '       </div>';
   domString += '       <div class="card-footer">';
   domString += '         <button class="btn card-btn delete-ride-btn mx-1 btn-outline-danger"><i class="fas fa-trash card-icon"></i></button>';
-  domString += '        <button class="btn card-btn update-ride-btn mx-1 btn-outline-success"><i class="fas fa-pencil-alt card-icon"></i></button>';
+  domString += '         <button class="btn card-btn update-ride-btn mx-1 btn-outline-success"><i class="fas fa-pencil-alt card-icon"></i></button>';
+  domString += '         <button class="btn card-btn calendar-ride-btn mx-1 btn-outline-info"><i class="fas fa-calendar-alt"></i></button>';
   domString += '       </div>';
   domString += '     </div>';
   domString += '   </div>';
@@ -170,6 +252,7 @@ const printRidesDashboard = () => {
       domString += '<div class="col-12 text-center"><h1 class="my-3">[ Rides ]</h1></div>';
       domString += '<div class="col-12 text-center"><button id="new-ride-btn" class="btn dashboard-btn mb-2"><i class="fas fa-plus dashboard-icon"></i></button></div>';
       domString += newRideFormBuilder();
+      domString += '<div id="single-ride-form-container" class="form-container container-fluid my-3"></div>';
       domString += '<div id="update-ride-form-container" class="col-12 my-3 hide"></div>';
       rides.forEach((ride) => {
         domString += rideCardBuilder(ride);
