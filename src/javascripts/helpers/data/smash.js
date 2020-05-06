@@ -124,12 +124,14 @@ const getSingleStaffMemberWithAssignedJobs = (staffId) => new Promise((resolve, 
   staffData.getSingleStaffMemeber(staffId).then((staffResponse) => {
     const staffMember = staffResponse.data;
     staffMember.id = staffId;
-    staffMember.assignedJobs = [];
+    staffMember.jobs = [];
     assignmentsData.getAssignmentsByStaffId(staffId).then((assignments) => {
       jobTypeData.getJobTypes().then((jobTypes) => {
         assignments.forEach((singleAssignment) => {
           const assignedJobs = jobTypes.filter((job) => job.id === singleAssignment.jobId);
-          staffMember.assignedJobs.push(assignedJobs);
+          assignedJobs.forEach((job) => {
+            staffMember.jobs.push(job);
+          });
         });
         resolve(staffMember);
       });
@@ -306,6 +308,7 @@ const getSingleDinosWithJobAssignments = (dinoId) => new Promise((resolve, rejec
               finalDinosWithAssignments.push(shift);
             });
             singleDino.schedule = finalDinosWithAssignments;
+            console.log(singleDino);
             resolve(singleDino);
           });
         });
