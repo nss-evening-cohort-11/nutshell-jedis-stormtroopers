@@ -1,14 +1,14 @@
 import firebase from 'firebase/app';
 import 'firebase/auth';
 
+import overview from '../overview/overview';
 import dinoData from '../../helpers/data/dinoData';
 import utils from '../../helpers/utils';
 import smash from '../../helpers/data/smash';
 import jobTypeData from '../../helpers/data/jobTypeData';
 import assetTimeTableBuilder from '../assetTimeTable/assetDinoTimeTableBuilder';
 import staffRadios from '../staffRadios/staffRadios';
-// import staffRadios from '../staffRadios/staffRadios';
-// import vendorComponent from '../vendors/vendors';
+import assignmentsData from '../../helpers/data/assignmentsData';
 
 const showDinoCalendar = () => {
   $('#new-dino-form-container').addClass('hide');
@@ -34,6 +34,30 @@ const showDinoForm = () => {
   $('#dino-schedule-form-container').addClass('hide');
   // eslint-disable-next-line no-use-before-define
   newDinoForm();
+};
+
+const makeNewDinoAssignment = (e) => {
+  e.preventDefault();
+  const staffId = $("input[name='staffRadio']:checked").val();
+  const { assetId } = e.target.dataset;
+  const { shiftId } = e.target.dataset;
+  jobTypeData.getJobTypesByShiftId(shiftId).then((jobTypes) => {
+    const thisJob = jobTypes.find((x) => x.assetId === assetId);
+    const newAssignment = {
+      jobId: thisJob.id,
+      staffId,
+    };
+    assignmentsData.setAssignment(newAssignment)
+      .then(() => {
+        console.log('new assignment', newAssignment);
+        utils.printToDom('asset-modal-body', '');
+        $('#schedule-asset-modal').modal('hide');
+        // eslint-disable-next-line no-use-before-define
+        builDinoCalendar(assetId);
+        overview.printOverviewDashboard();
+      });
+  })
+    .catch((err) => console.error('There is a problem with assigning this staff member:', err));
 };
 
 const newDinoForm = () => {
@@ -120,7 +144,6 @@ const editDinoForm = (dinoId) => {
 const builDinoCalendar = (dinoId) => {
   showDinoCalendar();
   smash.getSingleDinosWithJobAssignments(dinoId).then((singleDino) => {
-    console.log('dino calendar', singleDino);
     let domString = '';
     domString += `<div data-dino-id="${singleDino.id}" class="card form-card col-12">`;
     domString += '  <div class="d-flex flex-row justify-content-between align-items-center card-header text-center">';
@@ -186,7 +209,6 @@ const printDinosDashboard = () => {
 const showAvailableDinoStaffEvent = (e) => {
   const shiftId = e.target.id;
   const { dinoId } = e.target.closest('.form-card').dataset;
-  console.log(shiftId, dinoId);
   staffRadios.buildStaffRadios(shiftId, dinoId);
 };
 
@@ -256,6 +278,7 @@ const dinoEvents = () => {
   $('body').on('click', '#close-form-btn', closeFormEvent);
   $('body').on('click', '.dino-single-view', dinoCalendarEvent);
   $('body').on('click', '.dino-shift-cell', showAvailableDinoStaffEvent);
+  $('body').on('click', '#submit-dino-job', makeNewDinoAssignment);
 };
 
 export default {

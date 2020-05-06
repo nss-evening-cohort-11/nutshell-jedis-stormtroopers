@@ -43,7 +43,7 @@ const makeNewAssignment = (e) => {
         utils.printToDom('asset-modal-body', '');
         $('#schedule-asset-modal').modal('hide');
         // eslint-disable-next-line no-use-before-define
-        // buildSingleVendor(assetId);
+        buildSingleVendor(assetId);
         overview.printOverviewDashboard();
       });
   })

@@ -24,13 +24,8 @@ const timeTableBuilder = (schedule) => {
   domString += '            <th scope="row">AM</th>';
   amShifts.forEach((shift) => {
     domString += `<td id="${shift.id}" class="dino-shift-cell">`;
-    shift.thisAssetJobs.forEach((job) => {
-      const thisJob = { ...job };
-      if (thisJob.assignment.length > 0) {
-        domString += `<p class="m-0">${thisJob.staffMember.name}</p>`;
-      } else {
-        domString += '';
-      }
+    shift.assignedStaff.forEach((staff) => {
+      domString += `<p class="m-0">${staff.name}</p>`;
     });
   });
   domString += '</td>';
@@ -39,13 +34,8 @@ const timeTableBuilder = (schedule) => {
   domString += '            <th scope="row">PM</th>';
   pmShifts.forEach((shift) => {
     domString += `<td id="${shift.id}" class="dino-shift-cell">`;
-    shift.thisAssetJobs.forEach((job) => {
-      const thisJob = { ...job };
-      if (thisJob.assignment.length > 0) {
-        domString += `<p class="m-0">${thisJob.staffMember.name}</p>`;
-      } else {
-        domString += '';
-      }
+    shift.assignedStaff.forEach((staff) => {
+      domString += `<p class="m-0">${staff.name}</p>`;
     });
   });
   domString += '</td>';

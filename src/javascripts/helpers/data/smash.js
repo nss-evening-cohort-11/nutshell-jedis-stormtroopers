@@ -257,25 +257,15 @@ const getSingleDinosWithJobAssignments = (dinoId) => new Promise((resolve, rejec
         shiftsData.getAllShifts().then((shifts) => {
           assignmentsData.getAllAssignments().then((assignments) => {
             shifts.forEach((oneShift) => {
-              const shift = { thisAssetJobs: [], ...oneShift };
+              const shift = { assignedStaff: [], ...oneShift };
               const jobsOnThisShift = jobTypes.filter((x) => x.shiftId === oneShift.id);
-              jobsOnThisShift.forEach((job, index) => {
+              jobsOnThisShift.forEach((job) => {
                 const thisJob = { assignment: [], ...job };
-                const allAssignments = assignments.filter((x) => x.jobId === job.id);
-                if (index === 0) {
-                  // eslint-disable-next-line prefer-destructuring
-                  thisJob.assignment = allAssignments[0];
-                } else {
-                  // eslint-disable-next-line prefer-destructuring
-                  thisJob.assignment = allAssignments[1];
-                }
-                // thisJob.assignment.forEach((jobASS) => {
-                const foundStaff = staffMembers.find((x) => x.id === thisJob.assignment.staffId);
-                const jobass = { ...thisJob.assignment };
-                jobass.staffMember = foundStaff;
-                thisJob.staffMember = foundStaff;
-                // });
-                shift.thisAssetJobs.push(thisJob);
+                thisJob.assignment = assignments.filter((x) => x.jobId === job.id);
+                thisJob.assignment.forEach((jobASS) => {
+                  const foundStaff = staffMembers.find((x) => x.id === jobASS.staffId);
+                  shift.assignedStaff.push(foundStaff);
+                });
               });
               finalDinosWithAssignments.push(shift);
             });
