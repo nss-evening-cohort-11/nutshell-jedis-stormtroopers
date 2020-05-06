@@ -271,7 +271,6 @@ const getSingleDinosWithJobAssignments = (dinoId) => new Promise((resolve, rejec
             });
             singleDino.schedule = finalDinosWithAssignments;
             resolve(singleDino);
-            console.log(singleDino);
           });
         });
       });

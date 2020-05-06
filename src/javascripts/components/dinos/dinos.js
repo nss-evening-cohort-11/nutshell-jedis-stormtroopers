@@ -49,7 +49,6 @@ const makeNewDinoAssignment = (e) => {
     };
     assignmentsData.setAssignment(newAssignment)
       .then(() => {
-        console.log('new assignment', newAssignment);
         utils.printToDom('asset-modal-body', '');
         $('#schedule-asset-modal').modal('hide');
         // eslint-disable-next-line no-use-before-define
