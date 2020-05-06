@@ -39,7 +39,6 @@ const makeNewAssignment = (e) => {
     };
     assignmentsData.setAssignment(newAssignment)
       .then(() => {
-        console.log(newAssignment);
         utils.printToDom('asset-modal-body', '');
         $('#schedule-asset-modal').modal('hide');
         // eslint-disable-next-line no-use-before-define
