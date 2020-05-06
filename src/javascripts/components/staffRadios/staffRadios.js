@@ -3,10 +3,11 @@ import smash from '../../helpers/data/smash';
 
 const buildStaffRadios = (shiftId, vendorId) => {
   smash.getAllStaffWithJobs().then((staffMembers) => {
+    console.log(vendorId);
     let domString = '';
     domString += '<div>';
     domString += '  <div class="d-flex flex-row justify-content-between align-items-center card-header text-center">';
-    domString += '  <h2>Vendor Schedule</h2>';
+    domString += '  <h2>Schedule Staff</h2>';
     domString += '</div>';
     domString += '<div class="card-body">';
     domString += `  <form class="m-2 pick-job-form" data-shift-id=${shiftId}>`;
@@ -22,7 +23,8 @@ const buildStaffRadios = (shiftId, vendorId) => {
     domString += '  </form>';
     domString += '</div>';
     domString += '<div class="m-2 card-footer text-center">';
-    domString += `  <button data-asset-id="${vendorId}" data-shift-id="${shiftId}" type="button" class="btn btn-outline-success" id="submit-asset-job">Schedule Job</button>`;
+    domString += `  <button data-asset-id="${vendorId}" data-shift-id="${shiftId}" type="button" class="btn btn-outline-success submit-asset-button" id="submit-dino-job">Schedule Dino</button>`;
+    domString += `  <button data-asset-id="${vendorId}" data-shift-id="${shiftId}" type="button" class="btn btn-outline-success submit-asset-button" id="submit-asset-job">Schedule Vendor</button>`;
     domString += '</div>';
     utils.printToDom('asset-modal-body', domString);
     $('#schedule-asset-modal').modal('show');

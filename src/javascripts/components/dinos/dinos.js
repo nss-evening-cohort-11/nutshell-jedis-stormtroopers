@@ -1,22 +1,70 @@
 import firebase from 'firebase/app';
 import 'firebase/auth';
 
+import overview from '../overview/overview';
 import dinoData from '../../helpers/data/dinoData';
 import utils from '../../helpers/utils';
 import smash from '../../helpers/data/smash';
-
 import jobTypeData from '../../helpers/data/jobTypeData';
+import assetTimeTableBuilder from '../assetTimeTable/assetDinoTimeTableBuilder';
+import staffRadios from '../staffRadios/staffRadios';
+import assignmentsData from '../../helpers/data/assignmentsData';
+
+const showDinoCalendar = () => {
+  $('#new-dino-form-container').addClass('hide');
+  $('#edit-dino-form-container').addClass('hide');
+  $('#dino-schedule-form-container').removeClass('hide');
+};
 
 const showEditForm = () => {
   $('div#edit-dino-form-container').removeClass('hide');
   $('div#new-dino-form-container').addClass('hide');
+  $('#dino-schedule-form-container').addClass('hide');
+};
+
+const closeFormEvent = () => {
+  $('#new-dino-form-container').addClass('hide');
+  $('#edit-dino-form-container').addClass('hide');
+  $('#dino-schedule-form-container').addClass('hide');
+};
+
+const showDinoForm = () => {
+  $('#new-dino-form-container').removeClass('hide');
+  $('#edit-dino-form-container').addClass('hide');
+  $('#dino-schedule-form-container').addClass('hide');
+  // eslint-disable-next-line no-use-before-define
+  newDinoForm();
+};
+
+const makeNewDinoAssignment = (e) => {
+  e.preventDefault();
+  const staffId = $("input[name='staffRadio']:checked").val();
+  const { assetId } = e.target.dataset;
+  const { shiftId } = e.target.dataset;
+  jobTypeData.getJobTypesByShiftId(shiftId).then((jobTypes) => {
+    const thisJob = jobTypes.find((x) => x.assetId === assetId);
+    const newAssignment = {
+      jobId: thisJob.id,
+      staffId,
+    };
+    assignmentsData.setAssignment(newAssignment)
+      .then(() => {
+        utils.printToDom('asset-modal-body', '');
+        $('#schedule-asset-modal').modal('hide');
+        // eslint-disable-next-line no-use-before-define
+        builDinoCalendar(assetId);
+        overview.printOverviewDashboard();
+      });
+  })
+    .catch((err) => console.error('There is a problem with assigning this staff member:', err));
 };
 
 const newDinoForm = () => {
   let domString = '';
-  domString += '<div class="card form-card col-6 offset-3">';
+  domString += '<div class="card form-card col-6 offset-3"  id="new-dino-form-container">';
   domString += '<div class="card-header text-center">';
   domString += '<h3>Add a Dino</h3>';
+  domString += '<button style="float: right;" id="close-form-btn"><i class="fas fa-times"></i></button>';
   domString += '</div>';
   domString += '<div class="card-body">';
   domString += '<form class="new-dino-form">';
@@ -49,22 +97,16 @@ const newDinoForm = () => {
   utils.printToDom('new-dino-form-container', domString);
 };
 
-const showDinoForm = () => {
-  $('#new-dino-form-container').removeClass('hide');
-  $('#edit-dino-form-container').addClass('hide');
-
-  newDinoForm();
-};
-
 const editDinoForm = (dinoId) => {
   showEditForm();
   dinoData.getSingleDino(dinoId)
     .then((response) => {
       const dino = response.data;
       let domString = '';
-      domString += '<div class="card form-card col-6 offset-3">';
+      domString += '<div class="card form-card col-6 offset-3" id="edit-dino-form-container">';
       domString += '<div class="card-header text-center">';
       domString += '<h2>Edit Dino</h2>';
+      domString += '<button style="float: right;" id="close-form-btn"><i class="fas fa-times"></i></button>';
       domString += '</div>';
       domString += '<div class="card-body">';
       domString += `<form class="edit-dino-form" id=${dinoId}>`;
@@ -98,10 +140,22 @@ const editDinoForm = (dinoId) => {
     });
 };
 
-const editDinoEvent = (e) => {
-  e.preventDefault();
-  const dinoId = e.target.closest('.card').id;
-  editDinoForm(dinoId);
+const builDinoCalendar = (dinoId) => {
+  showDinoCalendar();
+  smash.getSingleDinosWithJobAssignments(dinoId).then((singleDino) => {
+    let domString = '';
+    domString += `<div data-dino-id="${singleDino.id}" class="card form-card col-12">`;
+    domString += '  <div class="d-flex flex-row justify-content-between align-items-center card-header text-center">';
+    domString += `    <h2>Dino Schedule: ${singleDino.name}</h2>`;
+    domString += '    <button id="close-form-btn" class="btn btn-outline-light"><i class="text-white fas fa-times"></i></button>';
+    domString += '  </div>';
+    domString += '<div class="text-light">';
+    domString += assetTimeTableBuilder.timeTableBuilder(singleDino.schedule);
+    domString += '</div>';
+    domString += '</div>';
+    utils.printToDom('dino-schedule-form-container', domString);
+  })
+    .catch((err) => console.error('problem getting single dinos schedule smash', err));
 };
 
 const printDinos = (dino) => {
@@ -115,17 +169,17 @@ const printDinos = (dino) => {
   domString += '<div>';
   domString += `<img class="card-img-top cards-image" src="${dino.photoUrl}" alt="Card image cap">`;
   domString += '</div>';
-  domString += `<p class="card-text mt-3">${dino.isHungry ? `${dino.name} is hungry!` : `${dino.name} is fine.`}</p>`;
+  domString += `<p class="card-text mt-3">${dino.isEnclosed ? `${dino.name} is trapped!` : `${dino.name} is loose. Run for your life!`}</p>`;
   domString += '</div>';
   domString += '<div class="card-footer">';
   domString += '<button class="btn card-btn mx-1 btn-outline-danger delete-dino"><i class="fas fa-trash card-icon"></i></button>';
   domString += '<button class="btn card-btn mx-1 btn-outline-success edit-dino">';
   domString += '<i class="fas fa-pencil-alt card-icon"></i>';
   domString += '</button>';
+  domString += '<button class="btn card-btn mx-1 btn-outline-info dino-single-view"><i class="mt-1 far fa-calendar-alt"></i></button>';
   domString += '</div>';
   domString += '</div>';
   domString += '</div>';
-
   return domString;
 };
 
@@ -141,6 +195,8 @@ const printDinosDashboard = () => {
       domString += '</div>';
       domString += '<div id="new-dino-form-container" class="col-12 my-3 hide">';
       domString += '</div>';
+      domString += '<div id="dino-schedule-form-container" class="col-12 my-3 hide">';
+      domString += '</div>';
       dinos.forEach((dino) => {
         if (dino) domString += printDinos(dino);
       });
@@ -150,15 +206,30 @@ const printDinosDashboard = () => {
     .catch((err) => console.error('printDinosDashboard broke', err));
 };
 
+const showAvailableDinoStaffEvent = (e) => {
+  const shiftId = e.target.id;
+  const { dinoId } = e.target.closest('.form-card').dataset;
+  staffRadios.buildStaffRadios(shiftId, dinoId);
+};
+
+const dinoCalendarEvent = (e) => {
+  const dinoId = e.target.closest('.card').id;
+  builDinoCalendar(dinoId);
+};
+
+const editDinoEvent = (e) => {
+  e.preventDefault();
+  const dinoId = e.target.closest('.card').id;
+  editDinoForm(dinoId);
+};
+
 const makeNewDino = (e) => {
   e.preventDefault();
   const myUid = firebase.auth().currentUser.uid;
-  const isHungryBool = $("input[name='newDinoRadios']:checked").val();
   const newDino = {
     name: $('#new-dino-name').val(),
     photoUrl: $('#new-dino-image').val(),
     type: $('#new-dino-type').val(),
-    isHungry: JSON.parse(isHungryBool),
     uid: myUid,
   };
   dinoData.addDino(newDino).then(() => {
@@ -172,13 +243,11 @@ const makeNewDino = (e) => {
 const modifyDino = (e) => {
   e.preventDefault();
   const myUid = firebase.auth().currentUser.uid;
-  const isHungryBool = $("input[name='editDinoRadios']:checked").val();
   const dinoId = $('.edit-dino-form').attr('id');
   const modifiedDino = {
     name: $('#edit-dino-name').val(),
     photoUrl: $('#edit-dino-image').val(),
     type: $('#edit-dino-type').val(),
-    isHungry: JSON.parse(isHungryBool),
     uid: myUid,
   };
   utils.printToDom('edit-form-container', '');
@@ -206,6 +275,10 @@ const dinoEvents = () => {
   $('body').on('click', '.delete-dino', removeDino);
   $('body').on('click', '#new-dino-btn', showDinoForm);
   $('body').on('click', '#submit-new-dino', makeNewDino);
+  $('body').on('click', '#close-form-btn', closeFormEvent);
+  $('body').on('click', '.dino-single-view', dinoCalendarEvent);
+  $('body').on('click', '.dino-shift-cell', showAvailableDinoStaffEvent);
+  $('body').on('click', '#submit-dino-job', makeNewDinoAssignment);
 };
 
 export default {
