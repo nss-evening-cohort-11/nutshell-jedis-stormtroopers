@@ -1,6 +1,8 @@
 import firebase from 'firebase/app';
 import 'firebase/auth';
 import utils from '../../helpers/utils';
+import overview from '../overview/overview';
+import assignmentsData from '../../helpers/data/assignmentsData';
 import ridesData from '../../helpers/data/ridesData';
 import jobTypeData from '../../helpers/data/jobTypeData';
 import timeTableBuilder from '../timeTableBuilder/timeTableBuilder';
@@ -26,13 +28,27 @@ const showSingleRideView = () => {
   $('#single-ride-form-container').removeClass('hide');
 };
 
-const showRidesJobsEvent = (e) => {
-  const shiftId = e.target.id;
-  const isOpenShift = $(`#${shiftId}`).html() === '';
-  const { rideId } = e.target.closest('.form-card').dataset;
-  if (isOpenShift) {
-    staffRadios.buildStaffRadios(shiftId, rideId);
-  }
+const makeNewRideAssignment = (e) => {
+  e.preventDefault();
+  const staffId = $("input[name='staffRadio']:checked").val();
+  const { assetId } = e.target.dataset;
+  const { shiftId } = e.target.dataset;
+  jobTypeData.getJobTypesByShiftId(shiftId).then((jobTypes) => {
+    const thisJob = jobTypes.find((x) => x.assetId === assetId);
+    const newAssignment = {
+      jobId: thisJob.id,
+      staffId,
+    };
+    assignmentsData.setAssignment(newAssignment)
+      .then(() => {
+        utils.printToDom('asset-modal-body', '');
+        $('#schedule-asset-modal').modal('hide');
+        // eslint-disable-next-line no-use-before-define
+        buildSingleRide(assetId);
+        overview.printOverviewDashboard();
+      });
+  })
+    .catch((err) => console.error('There is a problem with assigning this staff member:', err));
 };
 
 const buildSingleRide = (rideId) => {
@@ -127,6 +143,15 @@ const singleRideCalendarView = (e) => {
   buildSingleRide(rideId);
 };
 
+const showRidesJobsEvent = (e) => {
+  const shiftId = e.target.id;
+  const isOpenShift = $(`#${shiftId}`).html() === '';
+  const { rideId } = e.target.closest('.form-card').dataset;
+  if (isOpenShift) {
+    staffRadios.buildRideStaffRadios(shiftId, rideId);
+  }
+};
+
 const rideEvents = () => {
   $('body').on('click', '#new-ride-btn', showNewRideForm);
   $('body').on('click', '#ride-creator-btn', newRideEvent);
@@ -137,6 +162,7 @@ const rideEvents = () => {
   $('body').on('click', '#ride-modifier-close', closeRideModifierForm);
   $('body').on('click', '.calendar-ride-btn', singleRideCalendarView);
   $('body').on('click', '.ride-shift-cell', showRidesJobsEvent);
+  $('body').on('click', '#submit-ride-asset-job', makeNewRideAssignment);
 };
 
 const newRideFormBuilder = () => {

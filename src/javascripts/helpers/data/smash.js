@@ -257,7 +257,7 @@ const getAllWeeklyShiftsForRidesByRideId = (rideId) => new Promise((resolve, rej
           getAllJobsWithRelatedAssets().then((finalJobs) => {
             const finalShiftsBeingWorkedByStaffMember = [];
             shifts.forEach((oneShift) => {
-              const shift = { thisStaffMemberJobs: [], ...oneShift };
+              const shift = { thisAssetJobs: [], ...oneShift };
               const jobAssignmentsOnThisShift = finalJobs.filter((job) => job.shiftId === oneShift.id);
               assignments.forEach((singleAssignment) => {
                 jobAssignmentsOnThisShift.forEach((job) => {
@@ -265,7 +265,7 @@ const getAllWeeklyShiftsForRidesByRideId = (rideId) => new Promise((resolve, rej
                     if (singleAssignment.jobId === job.id && job.assetId === ride.id && singleAssignment.staffId === staffMember.id) {
                       const thisJob = job;
                       thisJob.name = staffMember.name;
-                      shift.thisStaffMemberJobs.push(job);
+                      shift.thisAssetJobs.push(job);
                     }
                   });
                 });
@@ -273,7 +273,7 @@ const getAllWeeklyShiftsForRidesByRideId = (rideId) => new Promise((resolve, rej
               finalShiftsBeingWorkedByStaffMember.push(shift);
             });
             ride.schedule = finalShiftsBeingWorkedByStaffMember;
-            resolve(ride, console.log('ride resolve', ride), console.log('assignments', assignments));
+            resolve(ride);
           });
         });
       });

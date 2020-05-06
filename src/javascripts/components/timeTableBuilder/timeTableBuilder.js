@@ -80,10 +80,10 @@ const rideTimeTableBuilder = (schedule) => {
   domString += '            <th scope="row">AM</th>';
   amShifts.forEach((shift) => {
     domString += `<td id="${shift.id}" class="ride-shift-cell">`;
-    if (shift.thisStaffMemberJobs.length === 0) {
+    if (shift.thisAssetJobs.length === 0) {
       domString += '';
     } else {
-      shift.thisStaffMemberJobs.forEach((job) => {
+      shift.thisAssetJobs.forEach((job) => {
         const thisJob = { ...job };
         domString += `<p class="m-0">${thisJob.name}</p>`;
       });
@@ -95,10 +95,10 @@ const rideTimeTableBuilder = (schedule) => {
   domString += '            <th scope="row">PM</th>';
   pmShifts.forEach((shift) => {
     domString += `          <td id="${shift.id}" class="ride-shift-cell">`;
-    if (shift.thisStaffMemberJobs.length === 0) {
+    if (shift.thisAssetJobs.length === 0) {
       domString += '';
     } else {
-      shift.thisStaffMemberJobs.forEach((job) => {
+      shift.thisAssetJobs.forEach((job) => {
         const thisJob = { ...job };
         domString += `<p class="m-0">${thisJob.name}</p>`;
       });
