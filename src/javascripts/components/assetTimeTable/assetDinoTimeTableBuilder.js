@@ -24,36 +24,31 @@ const timeTableBuilder = (schedule) => {
   domString += '            <th scope="row">AM</th>';
   amShifts.forEach((shift) => {
     domString += `<td id="${shift.id}" class="dino-shift-cell">`;
-    if (shift.thisAssetJobs[0].assignment === undefined) {
-      domString += '';
-    } else if (shift.thisAssetJobs[1].assignment === undefined) {
-      domString += '';
-    } else {
-      shift.thisAssetJobs.forEach((job) => {
-        const thisJob = { ...job };
-        console.log(thisJob.assignment.staffMember.name);
-        domString += `<p class="m-0">${thisJob.assignment.staffMember.name}</p>`;
-      });
-    }
-    domString += '</td>';
+    shift.thisAssetJobs.forEach((job) => {
+      const thisJob = { ...job };
+      if (thisJob.assignment.length > 0) {
+        domString += `<p class="m-0">${thisJob.staffMember.name}</p>`;
+      } else {
+        domString += '';
+      }
+    });
   });
+  domString += '</td>';
   domString += '        </tr>';
   domString += '        <tr>';
   domString += '            <th scope="row">PM</th>';
   pmShifts.forEach((shift) => {
-    domString += `          <td id="${shift.id}" class="dino-shift-cell">`;
-    if (shift.thisAssetJobs[0].assignment === undefined) {
-      domString += '';
-    } else if (shift.thisAssetJobs[1].assignment === undefined) {
-      domString += '';
-    } else {
-      shift.thisAssetJobs.forEach((job) => {
-        const thisJob = { ...job };
-        domString += `<p class="m-0">${thisJob.assignment.staffMember.name}</p>`;
-      });
-    }
-    domString += '</td>';
+    domString += `<td id="${shift.id}" class="dino-shift-cell">`;
+    shift.thisAssetJobs.forEach((job) => {
+      const thisJob = { ...job };
+      if (thisJob.assignment.length > 0) {
+        domString += `<p class="m-0">${thisJob.staffMember.name}</p>`;
+      } else {
+        domString += '';
+      }
+    });
   });
+  domString += '</td>';
   domString += '</tr>';
   domString += '</tbody>';
   domString += '</table>';

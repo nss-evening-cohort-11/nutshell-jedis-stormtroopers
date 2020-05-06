@@ -3,6 +3,7 @@ import smash from '../../helpers/data/smash';
 
 const buildStaffRadios = (shiftId, vendorId) => {
   smash.getAllStaffWithJobs().then((staffMembers) => {
+    console.log(vendorId);
     let domString = '';
     domString += '<div>';
     domString += '  <div class="d-flex flex-row justify-content-between align-items-center card-header text-center">';

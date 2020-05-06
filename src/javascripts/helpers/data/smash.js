@@ -251,22 +251,30 @@ const getSingleDinosWithJobAssignments = (dinoId) => new Promise((resolve, rejec
   dinoData.getSingleDino(dinoId).then((singleDinoResponse) => {
     const singleDino = singleDinoResponse.data;
     singleDino.id = dinoId;
+    const finalDinosWithAssignments = [];
     staffData.getStaffs().then((staffMembers) => {
       jobTypeData.getJobTypesByAssetId(dinoId).then((jobTypes) => {
         shiftsData.getAllShifts().then((shifts) => {
           assignmentsData.getAllAssignments().then((assignments) => {
-            const finalDinosWithAssignments = [];
             shifts.forEach((oneShift) => {
               const shift = { thisAssetJobs: [], ...oneShift };
               const jobsOnThisShift = jobTypes.filter((x) => x.shiftId === oneShift.id);
-              jobsOnThisShift.forEach((job) => {
-                const thisJob = { assignment: {}, ...job };
-                thisJob.assignment = assignments.find((x) => x.jobId === job.id);
-                staffMembers.forEach((oneStaffMember) => {
-                  if (thisJob.assignment && thisJob.assignment.staffId === oneStaffMember.id) {
-                    thisJob.assignment.staffMember = oneStaffMember;
-                  }
-                });
+              jobsOnThisShift.forEach((job, index) => {
+                const thisJob = { assignment: [], ...job };
+                const allAssignments = assignments.filter((x) => x.jobId === job.id);
+                if (index === 0) {
+                  // eslint-disable-next-line prefer-destructuring
+                  thisJob.assignment = allAssignments[0];
+                } else {
+                  // eslint-disable-next-line prefer-destructuring
+                  thisJob.assignment = allAssignments[1];
+                }
+                // thisJob.assignment.forEach((jobASS) => {
+                const foundStaff = staffMembers.find((x) => x.id === thisJob.assignment.staffId);
+                const jobass = { ...thisJob.assignment };
+                jobass.staffMember = foundStaff;
+                thisJob.staffMember = foundStaff;
+                // });
                 shift.thisAssetJobs.push(thisJob);
               });
               finalDinosWithAssignments.push(shift);
@@ -277,9 +285,9 @@ const getSingleDinosWithJobAssignments = (dinoId) => new Promise((resolve, rejec
           });
         });
       });
-    })
-      .catch((err) => reject(err));
-  });
+    });
+  })
+    .catch((err) => reject(err));
 });
 
 export default {
@@ -293,6 +301,5 @@ export default {
   completelyRemoveTask,
   getVendorsWithAssignments,
   getSingleDinosWithJobAssignments,
-  // removeAllJobTypesByDeletedAssetId,
   getSingleVendorSchedule,
 };
