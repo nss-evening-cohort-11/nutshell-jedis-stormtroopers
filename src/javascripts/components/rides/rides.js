@@ -5,6 +5,7 @@ import ridesData from '../../helpers/data/ridesData';
 import jobTypeData from '../../helpers/data/jobTypeData';
 import timeTableBuilder from '../timeTableBuilder/timeTableBuilder';
 import smash from '../../helpers/data/smash';
+import staffRadios from '../staffRadios/staffRadios';
 
 const showNewRideForm = () => {
   $('#new-ride-form-container').removeClass('hide');
@@ -25,6 +26,15 @@ const showSingleRideView = () => {
   $('#single-ride-form-container').removeClass('hide');
 };
 
+const showRidesJobsEvent = (e) => {
+  const shiftId = e.target.id;
+  const isOpenShift = $(`#${shiftId}`).html() === '';
+  const { rideId } = e.target.closest('.form-card').dataset;
+  if (isOpenShift) {
+    staffRadios.buildStaffRadios(shiftId, rideId);
+  }
+};
+
 const buildSingleRide = (rideId) => {
   showSingleRideView();
   smash.getAllWeeklyShiftsForRidesByRideId(rideId)
@@ -36,7 +46,7 @@ const buildSingleRide = (rideId) => {
       domString += '    <button id="close-form-button" class="btn btn-outline-light"><i class="text-white fas fa-times"></i></button>';
       domString += '  </div>';
       domString += '<div class="text-light">';
-      domString += timeTableBuilder.timeTableBuilder(ride.schedule);
+      domString += timeTableBuilder.rideTimeTableBuilder(ride.schedule);
       domString += '</div>';
       domString += '</div>';
       utils.printToDom('single-ride-form-container', domString);
@@ -126,6 +136,7 @@ const rideEvents = () => {
   $('body').on('click', '#ride-creator-close', closeRideCreatorForm);
   $('body').on('click', '#ride-modifier-close', closeRideModifierForm);
   $('body').on('click', '.calendar-ride-btn', singleRideCalendarView);
+  $('body').on('click', '.ride-shift-cell', showRidesJobsEvent);
 };
 
 const newRideFormBuilder = () => {

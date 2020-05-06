@@ -251,23 +251,30 @@ const getAllWeeklyShiftsForRidesByRideId = (rideId) => new Promise((resolve, rej
     const ride = rideResponse.data;
     ride.id = rideId;
     shiftsData.getAllShifts().then((shifts) => {
-      assignmentsData.getAllAssignments().then((assignments) => {
-        getAllJobsWithRelatedAssets().then((finalJobs) => {
-          const finalShiftsBeingWorkedByStaffMember = [];
-          shifts.forEach((oneShift) => {
-            const shift = { thisStaffMemberJobs: [], ...oneShift };
-            const jobAssignmentsOnThisShift = finalJobs.filter((job) => job.shiftId === oneShift.id);
-            assignments.forEach((singleAssignment) => {
-              jobAssignmentsOnThisShift.forEach((job) => {
-                if (singleAssignment.jobId === job.id && job.assetId === ride.id) {
-                  shift.thisStaffMemberJobs.push(job);
-                }
+      staffData.getStaffs().then((staffResponse) => {
+        const staffMembers = staffResponse;
+        assignmentsData.getAllAssignments().then((assignments) => {
+          getAllJobsWithRelatedAssets().then((finalJobs) => {
+            const finalShiftsBeingWorkedByStaffMember = [];
+            shifts.forEach((oneShift) => {
+              const shift = { thisStaffMemberJobs: [], ...oneShift };
+              const jobAssignmentsOnThisShift = finalJobs.filter((job) => job.shiftId === oneShift.id);
+              assignments.forEach((singleAssignment) => {
+                jobAssignmentsOnThisShift.forEach((job) => {
+                  staffMembers.forEach((staffMember) => {
+                    if (singleAssignment.jobId === job.id && job.assetId === ride.id && singleAssignment.staffId === staffMember.id) {
+                      const thisJob = job;
+                      thisJob.name = staffMember.name;
+                      shift.thisStaffMemberJobs.push(job);
+                    }
+                  });
+                });
               });
+              finalShiftsBeingWorkedByStaffMember.push(shift);
             });
-            finalShiftsBeingWorkedByStaffMember.push(shift);
+            ride.schedule = finalShiftsBeingWorkedByStaffMember;
+            resolve(ride, console.log('ride resolve', ride), console.log('assignments', assignments));
           });
-          ride.schedule = finalShiftsBeingWorkedByStaffMember;
-          resolve(ride);
         });
       });
     });
